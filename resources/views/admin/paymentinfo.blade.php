@@ -61,17 +61,11 @@
                   </select>
             </div>
 
-            <div class="col-lg-4 my-2">
-              <label for="name">Payment date<span style="color:red;"> * </span></label>
-              <input type="text"  id="date" name="date" autocomplete="off"  class="form-control datepicker" >
-            </div>
+          
 
-            <div class="col-lg-2 my-2">
-              <label for="roll">Serial</label>
-               <p>1</p>
-            </div>
+        
 							
-            <div class="col-lg-6 my-2">
+            <div class="col-lg-8 my-2">
                <label for="roll">Description </label>
                <input type="text" name="des1" id="des1" class="form-control" placeholder=""  required>
             </div>
@@ -81,76 +75,8 @@
                <input type="number" name="amount1" id="amount1" class="form-control" placeholder=""  required>
             </div>
 
-
-
-            <div class="col-lg-2 my-2">
-               <p>2</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des2" id="des2" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount2" id="amount2" class="form-control" placeholder=""  >
-            </div>
-
-
-            <div class="col-lg-2 my-2">
-               <p>3</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des3" id="des3" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount3" id="amount3" class="form-control" placeholder=""  >
-            </div>
-
-
-            <div class="col-lg-2 my-2">
-               <p>4</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des4" id="des4" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount4" id="amount4" class="form-control" placeholder=""  >
-            </div>
-
-
-            <div class="col-lg-2 my-2">
-               <p>5</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des5" id="des5" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount5" id="amount5" class="form-control" placeholder=""  >
-            </div>
-
-
-            <div class="col-lg-2 my-2">
-               <p>6</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des6" id="des6" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount6" id="amount6" class="form-control" placeholder=""  >
-            </div>
-
-
-
              
-               <!--  <input type="text"  id="datepicker" name="birth_date" autocomplete="off"  class="form-control"><br> -->
+          
             </div>
   
          
@@ -214,19 +140,11 @@
                   </select>
             </div>
 
-            <div class="col-lg-4 my-2">
-                <label for="name">Payment date<span style="color:red;"> * </span></label>
-                 <input type="text"  id="edit_date" name="date" autocomplete="off"  class="form-control datepicker" >
-            </div>
+           
 
 
-
-            <div class="col-lg-2 my-2">
-              <label for="roll">Serial</label>
-               <p>1</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
+            
+            <div class="col-lg-8 my-2">
                <label for="roll">Description </label>
                <input type="text" name="des1" id="edit_des1" class="form-control" placeholder=""  required>
             </div>
@@ -238,71 +156,7 @@
 
 
 
-            <div class="col-lg-2 my-2">
-               <p>2</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des2" id="edit_des2" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount2" id="edit_amount2" class="form-control" placeholder=""  >
-            </div>
-
-
-            <div class="col-lg-2 my-2">
-               <p>3</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des3" id="edit_des3" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount3" id="edit_amount3" class="form-control" placeholder=""  >
-            </div>
-
-
-            <div class="col-lg-2 my-2">
-               <p>4</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des4" id="edit_des4" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount4" id="edit_amount4" class="form-control" placeholder=""  >
-            </div>
-
-
-            <div class="col-lg-2 my-2">
-               <p>5</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des5" id="edit_des5" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount5" id="edit_amount5" class="form-control" placeholder=""  >
-            </div>
-
-
-            <div class="col-lg-2 my-2">
-               <p>6</p>
-            </div>
-							
-            <div class="col-lg-6 my-2">
-               <input type="text" name="des6" id="edit_des6" class="form-control" placeholder=""  >
-            </div>
-
-            <div class="col-lg-4 my-2">
-               <input type="number" name="amount6" id="edit_amount6" class="form-control" placeholder=""  >
-            </div>
-
-
+         
 
 
          

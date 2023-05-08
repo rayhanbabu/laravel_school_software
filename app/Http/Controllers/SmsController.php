@@ -18,6 +18,16 @@ use PDF;
 class SmsController extends Controller
 {
    
+  function payment_api(){
+
+    $payment=DB::table('eiin_sms')->where('status',1)->select('eiin',DB::raw('count(id) as id_total')
+    ,DB::raw('sum(smsno) as invoice_amount') ,DB::raw('sum(payment) as payment_amount')
+    ,DB::raw('sum(smsno)-sum(payment) as payment'))->orderBy('eiin','asc')->groupBy('eiin')->get();
+
+    return $payment;
+  }
+
+  
     public function smsview()
        {
           $school=schoolsession();

@@ -884,18 +884,18 @@
 {{-- edit employee modal end --}}
 
 
+
 <script>
   $( function() {
     $( ".datepicker" ).datepicker({
-      format:'d.m.Y H:i',
-      inline:true,
-       lang:'ru'
+      changeMonth: true,
+      changeYear: true,
+      dateFormat:"yy-mm-dd",
+	     yearRange: "2020:2055",
     });
-	
   });
   </script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  
 
 
 

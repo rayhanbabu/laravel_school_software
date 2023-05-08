@@ -11,8 +11,8 @@
 
       $pdf->Cell(190,5,'',0,1);
       $pdf->SetFont('Times','',20);
-      $pdf->Image('schoolsoft4/public/uploads/admin/'.$data['school']->image,15,17,-200);    //School Logu
-      $pdf->Image('schoolsoft4/public/uploads/admin/'.$data['school']->image,15,150,-200);   //School Logu
+      $pdf->Image('uploads/admin/'.$data['school']->image,15,17,-200);    //School Logu
+      $pdf->Image('uploads/admin/'.$data['school']->image,15,150,-200);   //School Logu
 
         if($i % 2 != 0){
             if(empty($row[$i]->image)){
@@ -172,8 +172,8 @@
 
          $pdf->Cell(190,3,'','LRB',1,'R');
 
-         $pdf->Cell(100,10,'',0,0);
-         $pdf->Cell(90,10,'',0,1,'R');
+         $pdf->Cell(100,10,'---',0,0);
+         $pdf->Cell(90,10,'---',0,1,'R');
 
        }
         $pdf->Output($data['file'],'I');

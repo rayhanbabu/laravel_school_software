@@ -187,13 +187,13 @@
   </div>
 </div>
 
-{{-- add new employee modal end --}}
+ {{--  add new employee modal end -- }}
 
 
-{{-- edit employee modal start --}}
-<div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-  data-bs-backdrop="static" aria-hidden="true">
-  <div class="modal-dialog  modal-lg">
+ {{-- edit employee modal start --}}
+  <div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+       data-bs-backdrop="static" aria-hidden="true">
+   <div class="modal-dialog  modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
@@ -345,8 +345,7 @@
     </div>
   </div>
 </div>
-{{-- edit employee modal end --}}
-
+{{-- edit employee modal start --}}
 
 
 
@@ -645,14 +644,6 @@
 
 
      
-    $( "#datepicker" ).datepicker({
-      changeMonth: true,
-      changeYear: true,
-	  dateFormat:"yy-mm-dd",
-	  yearRange: "1995:2015",
-    });
-	
-
 
 
 

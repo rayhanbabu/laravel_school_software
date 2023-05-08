@@ -127,7 +127,7 @@ class TabulationController extends Controller
                  ,'students.image' ,'students.addi','marks.*')
                 ->orderBy('students.roll','asc')->get();
               }else{
-              return back()->with('fail','Invalide Range');  
+                  return back()->with('fail','Invalide Range');  
               }
       }else{
            $student = DB::table('marks')
@@ -216,8 +216,7 @@ class TabulationController extends Controller
        // return $student;
 
      }else if(!empty($babu)){
-       
-       $total_pass=DB::table('marks')->where('babu',$babu)->where('class',$class)
+         $total_pass=DB::table('marks')->where('babu',$babu)->where('class',$class)
         ->where('exam',$exam)->where('year',$year)->where('eiin',$school->eiin)->where('result','Passed')->count();
 
          $sum=DB::table('marks')->where('babu',$babu)->where('class',$class)

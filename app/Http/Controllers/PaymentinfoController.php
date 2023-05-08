@@ -49,59 +49,14 @@ class PaymentinfoController extends Controller
             $a1=$request->input('amount1');
           }
    
-          if(empty($request->input('amount2'))){ 
-           $a2=0;
-         }else{
-           $a2=$request->input('amount2');
-         }
-   
-         if(empty($request->input('amount3'))){ 
-           $a3=0;
-         }else{
-           $a3=$request->input('amount3');
-         }
-   
-         if(empty($request->input('amount4'))){ 
-           $a4=0;
-         }else{
-           $a4=$request->input('amount4');
-         }
-   
-         if(empty($request->input('amount5'))){ 
-            $a5=0;
-           }else{
-            $a5=$request->input('amount5');
-          }
-
-          if(empty($request->input('amount6'))){ 
-             $a6=0;
-           }else{
-             $a6=$request->input('amount6');
-           }
 
                  $model= new Paymentinfo;
                  $model->eiin=$admin->eiin;
                  $model->section=$admin->admin_section;
                  $model->class=$request->input('class');
                  $model->babu=$request->input('babu');
-                 $model->date=$request->input('date');
-                 $model->month=date('n',strtotime($_POST['date']));
-                 $model->year=date('Y',strtotime($_POST['date']));
-
                  $model->des1=$request->input('des1');
-                 $model->des2=$request->input('des2');
-                 $model->des3=$request->input('des3');
-                 $model->des4=$request->input('des4');
-                 $model->des5=$request->input('des5');
-                 $model->des6=$request->input('des6');
-                
                  $model->amount1=$a1;
-                 $model->amount2=$a2;
-                 $model->amount3=$a3;
-                 $model->amount4=$a4;
-                 $model->amount5=$a5;
-                 $model->amount6=$a6;
-                 
                  $model->save();
     
            return response()->json([
@@ -125,9 +80,8 @@ class PaymentinfoController extends Controller
                 <th>Class</th>
                 <th>Group</th>
                 <th>Section</th>
-                <th>Payment month</th>
-                <th>Description 1</th>
-                <th>amount 1</th>
+                <th>Description </th>
+                <th>amount </th>
                 <th>Action</th>
              </tr>
            </thead>
@@ -137,7 +91,6 @@ class PaymentinfoController extends Controller
                <td>' . $row->class . '</td>
                <td>' . $row->babu .'</td>
                <td>' . $row->section. '</td>
-               <td>' . date('F-Y',strtotime($row->date)) . '</td>
                <td>' . $row->des1 . '</td>
                <td>' . $row->amount1 . '</td>
                <td>
@@ -176,36 +129,20 @@ class PaymentinfoController extends Controller
             $model->section=$admin->admin_section;
             $model->class=$request->input('class');
             $model->babu=$request->input('babu');
-            $model->date=$request->input('date');
-            $model->month=date('n',strtotime($_POST['date']));
-            $model->year=date('Y',strtotime($_POST['date']));
-
-
-          $model->des1=$request->input('des1');
-          $model->des2=$request->input('des2');
-          $model->des3=$request->input('des3');
-          $model->des4=$request->input('des4');
-          $model->des5=$request->input('des5');
-          $model->des6=$request->input('des6');
-         
-          $model->amount1=$request->input('amount1');
-          $model->amount2=$request->input('amount2');
-          $model->amount3=$request->input('amount3');
-          $model->amount4=$request->input('amount4');
-          $model->amount5=$request->input('amount5');
-          $model->amount6=$request->input('amount6');
           
-          $model->update();   
+            $model->des1=$request->input('des1');
+            $model->amount1=$request->input('amount1');
+            $model->update();   
             return response()->json([
-                'status'=>100,
-                'message'=>'Data Updated Successfull'
-            ]);
-        }else{
-            return response()->json([
-                'status'=>404,  
-                'message'=>'Student not found',
-              ]);
-        }
+                 'status'=>100,
+                 'message'=>'Data Updated Successfull'
+             ]);
+         }else{
+              return response()->json([
+                  'status'=>404,  
+                  'message'=>'Student not found',
+               ]);
+           }
       }
 
 
@@ -364,45 +301,12 @@ class PaymentinfoController extends Controller
          $a1=$request->input('amount1');
        }
 
-       if(empty($request->input('amount2'))){ 
-        $a2=0;
-      }else{
-        $a2=$request->input('amount2');
-      }
-
-      if(empty($request->input('amount3'))){ 
-          $a3=0;
-        }else{
-          $a3=$request->input('amount3');
-       }
-
-       if(empty($request->input('amount4'))){ 
-           $a4=0;
-        }else{
-           $a4=$request->input('amount4');
-        }
-
-       if(empty($request->input('amount5'))){ 
-          $a5=0;
-           }else{
-          $a5=$request->input('amount5');
-        }
+      
   
       $model=Paymentinfo::find($request->input('edit_id'));
       if($model){
         $model->des1=$request->input('des1');
-        $model->des2=$request->input('des2');
-        $model->des3=$request->input('des3');
-        $model->des4=$request->input('des4');
-        $model->des5=$request->input('des5');
-      
         $model->amount1=$a1;
-        $model->amount2=$a2;
-        $model->amount3=$a3;
-        $model->amount4=$a4;
-        $model->amount5=$a5;
-       
-        
         $model->update();   
         return back()->with('success','Payment Info Update Successfully');
       }else{

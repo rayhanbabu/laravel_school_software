@@ -133,6 +133,8 @@ use App\Http\Controllers\VedioController;
               Route::get('/maintain/sms/{type}/{status}/{id}',[SmsController::class,'smsstatus']);
               Route::post('onlinesmspdf',[SmsController::class,'onlinesmspdf']);
               Route::get('maintain/smsdelete/{id}',[SmsController::class,'smsdelete']);
+
+             
   
               //Payment information
               Route::get('maintain/payment',[OnlinepaymentController::class,'paymentview']);
@@ -142,7 +144,6 @@ use App\Http\Controllers\VedioController;
               Route::post('onlinepaymentpdf',[OnlinepaymentController::class,'onlinepaymentpdf']);
               Route::get('maintain/paymentdelete/{id}',[OnlinepaymentController::class,'paymentdelete']);
              
-
        });  
 
 
@@ -161,6 +162,8 @@ use App\Http\Controllers\VedioController;
 
    Route::middleware('SchoolIs')->group(function(){
 
+      Route::get('/payment_api',[SmsController::class,'payment_api']);
+
         Route::get('/schoollogout',[SchoolController::class,'schoollogout']);
        
         Route::get('/school/password',[SchoolController::class,'password']);
@@ -176,20 +179,20 @@ use App\Http\Controllers\VedioController;
 
 
 
-       //Teacher
-       Route::get('teacher',[TeacherController::class,'teacher']);
-       Route::get('school/manage_teacher',[TeacherController::class,'manage_teacher']);
-       Route::get('school/manage_teacher/{id}',[TeacherController::class,'manage_teacher']);
-       Route::post('school/teacher_product_process',[TeacherController::class,'teacher_product_process'])->name('teacher.insert');
-       Route::get('teacher/delete/{id}',[TeacherController::class,'delete']);
-       Route::get('/teacherlist/{type}/{status}/{id}',[TeacherController::class,'teacherstatus']);
-       Route::post('teacherallstatus',[TeacherController::class,'teacherallstatus']);
-       Route::get('teacher_attr_delete/{taid}/{id}',[TeacherController::class,'teacher_attr_delete']);
+         //Teacher
+         Route::get('teacher',[TeacherController::class,'teacher']);
+         Route::get('school/manage_teacher',[TeacherController::class,'manage_teacher']);
+         Route::get('school/manage_teacher/{id}',[TeacherController::class,'manage_teacher']);
+         Route::post('school/teacher_product_process',[TeacherController::class,'teacher_product_process'])->name('teacher.insert');
+         Route::get('teacher/delete/{id}',[TeacherController::class,'delete']);
+         Route::get('/teacherlist/{type}/{status}/{id}',[TeacherController::class,'teacherstatus']);
+         Route::post('teacherallstatus',[TeacherController::class,'teacherallstatus']);
+         Route::get('teacher_attr_delete/{taid}/{id}',[TeacherController::class,'teacher_attr_delete']);
 
 
-        //Atten school view
-        Route::get('/attenview',[AttenController::class,'attenview']);
-        Route::post('/pdf/atten',[AttenController::class,'attenpdf']);
+         //Atten school view
+         Route::get('/attenview',[AttenController::class,'attenview']);
+         Route::post('/pdf/atten',[AttenController::class,'attenpdf']);
 
            //Student View
           Route::get('student/{class}/{babu}', [StudentController::class,'student']);
@@ -355,11 +358,11 @@ use App\Http\Controllers\VedioController;
         Route::get('dashboard',[SchoolController::class,'dashboard']);
 
            //Section
-        Route::get('/schoolsection/{section}',[SchoolController::class,'schoolsection']);
+         Route::get('/schoolsection/{section}',[SchoolController::class,'schoolsection']);
         
-        // Attendance
-        Route::get('/atten',[AttenController::class,'index']);
-        Route::post('/atten/insert',[AttenController::class,'store']);
+          // Attendance
+          Route::get('/atten',[AttenController::class,'index']);
+          Route::post('/atten/insert',[AttenController::class,'store']);
 
 
           //Payment information with ipdate
@@ -657,7 +660,7 @@ use App\Http\Controllers\VedioController;
 
 
        
-            //Payment information
+              //Payment information
             Route::get('/paymentinfo',[PaymentinfoController::class,'index']);
             Route::get('/paymentinfo/fetchall',[PaymentinfoController::class,'fetchAll']);
             Route::post('/paymentinfo/store',[PaymentinfoController::class,'store']);
@@ -665,7 +668,7 @@ use App\Http\Controllers\VedioController;
             Route::post('/paymentinfo/update',[PaymentinfoController::class, 'update']);
             Route::delete('/paymentinfo/delete',[PaymentinfoController::class, 'delete']);
 
-            //Exam information
+             //Exam information
             Route::get('/examinfo',[ExaminfoController::class,'index']);
             Route::get('/examinfo/fetchall',[ExaminfoController::class,'fetchAll']);
             Route::post('/examinfo/store',[ExaminfoController::class,'store']);
@@ -674,7 +677,7 @@ use App\Http\Controllers\VedioController;
             Route::delete('/examinfo/delete',[ExaminfoController::class, 'delete']);
             
             
-                //Calculation information
+             //Calculation information
              Route::get('/calculationinfo',[CalculationController::class,'index']);
              Route::get('/calculation/fetchall',[CalculationController::class,'fetchAll']);
              Route::post('/calculation/store',[CalculationController::class,'store']);

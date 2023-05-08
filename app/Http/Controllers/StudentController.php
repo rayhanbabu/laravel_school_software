@@ -121,6 +121,7 @@ class StudentController extends Controller
 
           $mark= new Mark;
           $mark->uid=$student->id;
+          $mark->student_id=$student->stu_id;
           $mark->eiin=$school->eiin;
           $mark->roll=$request->input('roll');
           $mark->name=$request->input('name');
@@ -144,6 +145,7 @@ class StudentController extends Controller
    
              $invoice= new Invoice;
              $invoice->uid=$student->id;
+             $invoice->student_id=$stu->id;
              $invoice->eiin=$school->eiin;
              $invoice->roll=$request->input('roll');
              $invoice->name=$request->input('name');
