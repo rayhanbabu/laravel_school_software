@@ -41,9 +41,9 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-light bg-primary text-white">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3 text-white"  href="#"  >ANCOVA Software</a>
+            <a class="navbar-brand ps-3 text-white"  href="#"> </a>
             <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <button class="btn btn-link btn-sm order order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -110,15 +110,18 @@
   </a>
      <div class="collapse" id="collapseLayouts12" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
          <nav class="sb-sidenav-menu-nested nav">
-           <a class="nav-link" href="{{url('markinfo/Six/NA')}}">Six</a>
-           <a class="nav-link" href="{{url('markinfo/Seven/NA')}}">Seven</a>
-           <a class="nav-link" href="{{url('markinfo/Eight/NA')}}">Eight</a>
-           <a class="nav-link" href="{{url('markinfo/Nine/Science')}}">Nine Science</a>
-           <a class="nav-link" href="{{url('markinfo/Nine/Humanities')}}">Nine Humanities</a>
-           <a class="nav-link" href="{{url('markinfo/Nine/Commerce')}}">Nine Commerce</a>
-           <a class="nav-link" href="{{url('markinfo/Ten/Science')}}">Ten Science</a>
-           <a class="nav-link" href="{{url('markinfo/Ten/Humanities')}}">Ten Humanities</a>
-           <a class="nav-link" href="{{url('markinfo/Ten/Commerce')}}">Ten Commerce</a>
+            <a class="nav-link" href="{{url('markinfo/Three/NA')}}">Three</a>
+            <a class="nav-link" href="{{url('markinfo/Four/NA')}}">Four</a>
+            <a class="nav-link" href="{{url('markinfo/Five/NA')}}">Five</a>
+            <a class="nav-link" href="{{url('markinfo/Six/NA')}}">Six</a>
+            <a class="nav-link" href="{{url('markinfo/Seven/NA')}}">Seven</a>
+            <a class="nav-link" href="{{url('markinfo/Eight/NA')}}">Eight</a>
+            <a class="nav-link" href="{{url('markinfo/Nine/Science')}}">Nine Science</a>
+            <a class="nav-link" href="{{url('markinfo/Nine/Humanities')}}">Nine Humanities</a>
+            <a class="nav-link" href="{{url('markinfo/Nine/Commerce')}}">Nine Commerce</a>
+            <a class="nav-link" href="{{url('markinfo/Ten/Science')}}">Ten Science</a>
+            <a class="nav-link" href="{{url('markinfo/Ten/Humanities')}}">Ten Humanities</a>
+            <a class="nav-link" href="{{url('markinfo/Ten/Commerce')}}">Ten Commerce</a>
          </nav>
     </div>
 	
@@ -153,13 +156,16 @@
   </a>
    <div class="collapse" id="collapseLayoutsmark" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
         <nav class="sb-sidenav-menu-nested nav">
-           <a class="nav-link" href="{{url('marks/Six/NA')}}">Six</a>
-           <a class="nav-link" href="{{url('marks/Seven/NA')}}">Seven</a>
-           <a class="nav-link" href="{{url('marks/Eight/NA')}}">Eight</a>
-           <a class="nav-link" href="{{url('marks/Nine/Science')}}">Nine Science</a>
-           <a class="nav-link" href="{{url('marks/Nine/Humanities')}}">Nine Humanities</a>
-           <a class="nav-link" href="{{url('marks/Nine/Commerce')}}">Nine Commerce</a>
-           <a class="nav-link" href="{{url('marks/Ten/Science')}}">Ten Science</a>
+            <a class="nav-link" href="{{url('marks/Three/NA')}}">Three</a>
+            <a class="nav-link" href="{{url('marks/Four/NA')}}">Four</a>
+            <a class="nav-link" href="{{url('marks/Five/NA')}}">Five</a>
+            <a class="nav-link" href="{{url('marks/Six/NA')}}">Six</a>
+            <a class="nav-link" href="{{url('marks/Seven/NA')}}">Seven</a>
+            <a class="nav-link" href="{{url('marks/Eight/NA')}}">Eight</a>
+            <a class="nav-link" href="{{url('marks/Nine/Science')}}">Nine Science</a>
+            <a class="nav-link" href="{{url('marks/Nine/Humanities')}}">Nine Humanities</a>
+            <a class="nav-link" href="{{url('marks/Nine/Commerce')}}">Nine Commerce</a>
+            <a class="nav-link" href="{{url('marks/Ten/Science')}}">Ten Science</a>
            <a class="nav-link" href="{{url('marks/Ten/Humanities')}}">Ten Humanities</a>
            <a class="nav-link" href="{{url('marks/Ten/Commerce')}}">Ten Commerce</a>
        </nav>
@@ -172,6 +178,9 @@
    </a>
    <div class="collapse" id="collapseLayoutsfin" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
         <nav class="sb-sidenav-menu-nested nav">
+           <a class="nav-link" href="{{url('fins/Three/NA')}}">Three</a>
+           <a class="nav-link" href="{{url('fins/Four/NA')}}">Four</a>
+           <a class="nav-link" href="{{url('fins/Five/NA')}}">Five</a>
            <a class="nav-link" href="{{url('fins/Six/NA')}}">Six</a>
            <a class="nav-link" href="{{url('fins/Seven/NA')}}">Seven</a>
            <a class="nav-link" href="{{url('fins/Eight/NA')}}">Eight</a>
@@ -197,6 +206,9 @@
   </a>
    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
        <nav class="sb-sidenav-menu-nested nav">
+         <a class="nav-link" href="{{url('subject/Three/NA')}}">Three</a>
+         <a class="nav-link" href="{{url('subject/Four/NA')}}">Four</a>
+         <a class="nav-link" href="{{url('subject/Five/NA')}}">Five</a>
          <a class="nav-link" href="{{url('subject/Six/NA')}}">Six</a>
          <a class="nav-link" href="{{url('subject/Seven/NA')}}">Seven</a>
          <a class="nav-link" href="{{url('subject/Eight/NA')}}">Eight</a>

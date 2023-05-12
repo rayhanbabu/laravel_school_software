@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -29,17 +28,17 @@ class SixNaController extends Controller
   /// Subject  View Page
  public function SixNasub($tecode){
   if(Session::has('school')){ 
-       $school=schoolsession();
-       $subject=Subject::where('class','Six')->where('babu','NA')->where('eiin',$school->eiin)->orderBy('subcode','asc')->get();
-       $name=Subject::where('tecode',substr($tecode,0,10))->where('eiin',$school->eiin)->first();
-       $tecodesection=$tecode.Session::get('section').$name->subid;
+         $school=schoolsession();
+         $subject=Subject::where('class','Six')->where('babu','NA')->where('eiin',$school->eiin)->orderBy('subcode','asc')->get();
+         $name=Subject::where('tecode',substr($tecode,0,10))->where('eiin',$school->eiin)->first();
+         $tecodesection=$tecode.Session::get('section').$name->subid;
        return view('SixNa.'.$name->subcode,['school'=>$school,'subject'=>$subject,'name'=>$name ,'tecodesection'=>$tecodesection]);
 
      }else if(Session::has('teacher')){
-           $subjectauth=Subjectauth::where('teacher_id',teachersession()->id)->get();
+               $subjectauth=Subjectauth::where('teacher_id',teachersession()->id)->get();
          if(!empty(teacher_access($tecode,$subjectauth))){
-              $name=Subject::where('tecode',substr($tecode,0,10))->first();
-              $tecodesection=$tecode.teacher_access($tecode,$subjectauth)['lavel'];
+               $name=Subject::where('tecode',substr($tecode,0,10))->first();
+               $tecodesection=$tecode.teacher_access($tecode,$subjectauth)['lavel'];
               return view('SixNa.'.$name->subcode,['name'=>$name,'tecodesection'=>$tecodesection]);
                 }else{
                return '<h2 class="text-danger">Page Not Found</h2>';
@@ -241,9 +240,7 @@ public function SixNasub_update(Request $request){
     
     
      $mainsubject=Calculation::where('babu','NA')->where('class','Six')->where('eiin',$school->eiin)->first();
-     $subcode1=$mainsubject->subcode;  
-     $tags=explode(',',$subcode1);
-
+ 
     $student = DB::table('marks')
       ->leftjoin('students', 'students.id', '=', 'marks.uid')
       ->where('marks.babu','NA')->where('marks.class','Six')->where('marks.section',Session::get('section'))
@@ -253,10 +250,13 @@ public function SixNasub_update(Request $request){
       
       $student1=$student->first();
       
-        if($student1){
+      if($student1 && $mainsubject){
+            
+          $subcode1=$mainsubject->subcode;  
+         $tags=explode(',',$subcode1);  
     return view('SixNa.result',['school'=>$school,'subject'=>$subject ,'name'=>$name,'student'=>$student,'tags'=>$tags,'student1'=>$student1]);
         }else{
-         return redirect("/SixNainput")->with('status','This section No Students');
+         return redirect("/SixNainput")->with('status','This section No Students OR No Subject Setup');
       }
       
     
@@ -401,8 +401,8 @@ public function SixNasub_update(Request $request){
            ); 
    }
 
-   //prx($_POST);
-   //die();
+     //prx($_POST);
+     //die();
    return back()->with('success','Update Information');
 
  }

@@ -50,9 +50,9 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-light bg-primary text-white">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3 text-white"  href="#">ANCOVA Software</a>
+            <a class="navbar-brand ps-3 text-white"  href="#"> </a>
             <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-5 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <button class="btn btn-link btn-sm order order-lg-0 me-5 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -172,6 +172,9 @@
   </a>
    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
        <nav class="sb-sidenav-menu-nested nav">
+          <a class="nav-link @yield('ThreeNA')" href="{{url('student/Three/NA')}}"> Three </a>
+          <a class="nav-link @yield('FourNA')" href="{{url('student/Four/NA')}}"> Four </a>
+          <a class="nav-link @yield('FiveNA')" href="{{url('student/Five/NA')}}"> Five </a>
           <a class="nav-link @yield('SixNA')" href="{{url('student/Six/NA')}}"> Six </a>
           <a class="nav-link @yield('SevenNA')" href="{{url('student/Seven/NA')}}"> Seven </a>
           <a class="nav-link @yield('EightNA')" href="{{url('student/Eight/NA')}}"> Eight </a>

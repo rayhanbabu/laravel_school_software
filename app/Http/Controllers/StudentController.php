@@ -79,7 +79,6 @@ class StudentController extends Controller
                  $student->image=$new_name;
                  $student->save();
 
-    
               }else{
                 return response()->json([
                     'status'=>300,  
