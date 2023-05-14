@@ -68,8 +68,8 @@ function ChapterBody($student,$examinfo,$color)
     $this->SetTextColor($color->color3,$color->color4,$color->color22);
 
     foreach($student as $row){
-$this->SetFont('Times','B',14);
-     $this->Cell(83,12,'SeatPlan '.examName($examinfo->exam).'-'.$examinfo->year,'TLR',0 , 'C' );
+$this->SetFont('Times','B',12);
+     $this->Cell(83,12,'SeatPlan '.examNameDes($examinfo->exam).'-'.$examinfo->year,'TLR',0 , 'C' );
      $this->Cell(14.5,12,'',0,1 , 'L' );
  $this->SetFont('Times','',12);
     $this->Cell(15,6,'Stu Id','L',0 , 'L' );
@@ -85,11 +85,15 @@ $this->SetFont('Times','B',14);
     $this->Cell(15,6,'Name','L',0 , 'L' );
 	$this->Cell(68,6,substr(strtoupper(": ".$row['name']),0,24),'R',0 , 'L' );
 	$this->Cell(14.5,6,'',0,1 , 'L' );
-
-    $this->Cell(15,6,'Class','BL',0 , 'L' );
-	$this->Cell(24,6,': '.$row['class'],'B',0 , 'L' );
+   
+     $this->Cell(15,6,'Class','BL',0 , 'L' );
+$this->SetFont('Times','B',12);
+	  $this->Cell(24,6,': '.$row['class'],'B',0 , 'L' );
+ $this->SetFont('Times','',12);    
     $this->Cell(15,6,'Group','B',0 , 'L' );
+$this->SetFont('Times','B',12);
 	$this->Cell(29,6,': '.$row['babu'],'RB',0 , 'L' );
+
 	$this->Cell(14.5,6,'',0,1 , 'L' );
 
    

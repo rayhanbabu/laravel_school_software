@@ -2,11 +2,10 @@
 @section('content')
 
 @if(Session::has('school'))  
-     @include('ThrNa/subject')
+     @include('FouNa/subject')
  @endif
 
-     <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
-
+<h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
  <div class="table-responsive">
   <form  method="POST" id="update_form" enctype="multipart/form-data">
    <table class="table table-bordered" style="font-size:15px;" >
@@ -21,7 +20,7 @@
                <input type="hidden" name="subid" value="{{$name->subid}}"  class="form-control">
                <input type="hidden" name="subcode" value="{{$name->subcode}}"  class="form-control">
                   
-                  <th width ="5%">Stu_ID</th>
+               <th width ="5%">Stu_ID</th>
                   <th width ="2%">Roll</th>
                   <th width ="15%"> Name of Student </th>	
                   @if($name->cstatus=='number')
@@ -41,8 +40,7 @@
                   @endif  
                   <th width="7%"> Total  </th> 
                   <th width="5%">Gpa </th> 
-                  <th width="7%">Grade  </th> 				   
-       
+                  <th width="7%">Grade  </th> 				 					   
         </tr>
    </thead>
      <tbody>
@@ -72,70 +70,73 @@ $(document).ready(function(){
       function fetch_data() {
         $.ajax({
           type:'GET',
-          url:'/ThrNaSelect/{{$tecodesection}}',
+          url:'/FouNaSelect/{{$tecodesection}}',
           success: function(response) {
             //console.log(response);
             var html = '';
-                for(var count = 0; count < response.data.length; count++)
-                {
-                    if(response.data[count].sub22c==0){ var subc=''; }else{
-              var subc=response.data[count].sub22c; }
+       for(var count = 0; count < response.data.length; count++)
+            {
 
-                    if(response.data[count].sub22m==0){ var subm=''; }else{
-             var subm=response.data[count].sub22m; } 
-                    
-                    if(response.data[count].sub22p==0){ var subp=''; }else{
-              var subp=response.data[count].sub22p; }
-              
+          if(response.data[count].sub12c==0){ var subc=''; }else{
+              var subc=response.data[count].sub12c; }
+
+          if(response.data[count].sub12m==0){ var subm=''; }else{
+             var subm=response.data[count].sub12m; } 
+
+          if(response.data[count].sub12p==0){ var subp=''; }else{
+              var subp=response.data[count].sub12p; }
 
 	 html += '<tr>';
    html += '<input type="hidden" id="'+response.data.length+'"  name="id[]" value="'+response.data[count].id+'" />';
    html += '<td>'+response.data[count].stu_id+'</td>';
    html += '<td>'+response.data[count].roll+'</td>';
    html += '<td>'+response.data[count].name+'</td>';
-   html += '<td><input type="'+response.sstatus.cstatus+'"  min="0" max="'+response.sstatus.cmark+'" name="subc[]"   class="form-control" value="'+subc+'"/></td>';
-   html += '<td><input type="'+response.sstatus.mstatus+'"  min="0" max="'+response.sstatus.mmark+'" name="subm[]"   class="form-control" value="'+subm+'" /></td>';
-   html += '<td><input type="'+response.sstatus.pstatus+'"  min="0" max="'+response.sstatus.pmark+'" name="subp[]"   class="form-control" value="'+subp+'" /></td>';
+
+   html += '<td><input type="'+response.sstatus.cstatus+'"  min="0" max="'+response.sstatus.cmark+'" name="subc[]" class="form-control" value="'+subc+'"/></td>';
+   html += '<td><input type="'+response.sstatus.mstatus+'"  min="0" max="'+response.sstatus.mmark+'" name="subm[]" class="form-control" value="'+subm+'" /></td>';
+   html += '<td><input type="'+response.sstatus.pstatus+'"  min="0" max="'+response.sstatus.pmark+'" name="subp[]" class="form-control" value="'+subp+'" /></td>';
    
    
-   html += '<td>'+response.data[count].sub22t+'</td>';
-   html += '<td>'+response.data[count].sub22gp+'</td>';
-   html += '<td>'+response.data[count].sub22g+'</td>';
+   html += '<td>'+response.data[count].sub12t+'</td>';
+   html += '<td>'+response.data[count].sub12gp+'</td>';
+   html += '<td>'+response.data[count].sub12g+'</td>';
    html += '</tr>';
 			
-                }
+   }
                 $('tbody').html(html);
 
           }
         });
       }
-    
-    
-    
-    
+   
+
+  
+	
+	
+
     $('#update_form').on('submit', function(event){
         event.preventDefault();
         if($(this).attr("id").length > 0)
         {
             $.ajax({
-                url:"/Thr/Na/sub_update",
+                url:"/Fou/Na/sub_update",
                 type:"POST",
                 dataType: 'json',
                 data:$(this).serialize(),
                 beforeSend:function(){  
-                   $('.loader').show();
-                   $("#edit_employee_btn").prop('disabled', true)
+                    $('.loader').show();
+                    $("#edit_employee_btn").prop('disabled', true)
                  }, 
                 success:function(response)
                 {
-                // console.log(response.data)
+               // console.log(response.data)
                if(response.status == 100){
-                  Swal.fire("Updated",response.message,"success");
+                 Swal.fire("Updated",response.message,"success");
                   }
                   $("#edit_employee_btn").prop('disabled', false)  
                   $('.loader').hide();
                   fetch_data();
-                }
+               }
             })
         }
     });

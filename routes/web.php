@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MaintainController;
 use App\Http\Controllers\AdminController;
@@ -16,7 +15,10 @@ use App\Http\Controllers\NineHuController;
 use App\Http\Controllers\NineCoController;
 use App\Http\Controllers\TenHuController;
 use App\Http\Controllers\TenCoController;
+use App\Http\Controllers\ThreeNaController;
 use App\Http\Controllers\SixNaController;
+use App\Http\Controllers\FourNaController;
+use App\Http\Controllers\FiveNaController;
 use App\Http\Controllers\SevenNaController;
 use App\Http\Controllers\EightNaController;
 use App\Http\Controllers\AdmitController;
@@ -93,13 +95,13 @@ use App\Http\Controllers\VedioController;
         
         
         
-           //Vedio information
-              Route::get('/vedioinfo',[VedioController::class,'index']);
-              Route::get('/vedioinfo/fetchall',[VedioController::class,'fetchAll']);
-              Route::post('/vedioinfo/store',[VedioController::class,'store']);
-              Route::get('/vedioinfo/edit',[VedioController::class, 'edit']);
-              Route::post('/vedioinfo/update',[VedioController::class, 'update']);
-              Route::delete('/vedioinfo/delete',[VedioController::class, 'delete']);
+            //Vedio information
+            Route::get('/vedioinfo',[VedioController::class,'index']);
+            Route::get('/vedioinfo/fetchall',[VedioController::class,'fetchAll']);
+            Route::post('/vedioinfo/store',[VedioController::class,'store']);
+            Route::get('/vedioinfo/edit',[VedioController::class, 'edit']);
+            Route::post('/vedioinfo/update',[VedioController::class, 'update']);
+            Route::delete('/vedioinfo/delete',[VedioController::class, 'delete']);
 
 
 
@@ -275,6 +277,28 @@ use App\Http\Controllers\VedioController;
          //Testimonial
          Route::get('/testimonialindex', [TabulationController::class,'testimonialindex']);
          Route::post('/pdf/testimonial', [TabulationController::class,'testimonial']);
+
+
+          //result processing  Three Na
+          Route::get('/Thr/Na/result',[ThreeNaController::class,'ThrNaresult']);
+          Route::post('/Thr/Na/resultupdate',[ThreeNaController::class,'ThrNaresultupdate']);
+          Route::post('/Thr/Na/resulttype',[ThreeNaController::class,'resulttype']);
+          Route::get('/Thr/Na/subjectshow',[ThreeNaController::class,'ThrNasubjectshow']);
+          Route::post('/Thr/Na/subjectupdate',[ThreeNaController::class,'ThrNasubjectupdate']); 
+
+            //result processing  Four Na
+            Route::get('/Fou/Na/result',[FourNaController::class,'FouNaresult']);
+            Route::post('/Fou/Na/resultupdate',[FourNaController::class,'FouNaresultupdate']);
+            Route::post('/Fou/Na/resulttype',[FourNaController::class,'resulttype']);
+            Route::get('/Fou/Na/subjectshow',[FourNaController::class,'FouNasubjectshow']);
+            Route::post('/Fou/Na/subjectupdate',[FourNaController::class,'FouNasubjectupdate']); 
+
+            //result processing  Five Na
+            Route::get('/Fiv/Na/result',[FiveNaController::class,'FivNaresult']);
+            Route::post('/Fiv/Na/resultupdate',[FiveNaController::class,'FivNaresultupdate']);
+            Route::post('/Fiv/resulttype',[FiveNaController::class,'resulttype']);
+            Route::get('/Fiv/Na/subjectshow',[FiveNaController::class,'FivNasubjectshow']);
+            Route::post('/Fiv/Na/subjectupdate',[FiveNaController::class,'FivNasubjectupdate']); 
         
          //result processing  Eight Na
          Route::get('/Eig/Na/result',[EightNaController::class,'EigNaresult']);
@@ -396,10 +420,89 @@ use App\Http\Controllers\VedioController;
          Route::post('/spend/update',[SpendController::class, 'update']);
          Route::delete('/spend/delete',[SpendController::class, 'delete']);
 
+
+         //Three Na Marks Input
+       Route::get('/ThrNainput', [ThreeNaController::class,'ThrNainput']);
+       Route::get('/ThrNaSelect/{tecodesection}', [ThreeNaController::class,'ThrNaSelect']);  
+       Route::get('/Thr/NA/sub11/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub12/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub13/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub14/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub15/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub16/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub17/{tecode}', [ThreeNaController::class,'ThrNasub']); 
+       Route::get('/Thr/NA/sub18/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub19/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub20/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub21/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub22/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub23/{tecode}', [ThreeNaController::class,'ThrNasub']);
+       Route::get('/Thr/NA/sub24/{tecode}', [ThreeNaController::class,'ThrNasub']);
+
+
+       Route::post('Thr/Na/sub_update',[ThreeNaController::class,'ThrNasub_update']);
+       Route::post('Thr/Na/sub_update12',[ThreeNaController::class,'ThrNasub_update12']);
+       Route::post('Thr/Na/sub_update14',[ThreeNaController::class,'ThrNasub_update14']);
+       Route::post('Thr/Na/sub_update16', [ThreeNaController::class,'ThrNasub_update16']);
+       Route::post('Thr/Na/sub_update24', [ThreeNaController::class,'ThrNasub_update24']);
+
+
+
+    //Four Na Marks Input
+     Route::get('/FouNainput', [FourNaController::class,'FouNainput']);
+     Route::get('/FouNaSelect/{tecodesection}', [FourNaController::class,'FouNaSelect']);  
+     Route::get('/Fou/NA/sub11/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub12/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub13/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub14/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub15/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub16/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub17/{tecode}', [FourNaController::class,'FouNasub']); 
+     Route::get('/Fou/NA/sub18/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub19/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub20/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub21/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub22/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub23/{tecode}', [FourNaController::class,'FouNasub']);
+     Route::get('/Fou/NA/sub24/{tecode}', [FourNaController::class,'FouNasub']);
+
+
+     Route::post('Fou/Na/sub_update',[FourNaController::class,'FouNasub_update']);
+     Route::post('Fou/Na/sub_update12',[FourNaController::class,'FouNasub_update12']);
+     Route::post('Fou/Na/sub_update14',[FourNaController::class,'FouNasub_update14']);
+     Route::post('Fou/Na/sub_update16', [FourNaController::class,'FouNasub_update16']);
+     Route::post('Fou/Na/sub_update24', [FourNaController::class,'FouNasub_update24']);
+
+  
+
+     //Five Na Marks Input
+     Route::get('/FivNainput', [FiveNaController::class,'FivNainput']);
+     Route::get('/FivNaSelect/{tecodesection}', [FiveNaController::class,'FivNaSelect']);  
+     Route::get('/Fiv/NA/sub11/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub12/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub13/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub14/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub15/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub16/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub17/{tecode}', [FiveNaController::class,'FivNasub']); 
+     Route::get('/Fiv/NA/sub18/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub19/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub20/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub21/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub22/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub23/{tecode}', [FiveNaController::class,'FivNasub']);
+     Route::get('/Fiv/NA/sub24/{tecode}', [FiveNaController::class,'FivNasub']);
+
+
+     Route::post('Fiv/Na/sub_update',[FiveNaController::class,'FivNasub_update']);
+     Route::post('Fiv/Na/sub_update12',[FiveNaController::class,'FivNasub_update12']);
+     Route::post('Fiv/Na/sub_update14',[FiveNaController::class,'FivNasub_update14']);
+     Route::post('Fiv/Na/sub_update16', [FiveNaController::class,'FivNasub_update16']);
+     Route::post('Fiv/Na/sub_update24', [FiveNaController::class,'FivNasub_update24']);
  
       //Six Na Marks Input
-      Route::get('/SixNainput', [SixNaController::class,'SixNainput']);
-      Route::get('/SixNaSelect/{tecodesection}', [SixNaController::class,'SixNaSelect']);
+      Route::get('/SixNainput',[SixNaController::class,'SixNainput']);
+      Route::get('/SixNaSelect/{tecodesection}',[SixNaController::class,'SixNaSelect']);
       Route::get('/Six/NA/sub11/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub12/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub13/{tecode}', [SixNaController::class,'SixNasub']);
@@ -409,7 +512,6 @@ use App\Http\Controllers\VedioController;
       Route::get('/Six/NA/sub17/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub18/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub19/{tecode}', [SixNaController::class,'SixNasub']);
-      Route::get('/Six/NA/sub20/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub21/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub22/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub23/{tecode}', [SixNaController::class,'SixNasub']);

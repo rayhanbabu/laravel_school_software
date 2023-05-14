@@ -2,7 +2,7 @@
 @section('content')
 
 @if(Session::has('school'))  
-     @include('ThrNa/subject')
+     @include('FivNa/subject')
  @endif
 
      <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
@@ -50,7 +50,7 @@
 
      </tbody>
   </table>
-  <div class="loader">
+     <div class="loader">
             <img src="{{ asset('images/abc.gif') }}" alt="" style="width: 50px;height:50px;">
           </div>
 
@@ -67,25 +67,25 @@ $(document).ready(function(){
 
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
     
-    fetch_data();
-
+       fetch_data();
       function fetch_data() {
         $.ajax({
           type:'GET',
-          url:'/ThrNaSelect/{{$tecodesection}}',
+          url:'/FivNaSelect/{{$tecodesection}}',
           success: function(response) {
             //console.log(response);
             var html = '';
                 for(var count = 0; count < response.data.length; count++)
                 {
-                    if(response.data[count].sub22c==0){ var subc=''; }else{
-              var subc=response.data[count].sub22c; }
 
-                    if(response.data[count].sub22m==0){ var subm=''; }else{
-             var subm=response.data[count].sub22m; } 
+                  if(response.data[count].sub18c==0){ var subc=''; }else{
+              var subc=response.data[count].sub18c; }
+
+                  if(response.data[count].sub18m==0){ var subm=''; }else{
+             var subm=response.data[count].sub18m; } 
                     
-                    if(response.data[count].sub22p==0){ var subp=''; }else{
-              var subp=response.data[count].sub22p; }
+                   if(response.data[count].sub18p==0){ var subp=''; }else{
+              var subp=response.data[count].sub18p; }
               
 
 	 html += '<tr>';
@@ -98,9 +98,9 @@ $(document).ready(function(){
    html += '<td><input type="'+response.sstatus.pstatus+'"  min="0" max="'+response.sstatus.pmark+'" name="subp[]"   class="form-control" value="'+subp+'" /></td>';
    
    
-   html += '<td>'+response.data[count].sub22t+'</td>';
-   html += '<td>'+response.data[count].sub22gp+'</td>';
-   html += '<td>'+response.data[count].sub22g+'</td>';
+   html += '<td>'+response.data[count].sub18t+'</td>';
+   html += '<td>'+response.data[count].sub18gp+'</td>';
+   html += '<td>'+response.data[count].sub18g+'</td>';
    html += '</tr>';
 			
                 }
@@ -118,7 +118,7 @@ $(document).ready(function(){
         if($(this).attr("id").length > 0)
         {
             $.ajax({
-                url:"/Thr/Na/sub_update",
+                url:"/Fiv/Na/sub_update",
                 type:"POST",
                 dataType: 'json',
                 data:$(this).serialize(),
@@ -128,13 +128,13 @@ $(document).ready(function(){
                  }, 
                 success:function(response)
                 {
-                // console.log(response.data)
-               if(response.status == 100){
-                  Swal.fire("Updated",response.message,"success");
-                  }
-                  $("#edit_employee_btn").prop('disabled', false)  
-                  $('.loader').hide();
-                  fetch_data();
+                   // console.log(response.data)
+                    if(response.status == 100){
+                     Swal.fire("Updated",response.message,"success");
+                    }
+                    $("#edit_employee_btn").prop('disabled', false)   
+                    $('.loader').hide();
+                    fetch_data();
                 }
             })
         }

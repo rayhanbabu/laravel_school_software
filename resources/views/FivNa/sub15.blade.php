@@ -1,17 +1,17 @@
 @extends('school/schoolheader')
 @section('content')
 
-@if(Session::has('school'))  
-     @include('ThrNa/subject')
+ @if(Session::has('school'))  
+    @include('FivNa/subject')
  @endif
 
-     <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
+   <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
 
- <div class="table-responsive">
-  <form  method="POST" id="update_form" enctype="multipart/form-data">
-   <table class="table table-bordered" style="font-size:15px;" >
-     <thead>
-     <tr style="background: whitesmoke;">
+  <div class="table-responsive">
+     <form  method="POST" id="update_form" enctype="multipart/form-data">
+       <table class="table table-bordered" style="font-size:15px;" >
+           <thead>
+        <tr style="background: whitesmoke;">
 
                <input type="hidden" name="tmark" value="{{$name->tmark}}"  class="form-control">
                <input type="hidden" name="cfail" value="{{$name->cfail}}"  class="form-control">
@@ -21,6 +21,7 @@
                <input type="hidden" name="subid" value="{{$name->subid}}"  class="form-control">
                <input type="hidden" name="subcode" value="{{$name->subcode}}"  class="form-control">
                   
+                
                   <th width ="5%">Stu_ID</th>
                   <th width ="2%">Roll</th>
                   <th width ="15%"> Name of Student </th>	
@@ -72,20 +73,20 @@ $(document).ready(function(){
       function fetch_data() {
         $.ajax({
           type:'GET',
-          url:'/ThrNaSelect/{{$tecodesection}}',
+          url:'/FivNaSelect/{{$tecodesection}}',
           success: function(response) {
             //console.log(response);
             var html = '';
                 for(var count = 0; count < response.data.length; count++)
                 {
-                    if(response.data[count].sub22c==0){ var subc=''; }else{
-              var subc=response.data[count].sub22c; }
+                    if(response.data[count].sub15c==0){ var subc=''; }else{
+              var subc=response.data[count].sub15c; }
 
-                    if(response.data[count].sub22m==0){ var subm=''; }else{
-             var subm=response.data[count].sub22m; } 
+                    if(response.data[count].sub15m==0){ var subm=''; }else{
+             var subm=response.data[count].sub15m; } 
                     
-                    if(response.data[count].sub22p==0){ var subp=''; }else{
-              var subp=response.data[count].sub22p; }
+                    if(response.data[count].sub15p==0){ var subp=''; }else{
+              var subp=response.data[count].sub15p; }
               
 
 	 html += '<tr>';
@@ -98,9 +99,9 @@ $(document).ready(function(){
    html += '<td><input type="'+response.sstatus.pstatus+'"  min="0" max="'+response.sstatus.pmark+'" name="subp[]"   class="form-control" value="'+subp+'" /></td>';
    
    
-   html += '<td>'+response.data[count].sub22t+'</td>';
-   html += '<td>'+response.data[count].sub22gp+'</td>';
-   html += '<td>'+response.data[count].sub22g+'</td>';
+   html += '<td>'+response.data[count].sub15t+'</td>';
+   html += '<td>'+response.data[count].sub15gp+'</td>';
+   html += '<td>'+response.data[count].sub15g+'</td>';
    html += '</tr>';
 			
                 }
@@ -118,7 +119,7 @@ $(document).ready(function(){
         if($(this).attr("id").length > 0)
         {
             $.ajax({
-                url:"/Thr/Na/sub_update",
+                url:"/Fiv/Na/sub_update",
                 type:"POST",
                 dataType: 'json',
                 data:$(this).serialize(),
@@ -128,14 +129,15 @@ $(document).ready(function(){
                  }, 
                 success:function(response)
                 {
-                // console.log(response.data)
+                
                if(response.status == 100){
-                  Swal.fire("Updated",response.message,"success");
+                 Swal.fire("Updated",response.message,"success");
+                   
                   }
                   $("#edit_employee_btn").prop('disabled', false)  
-                  $('.loader').hide();
-                  fetch_data();
-                }
+                $('.loader').hide();
+                fetch_data();
+               }
             })
         }
     });

@@ -1,7 +1,7 @@
 @extends('school/schoolheader')
 @section('content')
       
-   @include('ThrNa/subject')
+   @include('FouNA/subject')
    
    <br><br>
    @if(Session::has('status'))

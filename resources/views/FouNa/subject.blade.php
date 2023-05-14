@@ -1,4 +1,4 @@
-<a class="btn btn-success dropdown-toggle mt-3 " id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Select Subject of Three</a> 
+<a class="btn btn-success dropdown-toggle mt-3 " id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Select Subject of Four</a> 
             <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
                     @foreach($subject as $row)
                         <?php
@@ -7,6 +7,6 @@
                         ?>
                      <li><a class="dropdown-item" href="{{ url($class.'/'.$babu.'/'.$row->subcode.'/'.$row->tecode)}}">{{$row->subject}}</a></li>
                      @endforeach 
-                     <li><a class="dropdown-item" href="{{ url('Thr/Na/result')}}">Result Processing</a></li>         
+                     <li><a class="dropdown-item" href="{{ url('Fou/Na/result')}}">Result Processing</a></li>         
                 </ul>
             </li>

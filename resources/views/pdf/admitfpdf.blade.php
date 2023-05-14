@@ -135,7 +135,7 @@
         $pdf->Cell(48,5,$data['sub10s'],1,1 , 'L' );   
          }else{ 
         $pdf->Cell(47,5,'',0,0 , 'L' );
-         $pdf->Cell(48,5,'','R',1 , 'L' );    }  
+         $pdf->Cell(48,5,'','R',1 , 'L' ); }  
 
 
          if($data['sub11s']!=''){
@@ -147,10 +147,9 @@
            $pdf->Cell(47,5,date('d/m/y',strtotime($data['admit']->date12)).','.$data['admit']->time12,1,0 , 'L' );
            $pdf->Cell(48,5,$data['sub12s'],1,1 , 'L' );   
             }else{ 
-           $pdf->Cell(47,5,'',0,0 , 'L' );
+             $pdf->Cell(47,5,'',0,0 , 'L' );
             $pdf->Cell(48,5,'','R',1 , 'L' );    } 
-            
-            
+                     
 
             if($data['sub13s']!=''){
                $pdf->Cell(47,5,date('d/m/y',strtotime($data['admit']->date13)).','.$data['admit']->time13,1,0 , 'L' );
@@ -162,7 +161,7 @@
               $pdf->Cell(48,5,$data['sub14s'],1,1 , 'L' );   
                }else{ 
               $pdf->Cell(47,5,'',0,0 , 'L' );
-               $pdf->Cell(48,5,'','R',1 , 'L' );    }  
+               $pdf->Cell(48,5,'','R',1 , 'L' ); }  
 
 
 

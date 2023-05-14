@@ -217,6 +217,9 @@
     </a>
      <div class="collapse" id="collapseinput" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
       <nav class="sb-sidenav-menu-nested nav">
+       <a class="nav-link" href="{{url('ThrNainput')}}">Three</a>
+       <a class="nav-link" href="{{url('FouNainput')}}">Four</a>
+       <a class="nav-link" href="{{url('FivNainput')}}">Five</a>
        <a class="nav-link" href="{{url('SixNainput')}}">Six</a>
        <a class="nav-link" href="{{url('SevNainput')}}">Seven</a>
        <a class="nav-link" href="{{url('EigNainput')}}">Eight</a>

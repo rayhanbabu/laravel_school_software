@@ -2,7 +2,7 @@
 @section('content')
 
 @if(Session::has('school'))  
-     @include('ThrNa/subject')
+     @include('FouNa/subject')
  @endif
 
      <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
@@ -72,7 +72,7 @@ $(document).ready(function(){
       function fetch_data() {
         $.ajax({
           type:'GET',
-          url:'/ThrNaSelect/{{$tecodesection}}',
+          url:'/FouNaSelect/{{$tecodesection}}',
           success: function(response) {
             //console.log(response);
             var html = '';
@@ -118,7 +118,7 @@ $(document).ready(function(){
         if($(this).attr("id").length > 0)
         {
             $.ajax({
-                url:"/Thr/Na/sub_update",
+                url:"/Fou/Na/sub_update",
                 type:"POST",
                 dataType: 'json',
                 data:$(this).serialize(),

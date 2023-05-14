@@ -2,7 +2,7 @@
 @section('content')
 
 @if(Session::has('school'))  
-     @include('ThrNa/subject')
+      @include('FouNa/subject')
  @endif
 
      <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
@@ -20,10 +20,12 @@
                <input type="hidden" name="subname" value="{{$name->subject}}"  class="form-control">
                <input type="hidden" name="subid" value="{{$name->subid}}"  class="form-control">
                <input type="hidden" name="subcode" value="{{$name->subcode}}"  class="form-control">
+               <input type="hidden" name="subject" value="moral"  class="form-control">
                   
                   <th width ="5%">Stu_ID</th>
                   <th width ="2%">Roll</th>
                   <th width ="15%"> Name of Student </th>	
+                  <th width="7%"> Moral  </th> 
                   @if($name->cstatus=='number')
                   <th width="7%"><span class="text-white"> .........</span>CQ</th>	
                   @else
@@ -39,6 +41,7 @@
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
+
                   <th width="7%"> Total  </th> 
                   <th width="5%">Gpa </th> 
                   <th width="7%">Grade  </th> 				   
@@ -72,20 +75,21 @@ $(document).ready(function(){
       function fetch_data() {
         $.ajax({
           type:'GET',
-          url:'/ThrNaSelect/{{$tecodesection}}',
+          url:'/FouNaSelect/{{$tecodesection}}',
           success: function(response) {
-            //console.log(response);
+            console.log(response);
             var html = '';
                 for(var count = 0; count < response.data.length; count++)
                 {
-                    if(response.data[count].sub22c==0){ var subc=''; }else{
-              var subc=response.data[count].sub22c; }
 
-                    if(response.data[count].sub22m==0){ var subm=''; }else{
-             var subm=response.data[count].sub22m; } 
+                    if(response.data[count].sub16c==0){var subc=''; }else{
+              var subc=response.data[count].sub16c; }
+
+                    if(response.data[count].sub16m==0){var subm=''; }else{
+             var subm=response.data[count].sub16m; } 
                     
-                    if(response.data[count].sub22p==0){ var subp=''; }else{
-              var subp=response.data[count].sub22p; }
+                    if(response.data[count].sub16p==0){var subp=''; }else{
+              var subp=response.data[count].sub16p; }
               
 
 	 html += '<tr>';
@@ -93,14 +97,16 @@ $(document).ready(function(){
    html += '<td>'+response.data[count].stu_id+'</td>';
    html += '<td>'+response.data[count].roll+'</td>';
    html += '<td>'+response.data[count].name+'</td>';
+   html += '<td>'+response.data[count].sub16n+'</td>';
+   html += '<input type="hidden" name="shortsub[]" class="form-control" value="'+response.data[count].moral+'"/>';
    html += '<td><input type="'+response.sstatus.cstatus+'"  min="0" max="'+response.sstatus.cmark+'" name="subc[]"   class="form-control" value="'+subc+'"/></td>';
    html += '<td><input type="'+response.sstatus.mstatus+'"  min="0" max="'+response.sstatus.mmark+'" name="subm[]"   class="form-control" value="'+subm+'" /></td>';
    html += '<td><input type="'+response.sstatus.pstatus+'"  min="0" max="'+response.sstatus.pmark+'" name="subp[]"   class="form-control" value="'+subp+'" /></td>';
    
    
-   html += '<td>'+response.data[count].sub22t+'</td>';
-   html += '<td>'+response.data[count].sub22gp+'</td>';
-   html += '<td>'+response.data[count].sub22g+'</td>';
+   html += '<td>'+response.data[count].sub16t+'</td>';
+   html += '<td>'+response.data[count].sub16gp+'</td>';
+   html += '<td>'+response.data[count].sub16g+'</td>';
    html += '</tr>';
 			
                 }
@@ -118,7 +124,7 @@ $(document).ready(function(){
         if($(this).attr("id").length > 0)
         {
             $.ajax({
-                url:"/Thr/Na/sub_update",
+                url:"/Fou/Na/sub_update16",
                 type:"POST",
                 dataType: 'json',
                 data:$(this).serialize(),
@@ -128,14 +134,14 @@ $(document).ready(function(){
                  }, 
                 success:function(response)
                 {
-                // console.log(response.data)
+               // console.log(response.data)
                if(response.status == 100){
-                  Swal.fire("Updated",response.message,"success");
+                 Swal.fire("Updated",response.message,"success");
                   }
-                  $("#edit_employee_btn").prop('disabled', false)  
-                  $('.loader').hide();
-                  fetch_data();
-                }
+                $("#edit_employee_btn").prop('disabled', false)  
+                $('.loader').hide();
+                fetch_data();
+               }
             })
         }
     });

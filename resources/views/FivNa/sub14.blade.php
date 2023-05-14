@@ -2,7 +2,7 @@
 @section('content')
 
 @if(Session::has('school'))  
-     @include('ThrNa/subject')
+      @include('FivNa/subject')
  @endif
 
      <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
@@ -21,7 +21,7 @@
                <input type="hidden" name="subid" value="{{$name->subid}}"  class="form-control">
                <input type="hidden" name="subcode" value="{{$name->subcode}}"  class="form-control">
                   
-                  <th width ="5%">Stu_ID</th>
+               <th width ="5%">Stu_ID</th>
                   <th width ="2%">Roll</th>
                   <th width ="15%"> Name of Student </th>	
                   @if($name->cstatus=='number')
@@ -41,8 +41,7 @@
                   @endif  
                   <th width="7%"> Total  </th> 
                   <th width="5%">Gpa </th> 
-                  <th width="7%">Grade  </th> 				   
-       
+                  <th width="7%">Grade  </th> 	
         </tr>
    </thead>
      <tbody>
@@ -72,20 +71,22 @@ $(document).ready(function(){
       function fetch_data() {
         $.ajax({
           type:'GET',
-          url:'/ThrNaSelect/{{$tecodesection}}',
+          url:'/FivNaSelect/{{$tecodesection}}',
           success: function(response) {
             //console.log(response);
             var html = '';
                 for(var count = 0; count < response.data.length; count++)
                 {
-                    if(response.data[count].sub22c==0){ var subc=''; }else{
-              var subc=response.data[count].sub22c; }
 
-                    if(response.data[count].sub22m==0){ var subm=''; }else{
-             var subm=response.data[count].sub22m; } 
+            if(response.data[count].sub14c==0){ var subc=''; }else{
+                var subc=response.data[count].sub14c; }
+
+            if(response.data[count].sub14m==0){ var subm=''; }else{
+               var subm=response.data[count].sub14m; } 
+
+             if(response.data[count].sub14p==0){ var subp=''; }else{
+                var subp=response.data[count].sub14p; }
                     
-                    if(response.data[count].sub22p==0){ var subp=''; }else{
-              var subp=response.data[count].sub22p; }
               
 
 	 html += '<tr>';
@@ -93,14 +94,16 @@ $(document).ready(function(){
    html += '<td>'+response.data[count].stu_id+'</td>';
    html += '<td>'+response.data[count].roll+'</td>';
    html += '<td>'+response.data[count].name+'</td>';
+  
    html += '<td><input type="'+response.sstatus.cstatus+'"  min="0" max="'+response.sstatus.cmark+'" name="subc[]"   class="form-control" value="'+subc+'"/></td>';
    html += '<td><input type="'+response.sstatus.mstatus+'"  min="0" max="'+response.sstatus.mmark+'" name="subm[]"   class="form-control" value="'+subm+'" /></td>';
    html += '<td><input type="'+response.sstatus.pstatus+'"  min="0" max="'+response.sstatus.pmark+'" name="subp[]"   class="form-control" value="'+subp+'" /></td>';
    
+  
    
-   html += '<td>'+response.data[count].sub22t+'</td>';
-   html += '<td>'+response.data[count].sub22gp+'</td>';
-   html += '<td>'+response.data[count].sub22g+'</td>';
+   html += '<td>'+response.data[count].sub14t+'</td>';
+   html += '<td>'+response.data[count].sub14gp+'</td>';
+   html += '<td>'+response.data[count].sub14g+'</td>';
    html += '</tr>';
 			
                 }
@@ -118,7 +121,7 @@ $(document).ready(function(){
         if($(this).attr("id").length > 0)
         {
             $.ajax({
-                url:"/Thr/Na/sub_update",
+                url:"/Fiv/Na/sub_update",
                 type:"POST",
                 dataType: 'json',
                 data:$(this).serialize(),
@@ -128,14 +131,14 @@ $(document).ready(function(){
                  }, 
                 success:function(response)
                 {
-                // console.log(response.data)
+               // console.log(response.data)
                if(response.status == 100){
-                  Swal.fire("Updated",response.message,"success");
-                  }
-                  $("#edit_employee_btn").prop('disabled', false)  
-                  $('.loader').hide();
-                  fetch_data();
-                }
+                   Swal.fire("Updated",response.message,"success");
+                 }
+                $("#edit_employee_btn").prop('disabled', false)  
+                $('.loader').hide();
+                fetch_data();
+               }
             })
         }
     });

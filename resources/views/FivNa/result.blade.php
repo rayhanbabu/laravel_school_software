@@ -1,8 +1,8 @@
 @extends('school/schoolheader')
 @section('content')
  
- @if(Session::has('school'))  
-       @include('ThrNa/subject')
+@if(Session::has('school'))  
+        @include('FivNa/subject')
  @endif
 
     <div class="form-group  mx-2 my-2">
@@ -18,7 +18,7 @@
 
 
 
-    <form  method="POST" action="{{url('Thr/Na/resultupdate')}}" enctype="multipart/form-data">
+    <form  method="POST" action="{{url('Fiv/Na/resultupdate')}}" enctype="multipart/form-data">
   <div class="table-responsive ms-auto" >
    <table class="table table-bordered"  id="employee_data" style="font-size:15px;" >
      <thead>
@@ -84,15 +84,15 @@
                   @endif 
             
                
-                  <th width ="5%">T. Fail</th> 
-                  <th width ="5%"><?php echo substr($school->exam,0,1);?>Total</th>  
-                  <th width ="5%"><?php echo substr($school->exam,0,1);?>Gpa</th> 
-                  <th width ="5%"><?php echo substr($school->exam,0,1);?>Grade</th>
-                  <th width ="5%">Type</th>  
-                  <th width="">HGPA</th>
-				  <th width="">HGrade</th>
-				  <th width="">CGPA</th>
-				  <th width="">CGrade</th> 
+            <th width ="5%">T. Fail</th> 
+            <th width ="5%"><?php echo substr($school->exam,0,1);?>Total</th>  
+            <th width ="5%"><?php echo substr($school->exam,0,1);?>Gpa</th> 
+            <th width ="5%"><?php echo substr($school->exam,0,1);?>Grade</th>
+            <th width ="5%">Type</th>  
+            <th width="">HGPA</th>
+				    <th width="">HGrade</th>
+				    <th width="">CGPA</th>
+				    <th width="">CGrade</th> 
                   <th width ="5%">Result</th> 
         </tr>
    </thead>
@@ -259,7 +259,7 @@
 
       <div class="modal-body">
 
-    <form method="post" action="{{url('Thr/Na/resulttype')}}"  class="myform"  enctype="multipart/form-data" >
+    <form method="post" action="{{url('Fiv/resulttype')}}"  class="myform"  enctype="multipart/form-data" >
    {!! csrf_field() !!}
 
    <div class="row px-3">
