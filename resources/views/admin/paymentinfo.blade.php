@@ -62,17 +62,26 @@
             </div>
 
           
-
+            <div class="col-lg-4 my-2">
+               <label for="fname">Date(yyyy-mm-dd)</label>
+               <input type="text"  id="date" name="date" autocomplete="off"  class="form-control datepicker" readonly>
+            </div>
+              
         
 							
             <div class="col-lg-8 my-2">
-               <label for="roll">Description </label>
-               <input type="text" name="des1" id="des1" class="form-control" placeholder=""  required>
+                <label for="roll">Description array(,)</label>
+                <input type="text" name="des1" id="des1" class="form-control" placeholder=""  required>
             </div>
 
             <div class="col-lg-4 my-2">
-               <label for="name">Amount</label>
-               <input type="number" name="amount1" id="amount1" class="form-control" placeholder=""  required>
+                <label for="name">Description Amount array(,)</label>
+                 <input type="text" name="des_amount1" id="des_amount1" class="form-control" placeholder=""  required>
+            </div>
+
+            <div class="col-lg-4 my-2">
+                 <label for="name">Total Amount</label>
+                 <input type="number" name="amount1" id="amount1" class="form-control" placeholder=""  required>
             </div>
 
              
@@ -134,32 +143,34 @@
               <label for="lname">Group <span style="color:red;"> * </span></label>
                   <select class="form-select" name="babu" id="edit_babu" aria-label="Default select example" required  >
                                 <option   value="">Select One </option>
-                                 @foreach($group as $row)
-                                         <option value="{{$row->text1}}">{{$row->text2}}</option>
-                                  @endforeach	             
+                                     @foreach($group as $row)
+                                          <option value="{{$row->text1}}">{{$row->text2}}</option>
+                                     @endforeach	             
                   </select>
             </div>
 
-           
 
+            <div class="col-lg-4 my-2">
+               <label for="fname">Date(yyyy-mm-dd)</label>
+               <input type="text" id="edit_date" name="date" autocomplete="off"  class="form-control datepicker" readonly>
+            </div>
 
             
             <div class="col-lg-8 my-2">
-               <label for="roll">Description </label>
-               <input type="text" name="des1" id="edit_des1" class="form-control" placeholder=""  required>
+                <label for="roll">Description array(,)  </label>
+                <input type="text" name="des1" id="edit_des1" class="form-control" placeholder=""  required>
             </div>
 
             <div class="col-lg-4 my-2">
-               <label for="name">Amount</label>
-               <input type="number" name="amount1" id="edit_amount1" class="form-control" placeholder=""  required>
+                 <label for="name">Description Amount array(,)</label>
+                 <input type="text" name="des_amount1" id="edit_des_amount1" class="form-control" placeholder=""  required>
             </div>
 
 
-
-         
-
-
-         
+            <div class="col-lg-4 my-2">
+               <label for="name">Total Amount</label>
+               <input type="number" name="amount1" id="edit_amount1" class="form-control" placeholder=""  required>
+            </div>
 
 
           <div class="loader">
@@ -279,19 +290,9 @@
 
 
             $("#edit_des1").val(response.data.des1);
-            $("#edit_des2").val(response.data.des2);
-            $("#edit_des3").val(response.data.des3);
-            $("#edit_des4").val(response.data.des4);
-            $("#edit_des5").val(response.data.des5);
-            $("#edit_des6").val(response.data.des6);
-           
-            
+            $("#edit_des_amount1").val(response.data.des_amount1);
             $("#edit_amount1").val(response.data.amount1);
-            $("#edit_amount2").val(response.data.amount2);
-            $("#edit_amount3").val(response.data.amount3);
-            $("#edit_amount4").val(response.data.amount4);
-            $("#edit_amount5").val(response.data.amount5);
-            $("#edit_amount6").val(response.data.amount6);
+           
          
           
 

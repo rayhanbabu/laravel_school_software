@@ -61,22 +61,30 @@ th, td {
 
     <div class="area">
   <center>
-  <h2> {{$school->school}}</h2>
-   <p> Spend Summary  : {{$day1}} </p>
+       <h2> {{$school->school}}</h2>
+       <h4> Payment Summary : {{$year}} - {{$month}} </h4>
        
       
 <table>
- 
-       <tr>
-           <th align="left" width="80">Date</th>
+ @if($month)
+        <tr>
+        <th align="left" width="80">Date</th>
            <th align="left" width="200">Description</th>
            <th align="left" width="40">Quantity</th>
 	         <th align="right" width="50">Per unit Amount</th>
            <th align="right" width="70">Total Amount</th>
-        </tr>
-     
+         </tr>
+      @else
+      <tr>
+             <th width="100">Month</th>
+             <th width="100">No Of Payment</th>
+             <th width="150">Payment Amount</th>
+      </tr>
+      @endif
+  
 
-  @foreach($spend as $user)
+  @foreach($invoice as $user)
+    @if($month)
       <tr>
                  <td>{{$user->date}}</td>
                 <td>{{$user->description}}</td>
@@ -84,14 +92,30 @@ th, td {
                 <td align="right">{{$user->price}}TK</td>
                 <td align="right">{{$user->total}}TK</td>
      </tr>
+
+     @else
+         <tr>
+             <td align="left">{{$user->month}}</td>
+		       <td align="left">{{$user->id_total}}</td>
+             <td align="right">{{$user->spend_total}}TK</td>
+        </tr>
+     @endif
+   
   @endforeach
 
- 
-    <tr>
-      <td colspan="4">  </td>
-      <td  align="right">{{$spend->sum('total') }}  TK</td>
+  @if($month)
+  <tr>
+    <td colspan="4">  </td>
+    <td  align="right"> {{$invoice->sum('total') }} TK</td>
+   
   </tr>
-
+  @else
+  <tr>
+    <td colspan="2">  </td>
+    <td  align="right">{{$invoice->sum('spend_total') }}  TK</td>
+   
+  </tr>
+  @endif
   
 </table>
 

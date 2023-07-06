@@ -8,20 +8,16 @@
                              <form action="{{url('/spendday')}}" method="POST" enctype="multipart/form-data">
                                 {!! csrf_field() !!}
                                 <input type="date" name="date" class="form-control" value="" required>
-                                <button type="submit" name="search" class="btn btn-primary">Daily Spend  </button>
-					                   </form> 
+                               
+					                  
                          </div>
 
 
                          <div class="col-3">
-                             <form action="{{url('spendmonth')}}" method="POST" enctype="multipart/form-data">
-                                {!! csrf_field() !!}
-                                <input type="month" name="month" class="form-control" value="" required>
-                                <button type="submit" name="search" class="btn btn-primary">Monthly Spend  </button>
-					                   </form> 
+                              <button type="submit" name="search" class="btn btn-primary">Daily Spend  </button>
                          </div>
 
-
+                         </form>
                 
                        <div class="col-2">
                           <div class="d-grid gap-2 d-md-flex "> 

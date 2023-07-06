@@ -175,10 +175,11 @@ use App\Http\Controllers\VedioController;
         Route::post('teacherinsert',[TeacherController::class,'teacherinsert']);
         Route::get('/teacheredit/{id}',[TeacherController::class,'teacheredit']);
         Route::post('teacherupdate',[TeacherController::class,'teacherupdate']);
-        Route::get('teacherdelete/{id}',[TeacherController::class,'teacherdelete']);
-        
+        Route::get('teacherdelete/{id}',[TeacherController::class,'teacherdelete']);   
         Route::get('/vedioindex', [VedioController::class,'vedioindex']);
 
+
+        
 
 
          //Teacher
@@ -351,12 +352,14 @@ use App\Http\Controllers\VedioController;
            Route::get('/Ten/Sc/subjectshow',[TenScController::class,'TenScsubjectshow']);
            Route::post('/Ten/Sc/subjectupdate',[TenScController::class,'TenScsubjectupdate']);
 
+
          //result  processing Ten Humanities
          Route::get('/Ten/Hu/result',[TenHuController::class,'TenHuresult']);
          Route::post('/Ten/Hu/resultupdate',[TenHuController::class,'TenHuresultupdate']);
          Route::post('/Ten/Hu/resulttype',[TenHuController::class,'resulttype']);
          Route::get('/Ten/Hu/subjectshow',[TenHuController::class,'TenHusubjectshow']);
          Route::post('/Ten/Hu/subjectupdate',[TenHuController::class,'TenHusubjectupdate']);
+
 
          //result processing  Ten Commerce
          Route::get('/Ten/Co/result', [TenCoController::class,'TenCoresult']);
@@ -394,23 +397,27 @@ use App\Http\Controllers\VedioController;
           Route::get('/paymentview/{edit_id}',[PaymentinfoController::class, 'paymentview']);
           Route::post('/paymentinfoupdate',[PaymentinfoController::class,'paymentinfoupdate']);
 
-
-          Route::get('invoice',[PaymentinfoController::class,'invoiceview']);
-          Route::get('invoice_detail/{edit_id}',[PaymentinfoController::class,'invoice_detail']);
-          Route::post('/invoiceupdate',[PaymentinfoController::class,'invoiceupdate']);
-          Route::post('/invoicedate',[PaymentinfoController::class,'invoicedate']);
-          Route::get('invoicepdftwo/{id}/{uid}',[PaymentinfoController::class,'invoice_pdftwo']);
-          Route::get('invoicepdfthree/{id}/{uid}',[PaymentinfoController::class,'invoice_pdfthree']);
-          Route::post('/invoicedes',[PaymentinfoController::class,'invoicedes']);
-          Route::get('invoicesummary',[PaymentinfoController::class,'invoicesummary']);
-          Route::post('/invoicepart1',[PaymentinfoController::class,'invoicepart1']);
-          Route::post('/invoicepart2',[PaymentinfoController::class,'invoicepart2']);
-          Route::post('/invoicepart3',[PaymentinfoController::class,'invoicepart3']);
-          Route::post('/spendday',[PaymentinfoController::class,'spendday']);
-          Route::post('/spendmonth',[PaymentinfoController::class,'spendmonth']);
+         
+          Route::get('/monthly-invoice',[PaymentinfoController::class,'monthly_invoice']);
+          Route::get('/monthlyview/{edit_id}',[PaymentinfoController::class,'monthlyview']);
+          Route::post('/monthly-update',[PaymentinfoController::class,'monthly_update']);
+          Route::post('/invoice/create',[PaymentinfoController::class,'invoice_create']);
+          Route::get('/payment-details',[PaymentinfoController::class,'payment_details']);
+          Route::get('/payment-details-fetch',[PaymentinfoController::class,'payment_details_fetch']);
+          Route::get('/payment_fetch_data',[PaymentinfoController::class,'payment_fetch_data']);
+          Route::get('/payment-data-view/{uid}',[PaymentinfoController::class,'payment_data_view']);
+          Route::get('/payment-fetch/{uid}',[PaymentinfoController::class,'payment_fetch']);
+          Route::post('/payment-create',[PaymentinfoController::class,'payment_create']);
+          Route::post('/invoice-delete',[PaymentinfoController::class,'invoice_delete']);
+          //pdf
+          Route::get('/payment-summary',[PaymentinfoController::class,'payment_summary']);
+          Route::post('/class-wise-pdf',[PaymentinfoController::class,'class_wise_pdf']);
+          Route::post('/payment-month',[PaymentinfoController::class,'payment_month']);
           Route::post('/paymentday',[PaymentinfoController::class,'paymentday']);
-          Route::post('/invoicemonth',[PaymentinfoController::class,'invoicemonth']);
-
+          Route::post('/spend-month',[PaymentinfoController::class,'spend_month']);
+          Route::post('/spendday',[PaymentinfoController::class,'spendday']);
+         
+         
 
          //Spend  View 
          Route::get('/spendindex', [SpendController::class,'spendindex']);
@@ -470,8 +477,8 @@ use App\Http\Controllers\VedioController;
      Route::post('Fou/Na/sub_update',[FourNaController::class,'FouNasub_update']);
      Route::post('Fou/Na/sub_update12',[FourNaController::class,'FouNasub_update12']);
      Route::post('Fou/Na/sub_update14',[FourNaController::class,'FouNasub_update14']);
-     Route::post('Fou/Na/sub_update16', [FourNaController::class,'FouNasub_update16']);
-     Route::post('Fou/Na/sub_update24', [FourNaController::class,'FouNasub_update24']);
+     Route::post('Fou/Na/sub_update16',[FourNaController::class,'FouNasub_update16']);
+     Route::post('Fou/Na/sub_update24',[FourNaController::class,'FouNasub_update24']);
 
   
 

@@ -1,17 +1,26 @@
 @extends('school/schoolheader')
-@section('invoicesummary','active')
+@section('payment-summary','active')
 @section('content')
-     <h4 class="mt-4">Invoice Summary  </h4>
+     <h4 class="mt-4">Overall Summary  </h4>
            <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active"></li>
            </ol>
+                     @if(Session::has('fail'))
+                   <div  class="alert alert-danger"> {{Session::get('fail')}}</div>
+                           @endif
+                             </div>
 
 
                 <div class="row">
                      <div class="col-xl-4 col-md-6">
                         <div class="card bg-light">   
+                        <div class="mx-3 my-3">
+                            Class Wise Summary
+                        </div>
 
-                     <form action="{{ url('invoicepart1') }}" method="post" enctype="multipart/form-data">
+                     
+                         
+                     <form action="{{ url('class-wise-pdf') }}" method="post" enctype="multipart/form-data">
                          {!! csrf_field() !!}
                                <div class="form-group  mx-3 my-3">
                                     <label class=""><b>Class<span style="color:red;"> * </span></b></label>
@@ -34,20 +43,8 @@
                                 </select>
                            </div> 
 
-                           <div class="form-group  mx-3 my-3">
-                              <label class=""><b>Month<span style="color:red;"> * </span></b></label>
-                              <input type="month"  id="month" name="month"   class="form-control " required>
-                           </div> 
+                       
 
-
-                            <div class="form-group  mx-3 my-3">
-                                  <label class=""><b>Status<span style="color:red;"> * </span></b></label>
-                                  <select class="form-select" name="status" id="status"  aria-label="Default select example" required >
-                                      <option value="">Select</option>
-                                      <option value="1">Paid</option>
-                                      <option value="0">Not Paid</option>
-                                  </select>
-                             </div> 
 
 
                           <div class="form-group  mx-3 my-3">
@@ -71,24 +68,22 @@
 
 
                     <div class="col-xl-4 col-md-6">
-                     <div class="card bg-light">     
-                        <form action="{{ url('invoicepart2') }}" method="post" enctype="multipart/form-data">
+                     <div class="card bg-light">    
+                     <div class="mx-3 my-3">
+                            Payment Summary
+                        </div> 
+                        <form action="{{ url('payment-month') }}" method="post" enctype="multipart/form-data">
                                {!! csrf_field() !!}
 
-
                            <div class="form-group  mx-3 my-3">
-                              <label class=""><b>Month<span style="color:red;"> * </span></b></label>
-                              <input type="month"  id="month" name="month"   class="form-control" required>
+                              <label class=""><b>Year<span style="color:red;"> * </span></b></label>
+                              <input type="number"  id="year" name="year"   class="form-control" required>
                            </div> 
 
 
                            <div class="form-group  mx-3 my-3">
-                              <label class=""><b>Status<span style="color:red;"> * </span></b></label>
-                               <select class="form-select" name="status" id="status"  aria-label="Default select example" required>
-                                    <option value="">Select</option>
-                                    <option value="1">Paid</option>
-                                    <option value="0">Not Paid</option>
-                                </select>
+                              <label class=""><b>Month<span style="color:red;">  </span></b></label>
+                              <input type="number"  id="month" name="month"   class="form-control" >
                            </div> 
 
 
@@ -102,14 +97,23 @@
 
 
               <div class="col-xl-4 col-md-6">
-                   <div class="card bg-light">     
-                        <form action="{{ url('invoicepart3') }}" method="post" enctype="multipart/form-data">
+                   <div class="card bg-light">   
+                   <div class="mx-3 my-3">
+                             Spend Summary
+                        </div>   
+                        <form action="{{ url('spend-month') }}" method="post" enctype="multipart/form-data">
                                {!! csrf_field() !!}
-
+                               
                                <div class="form-group  mx-3 my-3">
-                                   <label class=""><b>Month<span style="color:red;"> * </span></b></label>
-                                   <input type="month"  id="month" name="month"   class="form-control" required>
-                               </div> 
+                              <label class=""><b>Year<span style="color:red;"> * </span></b></label>
+                              <input type="number"  id="year" name="year"   class="form-control" required>
+                           </div> 
+
+
+                           <div class="form-group  mx-3 my-3">
+                              <label class=""><b>Month<span style="color:red;">  </span></b></label>
+                              <input type="number"  id="month" name="month"   class="form-control" >
+                           </div> 
 
                                <div class="form-group  mx-3 my-3">
                                     <input type="submit" value="Submit" class="btn btn-primary waves-effect waves-light">

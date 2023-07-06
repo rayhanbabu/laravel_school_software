@@ -61,43 +61,42 @@ th, td {
 
     <div class="area">
   <center>
-  <h2> {{$school->school}}</h2>
-   <p> Daily Payment Summary  : {{$day1}} </p>
+       <h2> {{$school->school}}</h2>
+       <h4> Class wise Summary <br>
+       Class : {{$class}}, Group : {{$babu}} , Section : {{$section}} , <?php  echo date('Y-M-d'); ?></h4>
        
-      
+       
+       
 <table>
- 
-       <tr>
-            <th width="">Student Id</th>
-             <th width="">Roll</th>
-             <th width="195">Name</th>
-             <th width="">Class</th>
-             <th width="">Group</th>
-             <th width="">Section</th>
+  <tr>
+           <th width="">Student Id</th>
+           <th width="">Roll</th>
+           <th width="195">Name</th>
+           <th width="">Invoice Amount</th>
 		       <th width="">Payment Amount</th>
-             <th width="">Payment Type</th>
-        </tr>
-     
+		       <th width="">Present Due</th>
+         
+  </tr>
+  
 
-  @foreach($payment as $user)
+  @foreach($invoice as $user)
       <tr>
-      <td align="left">{{$user->student_id}}</td>
+	         <td align="left">{{$user->student_id}}</td>
 		       <td align="left">{{$user->roll}}</td>
-             <td align="left">{{substr($user->name,0,20)}}</td>
-             <td align="left">{{$user->class}}</td>
-             <td align="left">{{$user->babu}}</td>
-             <td align="left">{{$user->section}}</td>
-             <td align="right">{{ $user->payment_amount}}TK</td> 
-             <td align="right">{{ $user->payment_type}}</td>      
+		       <td align="left">{{substr($user->name,0,20)}}</td>
+	         <td align="right">{{ $user->invoice_amount }}TK </td>
+          <td align="right">{{ $user->payment_amount}}</td>
+		      <td align="right">{{ $user->due_payment }}</td>
      </tr>
+   
   @endforeach
 
- 
-    <tr>
-      <td colspan="6">  </td>
-      <td  align="right">{{$payment->sum('payment_amount') }}  TK</td>
+  <tr>
+    <td colspan="3">Total Payment Infomation  </td>
+    <td  align="right"> {{$user->sum('invoice_amount') }}TK</td>
+    <td  align="right"> {{$user->sum('payment_amount') }}TK</td>
+    <td  align="right"> {{$user->sum('invoice_amount')-$user->sum('payment_amount') }}TK</td>
   </tr>
-
   
 </table>
 

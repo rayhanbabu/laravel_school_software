@@ -431,8 +431,7 @@
 
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
  
-       // add new employee ajax request
-      
+         // add new employee ajax request
          let formData=new FormData($('#add_form')[0]);
   
        $("#add_employee_form").submit(function(e) {

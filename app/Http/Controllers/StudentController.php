@@ -32,16 +32,29 @@ class StudentController extends Controller
 
     public function store(Request $request){
 
-        $school=schoolsession();
-        $data= Student::where('roll',$request->input('roll'))->where('babu',$request->input('babu'))
-         ->where('class',$request->input('class'))->where('section',Session::get('section'))
-         ->where('eiin',$school->eiin)->count('id');
+         $school=schoolsession();
+         $data= Student::where('roll',$request->input('roll'))->where('babu',$request->input('babu'))
+          ->where('class',$request->input('class'))->where('section',Session::get('section'))
+          ->where('eiin',$school->eiin)->count('id');
+
+         $examinfo=Examinfo::where('eiin',schoolsession()->eiin)->where('babu',$request->input('babu'))
+          ->where('class',$request->input('class'))->first();
+         
+         $paymentinfo=Paymentinfo::where('eiin',schoolsession()->eiin)->where('babu',$request->input('babu'))
+          ->where('class',$request->input('class'))->where('section',Session::get('section'))->first();
+
         if($data>=1){
           return response()->json([
               'status'=>200,  
               'message'=>'Roll number already exist',
           ]);
-        }else{
+        }else if(empty($examinfo)){
+          return response()->json([
+               'status'=>200,  
+              'message'=>'This Class are not setup Exam name & year',
+        ]);
+        }
+        else{
             $max=Student::max('id');
             $prefix=5000000;
             $stu_id= $prefix+$max;
@@ -114,9 +127,8 @@ class StudentController extends Controller
         
          }
 
-         if($student->id!=""){
-          $examinfo=Examinfo::where('eiin',schoolsession()->eiin)->where('babu',$request->input('babu'))
-          ->where('class',$request->input('class'))->first();
+         if($student->id!="" ){
+         
 
           $mark= new Mark;
           $mark->uid=$student->id;
@@ -137,41 +149,25 @@ class StudentController extends Controller
           $mark->sub24n=fullsubname($request->input('addi'));
           $mark->save();
 
-         if($school->fin_access=='Yes'){
-
-          $payment=Paymentinfo::where('eiin',schoolsession()->eiin)->where('babu',$request->input('babu'))
-          ->where('class',$request->input('class'))->where('section',Session::get('section'))->first();
-   
+         if($school->fin_access=='Yes' && !empty($paymentinfo)){
              $invoice= new Invoice;
              $invoice->uid=$student->id;
-             $invoice->student_id=$stu->id;
+             $invoice->student_id=$student->stu_id;;
              $invoice->eiin=$school->eiin;
              $invoice->roll=$request->input('roll');
              $invoice->name=$request->input('name');
              $invoice->section=Session::get('section');
              $invoice->class=$request->input('class');
              $invoice->babu=$request->input('babu');
-             $invoice->invoice_date=$payment->date;
-             $invoice->invoice_month=date('n',strtotime($payment->date));
-             $invoice->invoice_year=date('Y',strtotime($payment->date));
-             $invoice->des1=$payment->des1;
-             $invoice->amount1=$payment->amount1;
-             $invoice->des2=$payment->des2;
-             $invoice->amount2=$payment->amount2;
-             $invoice->des3=$payment->des3;
-             $invoice->amount3=$payment->amount3;
-             $invoice->des4=$payment->des4;
-             $invoice->amount4=$payment->amount4;
-             $invoice->des5=$payment->des5;
-             $invoice->amount5=$payment->amount5;
-             $invoice->des6=$payment->des6;
-             $invoice->amount6=$payment->amount6;
-             $invoice->status=0;
-             $invoice->totalamount=$payment->amount6+$payment->amount5+$payment->amount4
-                          +$payment->amount4+$payment->amount3+$payment->amount2+$payment->amount1;
-             $invoice->cur_monthpayment=$payment->amount6+$payment->amount5+$payment->amount4
-                          +$payment->amount4+$payment->amount3+$payment->amount2+$payment->amount1;              
-   
+             $invoice->category="Invoice";
+             $invoice->date=$paymentinfo->date;
+             $invoice->day=date('j',strtotime($paymentinfo->date));
+             $invoice->month=date('n',strtotime($paymentinfo->date));
+             $invoice->year=date('Y',strtotime($paymentinfo->date));
+             $invoice->invoice_des1=$paymentinfo->des1;
+             $invoice->invoice_des_amount1=$paymentinfo->des_amount1;
+             $invoice->invoice_amount1=$paymentinfo->amount1;
+             $invoice->invoice_amount=$paymentinfo->amount1;              
              $invoice->save();
 
          }
@@ -375,7 +371,7 @@ class StudentController extends Controller
 
           $invoice=DB::table('invoices')->where('uid', $request->input('id'))->get();
           if($invoice->count()>0){
-           DB::table('invoices')->where('uid', $request->input('id'))->where('invoice_date',$payment->date)->delete();
+           DB::table('invoices')->where('uid', $request->input('id'))->where('date',$payment->date)->delete();
           }
 
           $attens=DB::table('attens')->where('uid', $request->input('id'))->get();

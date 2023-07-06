@@ -1,8 +1,5 @@
 @include('pdf/fpdf182/fpdf')
 <?php
-
-
-
   
 class PDF extends FPDF
 {
@@ -14,13 +11,13 @@ function Header()
 
    function Footer()
       {
-         // Position at 1.5 cm from bottom
+          // Position at 1.5 cm from bottom
          $this->SetY(-15);
-         // Arial italic 8
+          // Arial italic 8
          $this->SetFont('Arial','I',12);
-         // Page number
-         $this->Cell(0,10,date('d-M-Y, h:i:sA').  ', Developed by ancovabd.com ',0,0,'L');
-         $this->Cell(0,10,date('d-M-Y, h:i:sA').  ', Developed by ancovabd.com',0,0,'R'); 
+          // Page number
+         $this->Cell(0,10,date('d-M-Y, h:i:sA'). ', Developed by ancovabd.com ',0,0,'L');
+         $this->Cell(0,10,date('d-M-Y, h:i:sA'). ', Developed by ancovabd.com',0,0,'R'); 
       }
 
 

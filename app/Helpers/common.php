@@ -321,26 +321,35 @@ function  gpa12($subc,$cfail,$subm,$mfail,$total,$markinfo,$tmark){
 
 
 
-    function send_sms($phonearr,$text) {
-      $url = "https://isms.mimsms.com/smsapi";
-      $data = [
-        "api_key" =>'C2001750636203a38058c8.06138449',
-        "type" => "Unicode",
-        "contacts" =>$phonearr,
-        "senderid" =>8809601004675,
-        "msg" => $text,
-      ];
-      $ch = curl_init();
-      curl_setopt($ch, CURLOPT_URL, $url);
-      curl_setopt($ch, CURLOPT_POST, 1);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-      $response = curl_exec($ch);
-      curl_close($ch);
-      return $response;
-    }
+     function send_sms($phonearr,$text) {
+        $msg = $text;
+        $apikey = "b4a4c64054d026c8239a8484710afadf";
+        $sender = 8809617612066;
+        $msisdn =$phonearr ;
+        $curl = curl_init();
 
+   curl_setopt_array($curl, [
+       CURLOPT_URL => "https://rapidapi.mimsms.com/smsapi?user=M00057&password=Rayhanbabu458@&sender=$sender&msisdn=$msisdn&smstext=$msg",
+       CURLOPT_RETURNTRANSFER => true,
+       CURLOPT_FOLLOWLOCATION => true,
+       CURLOPT_ENCODING => "",
+       CURLOPT_MAXREDIRS => 10,
+       CURLOPT_TIMEOUT => 30,
+       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+       CURLOPT_CUSTOMREQUEST => "GET",
+
+   ]);
+
+   $response = curl_exec($curl);
+
+   $data = json_decode($response);
+
+   $err = curl_error($curl);
+
+   curl_close($curl);
+
+
+   }
 
       function funsubname($class,$babu,$subcode1,$eiin){
         $subject=Subject::where('babu',$babu)->where('class',$class)->where('subid',$subcode1)->where('eiin',$eiin)->get();
@@ -595,6 +604,6 @@ function  gpa12($subc,$cfail,$subm,$mfail,$total,$markinfo,$tmark){
         }
     }
     
-
+    https://rapidapi.mimsms.com/smsapi?apikey=b4a4c64054d026c8239a8484710afadf&sender=8809617612066&msisdn=01750360044&smstext=(Message Content)
 
 ?>

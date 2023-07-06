@@ -754,8 +754,8 @@
           </div>
 
           <div class="form-group  col-sm-6  my-2">
-               <label class=""><b>Text 1</b></label>
-               <input type="text" name="text1" id="edit_text1"  class="form-control" >
+               <label class=""><b>Invoice delete hour</b></label>
+               <input type="number" name="text1" id="edit_text1"  class="form-control" >
           </div>
 
           <div class="form-group  col-sm-6  my-2">

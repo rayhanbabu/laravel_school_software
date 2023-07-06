@@ -41,7 +41,6 @@ class AttenController extends Controller
               $action='';  
               $section='';  
           }
-
            $data=[];
            $fail='';
             

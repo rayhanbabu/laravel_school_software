@@ -248,18 +248,19 @@
   </div>
 
 
-   <a class="nav-link @yield('paymentinfo') @yield('invoice') @yield('invoicesummary') collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapseLayouts">
+   <a class="nav-link @yield('paymentinfo') @yield('monthly-invoice') @yield('payment-summary') @yield('payment-summary') collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapseLayouts">
    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-        Payment 
+        Payment Info
      <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
     </a>
-      <div class="collapse" id="collapsepayment" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-         <nav class="sb-sidenav-menu-nested nav">
-             <a class="nav-link @yield('paymentinfo')" href="{{url('paymentinfoschool')}}">Payment info</a>
-             <a class="nav-link @yield('invoice')" href="{{url('invoice')}}"> Invoice </a>
-             <a class="nav-link @yield('invoicesummary')" href="{{url('invoicesummary')}}"> Invoice Summary </a>
-         </nav>
-    </div>
+       <div class="collapse" id="collapsepayment" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+           <nav class="sb-sidenav-menu-nested nav">
+               <a class="nav-link @yield('paymentinfo')" href="{{url('paymentinfoschool')}}">Payment Setup</a>
+               <a class="nav-link @yield('monthly-invoice')" href="{{url('monthly-invoice')}}">Monthly  Invoice</a>
+               <a class="nav-link @yield('payment-details')" href="{{url('payment-details')}}">Payment </a>
+               <a class="nav-link @yield('payment-summary')" href="{{url('payment-summary')}}">Payment Summary </a>
+           </nav>
+      </div>
 
 
      <a class="nav-link @yield('spend')" href="{{url('/spendindex')}}">
@@ -394,9 +395,10 @@
      </a>
         <div class="collapse" id="collapsepayment" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
            <nav class="sb-sidenav-menu-nested nav">
-               <a class="nav-link" href="{{url('paymentinfoschool')}}">Payment info</a>
-               <a class="nav-link" href="{{url('invoice')}}"> Invoice </a>
-               <a class="nav-link" href="{{url('invoicesummary')}}"> Invoice Summary </a>
+               <a class="nav-link @yield('paymentinfo')" href="{{url('paymentinfoschool')}}">Payment Setup</a>
+               <a class="nav-link @yield('monthly-invoice')" href="{{url('monthly-invoice')}}">Monthly  Invoice</a>
+               <a class="nav-link @yield('payment-details')" href="{{url('payment-details')}}">Payment </a>
+               <a class="nav-link @yield('payment-summary')" href="{{url('payment-summary')}}">Payment Summary </a>
             </nav>
         </div>
 
