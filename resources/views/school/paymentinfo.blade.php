@@ -42,9 +42,9 @@
              <th>Group</th>
              <th>Section</th>
              <th>Date</th>
-             <th>Description </th>
-             <th>Description Amount </th>
-             <th>Total amount </th>
+             <th>Description 1 </th>
+             <th>Description Amount 1 </th>
+             <th>Total amount 1</th>
              <th>Action</th>
           </tr>
     </thead>

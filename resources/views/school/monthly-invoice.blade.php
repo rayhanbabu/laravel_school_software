@@ -106,25 +106,23 @@
         <tbody>
         @foreach($data as $row)
            <tr>
-              <td>{{$row->student_id}}</td>
-              <td>{{$row->roll}}</td>
-              <td>{{$row->name}}</td>
-              <td>{{$row->month}}-{{$row->year}}</td>
-              <td>{{$row->invoice_des1}}</td>
-              <td>{{$row->invoice_des_amount1}}</td>
-              <td>{{$row->invoice_amount1}}</td>
-              <td> <button type="button" name="view" id="{{$row->id}}" class="btn btn-success btn-sm view">Edit</button></td>
-              <td>{{$row->invoice_des2}}</td>
-              <td>{{$row->invoice_des_amount2}}</td>
-              <td>{{$row->invoice_amount2}}</td>
-              <td>{{$row->invoice_amount}}</td>
-            
+               <td>{{$row->student_id}}</td>
+               <td>{{$row->roll}}</td>
+               <td>{{$row->name}}</td>
+               <td>{{$row->month}}-{{$row->year}}</td>
+               <td>{{$row->invoice_des1}}</td>
+               <td>{{$row->invoice_des_amount1}}</td>
+               <td>{{$row->invoice_amount1}}</td>
+               <td> <button type="button" name="view" id="{{$row->id}}" class="btn btn-success btn-sm view">Edit</button></td>
+               <td>{{$row->invoice_des2}}</td>
+               <td>{{$row->invoice_des_amount2}}</td>
+               <td>{{$row->invoice_amount2}}</td>
+               <td>{{$row->invoice_amount}}</td> 
         </tr>
       @endforeach 
         </tbody>		 
 
        </table>
-     
   </div>
 </div>
 

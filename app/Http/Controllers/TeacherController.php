@@ -83,15 +83,14 @@ class TeacherController extends Controller
       
                     // prx($_POST);
                      // die();
-                     $school=schoolsession();
-
+                  
                    $request->validate([
                          'name'=>'required',
                          'email'=>'required|unique:teachers,email,'.$request->post('id'),
                          'phone'=>'required|unique:teachers,phone,'.$request->post('id'),
                    ]);
 
-           
+                   $school=schoolsession();
                   if($request->post('id')>0){
                          $model=Teacher::find($request->post('id'));
                          $msg="Teacher updated";

@@ -27,21 +27,20 @@
                   <th width ="15%"> Name of Student </th>	
                   <th width="7%"> Moral  </th> 
                   @if($name->cstatus=='number')
-                  <th width="7%"><span class="text-white"> .........</span>CQ</th>	
+                  <th width="7%"><span class="text-white"> .........</span>CQ/<div class="square-square"></div></th>	
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
                   @if($name->mstatus=='number')		   
-                  <th width="7%"><span class="text-white"> ........</span>Mcq</th> 
+                  <th width="7%"><span class="text-white"> ........</span>MCQ/<div class="circle-circle"></div></th> 
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
                   @if($name->pstatus=='number')	
-                  <th width="7%"><span class="text-white"> ..</span>Practical</th>
+                  <th width="7%"><span class="text-white"> ..</span>Practical/<div class="triangle-up"></div></th>
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
-
                   <th width="7%"> Total  </th> 
                   <th width="5%">Gpa </th> 
                   <th width="7%">Grade  </th> 				   

@@ -315,12 +315,12 @@ use App\Http\Controllers\VedioController;
         Route::get('/Sev/Na/subjectshow',[SevenNaController::class,'SevNasubjectshow']);
         Route::post('/Sev/Na/subjectupdate',[SevenNaController::class,'SevNasubjectupdate']);
 
-        //result processing  Six Na
-        Route::get('/Six/Na/result',[SixNaController::class,'SixNaresult']);
-        Route::post('/Six/Na/resultupdate',[SixNaController::class,'SixNaresultupdate']);
-        Route::post('/Six/Na/resulttype',[SixNaController::class,'resulttype']);
-        Route::get('/Six/Na/subjectshow',[SixNaController::class,'SixNasubjectshow']);
-        Route::post('/Six/Na/subjectupdate',[SixNaController::class,'SixNasubjectupdate']);
+         //result processing  Six Na
+         Route::get('/Six/Na/result',[SixNaController::class,'SixNaresult']);
+         Route::post('/Six/Na/resultupdate',[SixNaController::class,'SixNaresultupdate']);
+         Route::post('/Six/Na/resulttype',[SixNaController::class,'resulttype']);
+         Route::get('/Six/Na/subjectshow',[SixNaController::class,'SixNasubjectshow']);
+         Route::post('/Six/Na/subjectupdate',[SixNaController::class,'SixNasubjectupdate']);
   
 
          //result processing  Nine Science
@@ -343,7 +343,6 @@ use App\Http\Controllers\VedioController;
           Route::post('/Nin/Co/resulttype', [NineCocontroller::class,'resulttype']);
           Route::get('/Nin/Co/subjectshow',[NineCoController::class,'NinCosubjectshow']);
           Route::post('/Nin/Co/subjectupdate',[NineCoController::class,'NinCosubjectupdate']);
-   
 
            //result processing  Ten Science
            Route::get('/Ten/Sc/result', [TenScController::class,'TenScresult']);
@@ -352,14 +351,12 @@ use App\Http\Controllers\VedioController;
            Route::get('/Ten/Sc/subjectshow',[TenScController::class,'TenScsubjectshow']);
            Route::post('/Ten/Sc/subjectupdate',[TenScController::class,'TenScsubjectupdate']);
 
-
          //result  processing Ten Humanities
          Route::get('/Ten/Hu/result',[TenHuController::class,'TenHuresult']);
          Route::post('/Ten/Hu/resultupdate',[TenHuController::class,'TenHuresultupdate']);
          Route::post('/Ten/Hu/resulttype',[TenHuController::class,'resulttype']);
          Route::get('/Ten/Hu/subjectshow',[TenHuController::class,'TenHusubjectshow']);
          Route::post('/Ten/Hu/subjectupdate',[TenHuController::class,'TenHusubjectupdate']);
-
 
          //result processing  Ten Commerce
          Route::get('/Ten/Co/result', [TenCoController::class,'TenCoresult']);
@@ -368,11 +365,9 @@ use App\Http\Controllers\VedioController;
          Route::get('/Ten/Co/subjectshow',[TenCoController::class,'TenCosubjectshow']);
          Route::post('/Ten/Co/subjectupdate',[TenCoController::class,'TenCosubjectupdate']);
 
-
           Route::get('colorview',[ColorController::class,'colorviewschool']);
           Route::get('colorview/{id}',[ColorController::class,'colorviewid']);
           Route::post('colorupdate',[ColorController::class,'colorupdate']);
-
 
           Route::get('subjectview/{class}/{babu}',[ColorController::class,'subjectview']);
           Route::get('markinfoview/{class}/{babu}',[ColorController::class,'markinfoview']);
@@ -384,20 +379,19 @@ use App\Http\Controllers\VedioController;
 
         Route::get('dashboard',[SchoolController::class,'dashboard']);
 
-           //Section
-         Route::get('/schoolsection/{section}',[SchoolController::class,'schoolsection']);
+          //Section
+          Route::get('/schoolsection/{section}',[SchoolController::class,'schoolsection']);
         
           // Attendance
           Route::get('/atten',[AttenController::class,'index']);
           Route::post('/atten/insert',[AttenController::class,'store']);
-
 
           //Payment information with ipdate
           Route::get('/paymentinfoschool',[PaymentinfoController::class,'indexschool']);
           Route::get('/paymentview/{edit_id}',[PaymentinfoController::class, 'paymentview']);
           Route::post('/paymentinfoupdate',[PaymentinfoController::class,'paymentinfoupdate']);
 
-         
+          
           Route::get('/monthly-invoice',[PaymentinfoController::class,'monthly_invoice']);
           Route::get('/monthlyview/{edit_id}',[PaymentinfoController::class,'monthlyview']);
           Route::post('/monthly-update',[PaymentinfoController::class,'monthly_update']);
@@ -416,6 +410,9 @@ use App\Http\Controllers\VedioController;
           Route::post('/paymentday',[PaymentinfoController::class,'paymentday']);
           Route::post('/spend-month',[PaymentinfoController::class,'spend_month']);
           Route::post('/spendday',[PaymentinfoController::class,'spendday']);
+
+          Route::get('/monthly-payment',[PaymentinfoController::class,'monthly_payment']);
+          Route::post('/payment-update',[PaymentinfoController::class,'payment_update']);
          
          
 

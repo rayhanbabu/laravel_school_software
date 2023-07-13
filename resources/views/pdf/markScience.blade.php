@@ -5,7 +5,7 @@
 
 	   td,table
              {
-              border: 1px solid  {{$color->color8}};
+              border: 1px solid {{$color->color8}};
 		    border-collapse:collapse;
               color:{{$color->color7}};
 		   }
@@ -79,11 +79,511 @@
        top:250px;
        z-index: -1;
        opacity: .1;
-     }	   
+     }	 
+     
+     .square-square{
+  height: 15px;
+  width: 15px;
+  background-color:{{$color->color8}};
+  margin-left:12px;
+}
+
+.circle-circle {
+  height: 15px;
+  width: 15px;
+  background-color: {{$color->color8}};
+  border-radius: 50%;
+  margin-left:12px;
+}
+
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 20px solid {{$color->color8}};
+     margin-left:12px;
+}
+
   </style>	   
 
 </head>
 <body>
+
+@if($exam==6)
+
+@foreach($student as $row)
+<div class="rayhan">
+<img src="{{ public_path("/uploads/admin/".Session::get('school')->image) }}" style=" width:600px; height:600px; "/>
+</div>
+<table>
+      <tr>
+          <th></th>
+      <th colspan="2" rowspan="3" > <img src="{{ public_path("/uploads/admin/".Session::get('school')->image) }}" style=" width:100px; height:100px; "/>  </th> 
+         <th id="school" colspan="9">{{Session::get('school')->school}}</th>
+         <th></th>
+      </tr>
+
+      <tr>
+         <th></th>
+         <th id="up" colspan="9">{{Session::get('school')->address}}</th>
+         <th></th>
+      </tr>
+
+      <tr>
+         <th></th>
+         <th id="up" colspan="9">  {{examNameDes($exam)}}-{{$year}}</th>
+         <th></th>
+      </tr>
+   
+   
+
+      <tr>
+           <th></th>
+           <th colspan="2"> Name</th>
+           <th colspan="7">: <?php echo substr($row->name,0,24); ?></th>
+           <th colspan="3" rowspan="4">  </th>
+
+      </tr>
+
+      <tr>
+           <th></th>
+           <th colspan="2">Student ID</th>
+           <th colspan="3">: {{$row->stu_id}}</th>
+           <th colspan="2">Roll</th>
+           <th colspan="2">: {{$row->roll}}</th>
+       
+      </tr>
+
+      <tr>
+           <th></th>
+           <th colspan="2">Group</th>
+           <th colspan="3">: {{$row->babu}}</th>
+           <th colspan="2">Class</th>
+           <th colspan="2">: {{$row->class}}</th>
+      </tr>
+
+
+       <tr>
+           <th></th>
+           <th colspan="2">Shift</th>
+           <th colspan="3">: {{shift($row->section,Session::get('school')->eiin)}}</th>
+           <th colspan="2">Section</th>
+           <th colspan="2">: {{$row->section}}</th>
+      </tr>
+
+
+      <tr>
+           <th></th>
+           <th colspan="3"></th>
+           <th colspan="2"></th>
+           <th colspan="3"></th>
+           <th ></th>
+           <th></th>
+           <th></th>
+           <th></th>
+      </tr>
+
+      <tr>
+           <th></th>
+           <th colspan="3"> </th>
+           <th colspan="2"> </th>
+           <th colspan="3"> </th>
+           <th> </th>
+           <th colspan="2" > </th>
+           <th ></th>
+      </tr>
+
+      @if($row->rs==2)
+      <tr>
+           <th></th>
+           <th colspan="3"></th>
+           <th colspan="2"></th>
+           <th colspan="3"></th>
+           <th> </th>
+           <th> </th>
+           <th colspan="2"></th>
+      </tr>
+
+      <tr>
+           <th></th>
+           <th colspan="3"></th>
+           <th colspan="2"></th>
+           <th colspan="3"></th>
+           <th ></th>
+           <th></th>
+           <th colspan="2"></th>
+      </tr>
+      @else
+      <tr>
+           <th></th>
+           <th colspan="3"></th>
+           <th colspan="2"></th>
+           <th colspan="3"></th>
+           <th ></th>
+           <th ></th>
+           <th colspan="2"></th>
+      </tr>
+
+      <tr>
+           <th></th>
+           <th colspan="3"></th>
+           <th colspan="2"></th>
+           <th colspan="3"></th>
+           <th ></th>
+           <th ></th>
+           <th colspan="2"></th>
+      </tr>
+      @endif  
+
+     
+
+      <tr>
+          <th width="10"></th> 
+          <th width="5"></th>
+          <th width="70"></th>
+          <th width="50"></th>
+          <th width="35"></th>
+          <th width="15"></th>
+          <th width="35"></th>
+          <th width="35"></th>
+          <th width="35"></th>
+          <th width="35"></th>
+          <th width="35"></th>
+          <th width="35"></th>
+          <th width="40"></th> 
+     </tr>
+
+
+      <tr>
+           <td colspan="2">Serial </td>
+           <td id="leftside" colspan="4">Name Of Subject</td>
+           <td   colspan="3">PI</td>
+           <td   colspan="3">BI</td>
+           <td ></td>
+      </tr>
+
+         @if(!empty(subjectshow('sub11',$row->class,$row->babu,$row->eiin)) && $row->sub11h)
+            <tr>          
+                <td colspan="2">i</td>  
+                <td id="leftside" colspan="4"> <?php echo substr($row->sub11n,0,30);?> </td>
+                <td> @if((subjectshow('sub11',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub11c==1)  <div class="square-square"></div> @else @endif  </td>
+                <td> @if((subjectshow('sub11',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub11c==2)  <div class="circle-circle"></div> @else @endif  </td>
+                <td> @if((subjectshow('sub11',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub11c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+                <td> @if((subjectshow('sub11',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub11m==1)  <div class="square-square"></div> @else @endif  </td>
+                <td> @if((subjectshow('sub11',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub11m==2)  <div class="circle-circle"></div> @else @endif  </td>
+                <td> @if((subjectshow('sub11',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub11m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+                <td> </td>
+           </tr>
+        @else
+           <tr>
+               <td colspan="2" >i</td> <td id="leftside" colspan="4" ></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+          </tr>
+       @endif
+ 
+
+      @if(!empty(subjectshow('sub12',$row->class,$row->babu,$row->eiin)) && $row->sub12h)
+        <tr>          
+           <td  colspan="2"> ii </td>  
+           <td  id="leftside" colspan="4"> <?php echo substr($row->sub12n,0,30); ?> </td>
+           <td> @if((subjectshow('sub12',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub12c==1)  <div class="square-square"></div> @else @endif  </td>
+         <td> @if((subjectshow('sub12',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub12c==2)  <div class="circle-circle"></div> @else @endif  </td>
+         <td> @if((subjectshow('sub12',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub12c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+         <td> @if((subjectshow('sub12',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub12m==1)  <div class="square-square"></div> @else @endif  </td>
+         <td> @if((subjectshow('sub12',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub12m==2)  <div class="circle-circle"></div> @else @endif  </td>
+         <td> @if((subjectshow('sub12',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub12m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+         <td>  </td>
+     </tr>
+      @else
+           <tr>
+                <td colspan="2">ii</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+
+   
+      @if(!empty(subjectshow('sub13',$row->class,$row->babu,$row->eiin)) && $row->sub13h)
+           <tr>          
+              <td  colspan="2">iii</td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub13n,0,30); ?> </td>
+              <td> @if((subjectshow('sub13',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub13c==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub13',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub13c==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub13',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub13c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td> @if((subjectshow('sub13',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub13m==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub13',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub13m==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub13',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub13m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">iii</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+  
+
+      @if(!empty(subjectshow('sub14',$row->class,$row->babu,$row->eiin)) && $row->sub14h)
+           <tr>          
+              <td  colspan="2"> iv </td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub14n,0,30); ?> </td>
+              <td> @if((subjectshow('sub14',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub14c==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub14',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub14c==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub14',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub14c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td> @if((subjectshow('sub14',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub14m==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub14',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub14m==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub14',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub14m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">iv</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+      @if(!empty(subjectshow('sub15',$row->class,$row->babu,$row->eiin)) && $row->sub15h) 
+           <tr>          
+              <td  colspan="2">v</td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub15n,0,30); ?> </td>
+              <td> @if((subjectshow('sub15',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub15c==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub15',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub15c==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub15',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub15c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td> @if((subjectshow('sub15',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub15m==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub15',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub15m==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub15',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub15m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">v</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+      @if(!empty(subjectshow('sub16',$row->class,$row->babu,$row->eiin)) && $row->sub16h)
+           <tr>          
+              <td  colspan="2"> vi </td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub16n,0,30); ?> </td>
+              <td> @if((subjectshow('sub16',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub16c==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub16',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub16c==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub16',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub16c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td> @if((subjectshow('sub16',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub16m==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub16',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub16m==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub16',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub16m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">vi</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+      @if(!empty(subjectshow('sub17',$row->class,$row->babu,$row->eiin)) && $row->sub17h)
+           <tr>          
+              <td  colspan="2"> vii </td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub17n,0,30); ?> </td>
+              <td> @if((subjectshow('sub17',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub17c==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub17',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub17c==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub17',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub17c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td> @if((subjectshow('sub17',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub17m==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub17',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub17m==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub17',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub17m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">vii</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+      @if(!empty(subjectshow('sub18',$row->class,$row->babu,$row->eiin)) && $row->sub18h)
+           <tr>          
+              <td  colspan="2"> viii </td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub18n,0,30); ?> </td>
+              <td> @if((subjectshow('sub18',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub18c==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub18',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub18c==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub18',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub18c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td> @if((subjectshow('sub18',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub18m==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub18',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub18m==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub18',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub18m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">viii</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+      @if(!empty(subjectshow('sub19',$row->class,$row->babu,$row->eiin)) && $row->sub19h)
+           <tr>          
+              <td  colspan="2">ix </td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub19n,0,30); ?> </td>
+              <td> @if((subjectshow('sub19',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub19c==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub19',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub19c==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub19',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub19c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td> @if((subjectshow('sub19',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub19m==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub19',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub19m==2)  <div class="circle-circle"></div> @else @endif  </td>
+             <td> @if((subjectshow('sub19',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub19m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+             <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">ix</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+
+      @if(!empty(subjectshow('sub20',$row->class,$row->babu,$row->eiin)) && $row->sub20h)
+           <tr>          
+              <td  colspan="2">x</td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub20n,0,30); ?></td>
+              <td> @if((subjectshow('sub20',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub20c==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub20',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub20c==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub20',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub20c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td> @if((subjectshow('sub20',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub20m==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub20',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub20m==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub20',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub20m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+             <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">x</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+      @if(!empty(subjectshow('sub21',$row->class,$row->babu,$row->eiin)) && $row->sub21h)
+           <tr>          
+              <td  colspan="2">xi</td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub21n,0,30); ?></td>
+              <td> @if((subjectshow('sub21',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub21c==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub21',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub21c==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub21',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub21c==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td> @if((subjectshow('sub21',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub21m==1)  <div class="square-square"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub21',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub21m==2)  <div class="circle-circle"></div> @else @endif  </td>
+              <td> @if((subjectshow('sub21',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub21m==3)  <div class="triangle-up"> </div> @else @endif  </td>
+              <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">xi</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+      @if(!empty(subjectshow('sub22',$row->class,$row->babu,$row->eiin)) && $row->sub22h)
+           <tr>          
+              <td  colspan="2">xii</td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub22n,0,30); ?></td>
+              <td> @if((subjectshow('sub22',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub22c>=1)  <div class="square-square"></div> @else @endif  </td>
+             <td> @if((subjectshow('sub22',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub22m>=1)  <div class="circle-circle"></div> @else @endif  </td>
+             <td> @if((subjectshow('sub22',$row->class,$row->babu,$row->eiin)['pstatus']=='number') && $row->sub22c>=1)  <div class="triangle-up"> </div> @else @endif  </td>
+             <td>  </td>
+             <td>  </td>
+             <td> </td>
+             <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">xii</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+      @if(!empty(subjectshow('sub23',$row->class,$row->babu,$row->eiin)) && $row->sub23h)
+           <tr>          
+              <td  colspan="2">xiii</td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub23n,0,30); ?></td>
+              <td> @if((subjectshow('sub23',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub23c>=1)  <div class="square-square"></div> @else @endif  </td>
+             <td> @if((subjectshow('sub23',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub23m>=1)  <div class="circle-circle"></div> @else @endif  </td>
+             <td> @if((subjectshow('sub23',$row->class,$row->babu,$row->eiin)['pstatus']=='number') && $row->sub23c>=1)  <div class="triangle-up"> </div> @else @endif  </td>
+             <td>  </td>
+             <td>  </td>
+             <td> </td>
+             <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">xiii</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+      @if(!empty(subjectshow('sub24',$row->class,$row->babu,$row->eiin)) && $row->sub24h)
+           <tr>          
+              <td  colspan="2">ivx</td>  
+              <td  id="leftside" colspan="4"> <?php echo substr($row->sub24n,0,30); ?></td>
+              <td> @if((subjectshow('sub24',$row->class,$row->babu,$row->eiin)['cstatus']=='number') && $row->sub24c>=1)  <div class="square-square"></div> @else @endif  </td>
+             <td> @if((subjectshow('sub24',$row->class,$row->babu,$row->eiin)['mstatus']=='number') && $row->sub24m>=1)  <div class="circle-circle"></div> @else @endif  </td>
+             <td> @if((subjectshow('sub24',$row->class,$row->babu,$row->eiin)['pstatus']=='number') && $row->sub24c>=1)  <div class="triangle-up"> </div> @else @endif  </td>
+             <td>  </td>
+             <td>  </td>
+             <td> </td>
+             <td>  </td>
+          </tr>
+      @else
+           <tr>
+                <td colspan="2">ivx</td> <td id="leftside" colspan="4"></td><td></td><td></td><td></td><td></td><td></td> <td></td><td></td> 
+           </tr>
+      @endif
+
+
+
+
+    
+
+     
+    
+
+     <tr>
+          <td colspan="2"></td>
+          <td id="leftside" colspan="4"></td>
+          <td></td>
+          <td> </td>
+          <td> </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+     </tr>
+
+    
+
+     <tr>
+          <th colspan="13" ></th> 
+     </tr>
+
+     <tr>
+         <th colspan="13" ></th> 
+     </tr>
+
+
+         
+     <tr>
+        <th colspan="13" ></th> 
+     </tr>
+
+  <tr>
+         <th></th>
+         <th id="sig" colspan="3" >Class Teacher Signature</th>
+          <th id="sig" colspan="5" >Head Teacher Signature</th>
+          <th  id="sig" colspan="4" >Guardian Signature</th>
+     </tr>
+
+     <tr>
+        <th colspan="13" ></th> 
+     </tr>
+
+</table>
+  <div class="page-break"></div>
+@endforeach  
+
+
+@else
 
 @foreach($student as $row)
 <div class="rayhan">
@@ -590,6 +1090,11 @@
 </table>
   <div class="page-break"></div>
 @endforeach  
+
+
+
+@endif
+
 
 
 

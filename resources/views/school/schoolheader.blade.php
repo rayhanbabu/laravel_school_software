@@ -247,7 +247,6 @@
      </nav>
   </div>
 
-
    <a class="nav-link @yield('paymentinfo') @yield('monthly-invoice') @yield('payment-summary') @yield('payment-summary') collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapseLayouts">
    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
         Payment Info
@@ -259,6 +258,7 @@
                <a class="nav-link @yield('monthly-invoice')" href="{{url('monthly-invoice')}}">Monthly  Invoice</a>
                <a class="nav-link @yield('payment-details')" href="{{url('payment-details')}}">Payment </a>
                <a class="nav-link @yield('payment-summary')" href="{{url('payment-summary')}}">Payment Summary </a>
+               <a class="nav-link @yield('monthly-payment')" href="{{url('monthly-payment')}}">Payment Edit</a>
            </nav>
       </div>
 
@@ -386,8 +386,7 @@
        </a>
      @endif
 
-  @if(Session::get('teacher')->teacher_fin_access)
-        
+  @if(Session::get('teacher')->teacher_fin_access)      
      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapseLayouts">
       <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
         Payment 
@@ -399,6 +398,7 @@
                <a class="nav-link @yield('monthly-invoice')" href="{{url('monthly-invoice')}}">Monthly  Invoice</a>
                <a class="nav-link @yield('payment-details')" href="{{url('payment-details')}}">Payment </a>
                <a class="nav-link @yield('payment-summary')" href="{{url('payment-summary')}}">Payment Summary </a>
+               <a class="nav-link @yield('monthly-payment')" href="{{url('monthly-payment')}}">Payment Edit</a>
             </nav>
         </div>
 

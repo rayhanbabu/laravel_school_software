@@ -11,26 +11,25 @@
   <form  method="POST" id="update_form" enctype="multipart/form-data">
    <table class="table table-bordered" style="font-size:15px;" >
      <thead>
-     <tr style="background: whitesmoke;">
-
+        <tr style="background: whitesmoke;">
                <input type="hidden" name="tmark" value="{{$name->tmark}}"  class="form-control">
                <input type="hidden" name="cfail" value="{{$name->cfail}}"  class="form-control">
                <input type="hidden" name="mfail" value="{{$name->mfail}}"  class="form-control">
                <input type="hidden" name="pfail" value="{{$name->pfail}}"   class="form-control">
                <input type="hidden" name="subname" value="{{$name->subject}}"  class="form-control">
                <input type="hidden" name="subid" value="{{$name->subid}}"  class="form-control">
-               <input type="hidden" name="subcode" value="{{$name->subcode}}"  class="form-control">
-                  
+               <input type="hidden" name="subcode" value="{{$name->subcode}}"  class="form-control">    
                <th width ="5%">Stu_ID</th>
-                  <th width ="2%">Roll</th>
-                  <th width ="15%"> Name of Student </th>	
+               <th width ="2%">Roll</th>
+               <th width ="15%"> Name of Student </th>	
+
                   @if($name->cstatus=='number')
-                  <th width="7%"><span class="text-white"> .........</span>CQ</th>	
+                  <th width="7%"><span class="text-white"> .........</span>CQ/PI</th>	
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
                   @if($name->mstatus=='number')		   
-                  <th width="7%"><span class="text-white"> ........</span>Mcq</th> 
+                  <th width="7%"><span class="text-white"> ........</span>MCQ/BI</th> 
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
@@ -39,6 +38,7 @@
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
+
                   <th width="7%"> Total  </th> 
                   <th width="5%">Gpa </th> 
                   <th width="7%">Grade  </th> 				 				   

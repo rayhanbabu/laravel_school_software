@@ -20,13 +20,13 @@ class PaymentinfoController extends Controller
 {
     
     public function index()
-     {
-         $class=Exam::where('babu','class')->orderBy('serial','asc')->get();
-         $group=Exam::where('babu','group')->orderBy('serial','asc')->get();
-         $admin=School::where('eiin','=',Session::get('admin')->eiin)->first();
-         $subject=Exam::where('babu','subject')->orderBy('text1','asc')->get();
-      return view('admin.paymentinfo',['admin'=>$admin,'subject'=>$subject,'class'=>$class,'group'=>$group]);
-     }
+       {
+            $class=Exam::where('babu','class')->orderBy('serial','asc')->get();
+            $group=Exam::where('babu','group')->orderBy('serial','asc')->get();
+            $admin=School::where('eiin','=',Session::get('admin')->eiin)->first();
+            $subject=Exam::where('babu','subject')->orderBy('text1','asc')->get();
+            return view('admin.paymentinfo',['admin'=>$admin,'subject'=>$subject,'class'=>$class,'group'=>$group]);
+       }
 
 
 
@@ -224,7 +224,7 @@ class PaymentinfoController extends Controller
            $data=[];
            $fail='';
             if(!empty($section) && !empty($group) && !empty($date) && !empty($section)){
-                $data=Invoice::where('section',$section)->where('babu',$group)->where('class',$class)
+                $data=Invoice::where('section',$section)->where('babu',$group)->where('class',$class)->where('category','Invoice')
                  ->where('month',$month)->where('year',$year)->where('eiin',$school->eiin)->get();
              }
 
@@ -513,7 +513,6 @@ class PaymentinfoController extends Controller
 
     public function monthly_update(Request $request ){
       
-
      $model=Invoice::find($request->input('edit_id'));
        if($model){
               $model->invoice_des2=$request->input('des2');
@@ -658,19 +657,16 @@ class PaymentinfoController extends Controller
            
             public function spendday(Request $request) {
 
-
               if(Session::has('school')){ 
-                    $school=School::where('eiin',Session::get('school')->eiin)->first();  
+                      $school=School::where('eiin',Session::get('school')->eiin)->first();  
               }elseif(Session::has('teacher')){
-                    $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
+                      $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
               }
                  $day=date('Y-m-d',strtotime($_POST['date']));
                  $day1=date('d-F-Y',strtotime($_POST['date']));
                  $file='spend'.$day1.'.pdf';	
                  $spend=DB::table('spends')->where('eiin',$school->eiin)->where('date',$day)->get();
                
-                
-
                  return view('pdf.spendday',[
                   'day1'=>$day1,
                   'school'=>$school,
@@ -693,22 +689,86 @@ class PaymentinfoController extends Controller
                  $file='spend'.$day1.'.pdf';	
                  $payment=DB::table('invoices')->where('eiin',$school->eiin)->where('date',$day)->get();
                
-                
-
                  return view('pdf.paymentday',[
                   'day1'=>$day1,
                   'school'=>$school,
                   'payment' => $payment, 
               ]);
+         }
 
-      
-             }
+
+          // update School panel
+      public function paymentinfoupdate(Request $request ){
+
+       $model=Paymentinfo::find($request->input('edit_id'));
+         if($model){
+              $model->des1=$request->input('des1');
+              $model->des_amount1=$request->input('des_amount1');
+              $model->amount1=$request->input('amount1');
+              $model->update();   
+          }
+
+         return back()->with('success','Update Information');
+     }
       
       
       
     
   
-  
+     //get method with query parameter
+     public function monthly_payment(){
+         $section=Session::get('section');
+        if(Session::has('school')){ 
+             $school=School::where('eiin',Session::get('school')->eiin)->first();  
+        }elseif(Session::has('teacher') && Session::get('teacher')->teacher_fin_access){
+             $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
+        }else{
+             return redirect()->back();
+        }
+
+    $classrow=Exam::where('babu','class')->orderBy('serial','asc')->get();
+    $grouprow=Exam::where('babu','group')->orderBy('serial','asc')->get();
+    $sectionrow=Exam::where('babu','section')->orderBy('serial','asc')->get();
+
+    if(isset($_GET['group']) && isset($_GET['class']) && isset($_GET['date']) && isset($_GET['action']) ){
+          $group=$_GET['group'];
+          $class=$_GET['class'];
+          $date=$_GET['date'];
+          $action=$_GET['action'];
+          $section=$_GET['section'];
+    }else{
+         $group='';
+         $class='';
+         $date='';
+         $action='';  
+         $section='';  
+    }
+
+    $month=date('n',strtotime($date));
+    $year=date('Y',strtotime($date));
+
+     $data=[];
+     $fail='';
+      if(!empty($section) && !empty($group) && !empty($date) && !empty($section)){
+          $data=Invoice::where('section',$section)->where('babu',$group)->where('class',$class)->where('category','Payment')
+           ->where('month',$month)->where('year',$year)->where('eiin',$school->eiin)->get();
+       }
+
+  return view('school.monthly-payment',['school'=>$school ,'data'=>$data,'classrow'=>$classrow,
+    'grouprow'=>$grouprow,'sectionrow'=>$sectionrow,'group'=>$group,'class'=>$class,'date'=>$date,
+    'section'=>$section,'data'=>$data,'fail'=>$fail,'action'=>$action]);
+  }
+
+
+  public function payment_update(Request $request ){
+       $model=Invoice::find($request->input('edit_id'));
+      if($model){
+             $model->payment_amount=$request->input('amount');
+             $model->update();   
+         }
+         return redirect()->back()->with('success','Data Update Successfull');  
+     }
+
 
 
 
