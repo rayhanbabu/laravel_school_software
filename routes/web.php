@@ -389,9 +389,7 @@ use App\Http\Controllers\VedioController;
           //Payment information with ipdate
           Route::get('/paymentinfoschool',[PaymentinfoController::class,'indexschool']);
           Route::get('/paymentview/{edit_id}',[PaymentinfoController::class, 'paymentview']);
-          Route::post('/paymentinfoupdate',[PaymentinfoController::class,'paymentinfoupdate']);
-
-          
+          Route::post('/paymentinfoupdate',[PaymentinfoController::class,'paymentinfoupdate']); 
           Route::get('/monthly-invoice',[PaymentinfoController::class,'monthly_invoice']);
           Route::get('/monthlyview/{edit_id}',[PaymentinfoController::class,'monthlyview']);
           Route::post('/monthly-update',[PaymentinfoController::class,'monthly_update']);
@@ -410,12 +408,11 @@ use App\Http\Controllers\VedioController;
           Route::post('/paymentday',[PaymentinfoController::class,'paymentday']);
           Route::post('/spend-month',[PaymentinfoController::class,'spend_month']);
           Route::post('/spendday',[PaymentinfoController::class,'spendday']);
+          Route::post('/class-wise-payment',[PaymentinfoController::class,'class_wise_payment']);
 
           Route::get('/monthly-payment',[PaymentinfoController::class,'monthly_payment']);
           Route::post('/payment-update',[PaymentinfoController::class,'payment_update']);
          
-         
-
          //Spend  View 
          Route::get('/spendindex', [SpendController::class,'spendindex']);
          Route::get('/spend/fetchall',[SpendController::class,'fetchAll']);
@@ -425,7 +422,7 @@ use App\Http\Controllers\VedioController;
          Route::delete('/spend/delete',[SpendController::class, 'delete']);
 
 
-         //Three Na Marks Input
+       //Three Na Marks Input
        Route::get('/ThrNainput', [ThreeNaController::class,'ThrNainput']);
        Route::get('/ThrNaSelect/{tecodesection}', [ThreeNaController::class,'ThrNaSelect']);  
        Route::get('/Thr/NA/sub11/{tecode}', [ThreeNaController::class,'ThrNasub']);
@@ -450,9 +447,7 @@ use App\Http\Controllers\VedioController;
        Route::post('Thr/Na/sub_update16', [ThreeNaController::class,'ThrNasub_update16']);
        Route::post('Thr/Na/sub_update24', [ThreeNaController::class,'ThrNasub_update24']);
 
-
-
-    //Four Na Marks Input
+      //Four Na Marks Input
      Route::get('/FouNainput', [FourNaController::class,'FouNainput']);
      Route::get('/FouNaSelect/{tecodesection}', [FourNaController::class,'FouNaSelect']);  
      Route::get('/Fou/NA/sub11/{tecode}', [FourNaController::class,'FouNasub']);
@@ -818,6 +813,7 @@ use App\Http\Controllers\VedioController;
          Route::post('admin/marksupdate',[MarkController::class,'marksupdate']);
          Route::post('admin/marksdelete',[MarkController::class,'marksdelete']);
          Route::post('admin/marksstudent',[MarkController::class,'marksstudent']);
+         Route::get('admin/marks/{id}',[MarkController::class,'markdelete']);
 
 
         //Student  Finance   table View

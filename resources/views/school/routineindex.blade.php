@@ -4,7 +4,6 @@
 
 
 <div class="row mt-3 mb-0 mx-2">
-         
                <div class="col-4"> <h4 class="mt-0">Class Routine, Section : {{Session::get('section')}} </h4></div>
 
 
@@ -14,12 +13,15 @@
       <form method="post" action="{{url('routine')}}"  class="myform"  enctype="multipart/form-data" >
                 {!! csrf_field() !!}
                            
-                            <select class="form-control"   name ="class"  required>
+                            <select class="js-example-basic-single form-control"   name ="class"  required>
 				                        <option  value="">Select Class </option>
                                    @foreach($class as $row)
                                <option value="{{$row->text1}}">{{$row->text2}}</option>
                                     @endforeach		   						
 				                    </select>
+
+                          
+
 
                             <select class="form-control"   name ="babu" required >
 				                         <option  value="">Select Group </option>
@@ -124,7 +126,7 @@
 
             <div class="col-lg-3 my-2">
               <label for="name">Name od Subject</label>
-              <select class="form-select" name="sub1" id="sub1" aria-label="Default select example"   >
+              <select class="js-example-basic-single1 form-select" name="sub1" id="sub1" aria-label="Default select example"   >
                              <option  value="">Select One </option>
                              @foreach($subject as $row)
                              <option   value="{{$row->serial}}">{{$row->text1}}</option>
@@ -695,6 +697,8 @@
  
        // add new employee ajax request
       
+       $('.js-example-basic-single').select2();
+
          let formData=new FormData($('#add_form')[0]);
   
        $("#add_employee_form").submit(function(e) {

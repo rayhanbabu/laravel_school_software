@@ -65,6 +65,7 @@ class SpendController extends Controller
        }
 
 
+       
 
        public function fetchAll(){
         if(Session::has('school')){ 

@@ -74,8 +74,9 @@ th, td {
              <th width="">Class</th>
              <th width="">Group</th>
              <th width="">Section</th>
-		       <th width="">Payment Amount</th>
-             <th width="">Payment Type</th>
+		         <th width="">Payment Amount</th>
+             <th width="">Payment , Received Type </th>
+             <th width="">Payment Time </th>
          </tr>
       @else
       <tr>
@@ -89,22 +90,23 @@ th, td {
   @foreach($invoice as $user)
     @if($month)
       <tr>
-	          <td align="left">{{$user->student_id}}</td>
-		       <td align="left">{{$user->roll}}</td>
+	           <td align="left">{{$user->student_id}}</td>
+		         <td align="left">{{$user->roll}}</td>
              <td align="left">{{substr($user->name,0,20)}}</td>
              <td align="left">{{$user->class}}</td>
              <td align="left">{{$user->babu}}</td>
              <td align="left">{{$user->section}}</td>
              <td align="right">{{ $user->payment_amount}}TK</td> 
-             <td align="right">{{ $user->payment_type}}</td>      
+             <td align="right">{{ $user->payment_type}} , {{ $user->received_type}}</td>   
+             <td align="right">{{ $user->time}}</td>    
      </tr>
 
      @else
-         <tr>
-             <td align="left">{{$user->month}}</td>
-		       <td align="left">{{$user->id_total}}</td>
-             <td align="right">{{$user->payment_total}}TK</td>
-        </tr>
+          <tr>
+              <td align="left">{{$user->month}}</td>
+		          <td align="left">{{$user->id_total}}</td>
+              <td align="right">{{$user->payment_total}}TK</td>
+         </tr>
      @endif
    
   @endforeach

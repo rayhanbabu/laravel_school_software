@@ -131,6 +131,19 @@
           }
        }
 
+
+       function fin_access($fincode,$finauth){   
+        foreach($finauth as $row) {
+          if($fincode==$row->facode){
+                 return 
+                    [
+                      'facode'=>$row->facode,  
+                    ];    
+             }
+          }
+       }
+
+
        function  paymentinfo(){ 
         $paymentinfo=DB::table('paymentinfos')
         ->where('eiin',Session::get('school')->eiin)->where('section',Session::get('section'))->get();
@@ -138,64 +151,7 @@
        }
 
 
-       function invoice_create($class,$babu){
-  
-        $info1=DB::table('paymentinfos')->where('class',$class)->where('babu',$babu)
-        ->where('eiin',Session::get('school')->eiin)->where('section',Session::get('section'))->first();
-
-        $pre_invoice1=Invoice::where('invoice_month','=',$info1->pre_month)->where('invoice_year',$info1->pre_year)
-        ->where('eiin',Session::get('school')->eiin)->where('section',Session::get('section'))
-        ->where('class',$info1->class)->where('babu',$info1->babu)->get();
-
-
-        // echo prx($pre_invoice1);
-        //die();
-            
-      if($pre_invoice1->count()>0){   
-         foreach($pre_invoice1 as $row){                
-            $invoice= new Invoice;
-            $invoice->uid=$row['uid'];
-            $invoice->eiin=$row['eiin'];
-            $invoice->section=$row['section'];
-            $invoice->class=$row['class'];
-            $invoice->babu=$row['babu'];
-            $invoice->invoice_date=$info1->date;
-            $invoice->invoice_month=date('n',strtotime($info1->date));
-            $invoice->invoice_year=date('Y',strtotime($info1->date));
-            $invoice->des1=$info1->des1;
-            $invoice->amount1=$info1->amount1;
-            $invoice->des2=$info1->des2;
-            $invoice->amount2=$info1->amount2;
-            $invoice->des3=$info1->des3;
-            $invoice->amount3=$info1->amount3;
-            $invoice->des4=$info1->des4;
-            $invoice->amount4=$info1->amount4;
-            $invoice->des5=$info1->des5;
-            $invoice->amount5=$info1->amount5;
-            $invoice->des6=$info1->des6;
-            $invoice->amount6=$info1->amount6;
-            $invoice->status=0;
-            $invoice->totalamount=$info1->amount6+$info1->amount5+$info1->amount4
-            +$info1->amount4+$info1->amount3+$info1->amount2+$info1->amount1;
-            if($row['status']==1){
-                $invoice->pre_monthdue=0;  
-                $invoice->cur_monthpayment=$info1->amount6+$info1->amount5+$info1->amount4
-                          +$info1->amount4+$info1->amount3+$info1->amount2+$info1->amount1;    
-             }else{
-                $invoice->pre_monthdue=$row['cur_monthpayment']; 
-                $invoice->cur_monthpayment=$info1->amount6+$info1->amount5+$info1->amount4
-                   +$info1->amount4+$info1->amount3+$info1->amount2+$info1->amount1+$row['cur_monthpayment']; 
-             }
-           
-            $invoice->save();
-
-               }
-           }
-       }
-
-
-
-
+     
 
  function  gpa($subc,$cfail,$subm,$mfail,$subp,$pfail,$total,$markinfo,$tmark){         
    if($subc<$cfail){

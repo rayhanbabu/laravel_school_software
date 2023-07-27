@@ -28,9 +28,7 @@ class MarkController extends Controller
         $group=Exam::where('babu','group')->orderBy('serial','asc')->get();
         $section=Exam::where('babu','section')->orderBy('serial','asc')->get();
 
-     
-
-
+    
         $student = DB::table('marks')
         ->leftjoin('students', 'students.id', '=', 'marks.uid')
         ->where('marks.babu',$babu)->where('marks.class',$class)->where('marks.section', $admin->admin_section)
@@ -38,7 +36,7 @@ class MarkController extends Controller
         ->select('students.name','students.stu_id','students.roll','students.moral','students.main','students.addi','marks.*')
         ->orderBy('students.roll','asc')->get();
 
-       
+    
         return view('admin.markview',['admin'=>$admin,'student'=>$student,'exam'=>$exam,
            'year'=>$year,'classarr'=>$classarr ,'group'=>$group ,'section'=>$section]);
     }
@@ -93,7 +91,6 @@ class MarkController extends Controller
                 $student->sub16n=$row['sub16n'];
                 $student->sub23n=$row['sub23n'];
                 $student->sub24n=$row['sub24n'];
-               
                 $student->save();
               } 
 
@@ -133,8 +130,8 @@ class MarkController extends Controller
          $babu=$request->input('babu');
          $section=$request->input('section');
 
-    $examinfo = Examinfo::where('babu',$babu)->where('class',$class)->where('eiin',$admin->eiin)->first();  
-    $student=Student::where('section',$section)->where('babu',$babu)->where('class',$class)
+     $examinfo = Examinfo::where('babu',$babu)->where('class',$class)->where('eiin',$admin->eiin)->first();  
+     $student=Student::where('section',$section)->where('babu',$babu)->where('class',$class)
       ->where('eiin',$admin->eiin)->get();
 
      $tstudent=Mark::where('section',$section)->where('babu',$babu)->where('class',$class)
@@ -172,6 +169,13 @@ class MarkController extends Controller
         return redirect()->back()->with('fail','No Data Found From Information ');
        }
    }
+
+   public function markdelete($id){
+    $subject=Mark::find($id);
+    $subject->delete();
+    return redirect()->back()->with('success','Marks Deleted Successfuly');
+ } 
+    
 
 
 

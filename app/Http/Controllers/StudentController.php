@@ -31,30 +31,29 @@ class StudentController extends Controller
    
 
     public function store(Request $request){
+          $school=schoolsession();
+          $data= Student::where('roll',$request->input('roll'))->where('babu',$request->input('babu'))
+            ->where('class',$request->input('class'))->where('section',Session::get('section'))
+            ->where('eiin',$school->eiin)->count('id');
 
-         $school=schoolsession();
-         $data= Student::where('roll',$request->input('roll'))->where('babu',$request->input('babu'))
-          ->where('class',$request->input('class'))->where('section',Session::get('section'))
-          ->where('eiin',$school->eiin)->count('id');
-
-         $examinfo=Examinfo::where('eiin',schoolsession()->eiin)->where('babu',$request->input('babu'))
-          ->where('class',$request->input('class'))->first();
+          $examinfo=Examinfo::where('eiin',schoolsession()->eiin)->where('babu',$request->input('babu'))
+            ->where('class',$request->input('class'))->first();
          
          $paymentinfo=Paymentinfo::where('eiin',schoolsession()->eiin)->where('babu',$request->input('babu'))
-          ->where('class',$request->input('class'))->where('section',Session::get('section'))->first();
+            ->where('class',$request->input('class'))->where('section',Session::get('section'))->first();
 
         if($data>=1){
-          return response()->json([
-              'status'=>200,  
-              'message'=>'Roll number already exist',
-          ]);
-        }else if(empty($examinfo)){
-          return response()->json([
+           return response()->json([
                'status'=>200,  
-              'message'=>'This Class are not setup Exam name & year',
-        ]);
-        }
-        else{
+               'message'=>'Roll number already exist',
+           ]);
+        }else if(empty($examinfo)){
+            return response()->json([
+               'status'=>200,  
+                'message'=>'This Class are not setup Exam name & year',
+            ]);
+         }
+         else{
             $max=Student::max('id');
             $prefix=5000000;
             $stu_id= $prefix+$max;

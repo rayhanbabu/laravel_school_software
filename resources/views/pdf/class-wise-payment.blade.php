@@ -3,11 +3,11 @@
  <head>
 	 <script>
  function printContent(e1){
-    var restorepage= document.body.innerHTML;
-    var printcontent= document.getElementById(e1).innerHTML;
-    document.body.innerHTML=printcontent;
-    window.print();
-    document.body.innerHTML=restorepage;
+   var restorepage= document.body.innerHTML;
+   var printcontent= document.getElementById(e1).innerHTML;
+   document.body.innerHTML=printcontent;
+   window.print();
+   document.body.innerHTML=restorepage;
   }
   
 </script>
@@ -61,45 +61,69 @@ th, td {
 
     <div class="area">
   <center>
-  <h2> {{$school->school}}</h2>
-   <p> Daily Payment Summary  : {{$day1}} </p>
+       <h2> {{$school->school}}</h2>
+       <h4>Class Wise Payment Summary : {{$year}} - {{$month}} </h4>
        
       
 <table>
- 
-       <tr>
-            <th width="">Student Id</th>
+ @if($month)
+        <tr>
+             <th width="">Student Id</th>
              <th width="">Roll</th>
              <th width="195">Name</th>
              <th width="">Class</th>
              <th width="">Group</th>
              <th width="">Section</th>
 		         <th width="">Payment Amount</th>
-             <th width="">Payment, Received Type</th>
-             <th width="">Payment Time</th>
-        </tr>
-     
+             <th width="">Payment , Received Type </th>
+             <th width="">Payment Time </th>
+         </tr>
+      @else
+      <tr>
+             <th width="100">Month</th>
+             <th width="100">No Of Payment</th>
+             <th width="150">Payment Amount</th>
+      </tr>
+      @endif
+  
 
-    @foreach($payment as $user)
-         <tr>
-             <td align="left">{{$user->student_id}}</td>
+  @foreach($invoice as $user)
+    @if($month)
+      <tr>
+	           <td align="left">{{$user->student_id}}</td>
 		         <td align="left">{{$user->roll}}</td>
              <td align="left">{{substr($user->name,0,20)}}</td>
              <td align="left">{{$user->class}}</td>
              <td align="left">{{$user->babu}}</td>
              <td align="left">{{$user->section}}</td>
              <td align="right">{{ $user->payment_amount}}TK</td> 
-             <td align="right">{{ $user->payment_type}}, {{ $user->received_type}}</td> 
-             <td align="right">{{ $user->time}}</td>     
+             <td align="right">{{ $user->payment_type}} , {{ $user->received_type}}</td>   
+             <td align="right">{{ $user->time}}</td>    
+     </tr>
+
+     @else
+          <tr>
+              <td align="left">{{$user->month}}</td>
+		          <td align="left">{{$user->id_total}}</td>
+              <td align="right">{{$user->payment_total}}TK</td>
          </tr>
-     @endforeach
+     @endif
+   
+  @endforeach
 
- 
-    <tr>
-      <td colspan="6">  </td>
-      <td  align="right">{{$payment->sum('payment_amount') }}  TK</td>
+  @if($month)
+  <tr>
+    <td colspan="6">  </td>
+    <td  align="right"> {{$invoice->sum('payment_amount') }} TK</td>
+    <td>  </td>
   </tr>
-
+  @else
+  <tr>
+    <td colspan="2">  </td>
+    <td  align="right">{{$invoice->sum('payment_total') }}  TK</td>
+   
+  </tr>
+  @endif
   
 </table>
 

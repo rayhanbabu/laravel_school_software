@@ -20,12 +20,12 @@
         </div>
 
 
-        <div class="row my-1">
+  <div class="row my-1">
     <div class="col-md-9">
-    <div id="success_message"></div>  
-    @if(session('status'))
-   <h5 class="alert alert-success">{{ session('status')}} </h5>
-          @endif
+       <div id="success_message"></div>  
+        @if(session('status'))
+        <h5 class="alert alert-success">{{ session('status')}} </h5>
+        @endif
     </div>
     <div class="col-md-3">
      <div class="form-group">
@@ -56,9 +56,13 @@
        
     </tbody>
   </table>
-    <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
-    <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="roll" />
-    <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc" />
+     <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
+     <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="roll" />
+     <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc" />
+
+      <input type="hidden" name="class" id="class" value="{{$class}}"/>
+      <input type="hidden" name="babu" id="babu" value="{{$babu}}"/>
+      <input type="hidden" name="section" id="section" value="{{$section}}"/>
  
 </div>
 </div>
@@ -73,26 +77,33 @@ $(document).ready(function(){
 
          fetch();
          function fetch(){
+           var className=$('#class').val();
+           var babu=$('#babu').val();
+           var section=$('#section').val();
             $.ajax({
-             type:'GET',
-             url:'/payment-details-fetch',
-             datType:'json',
-             success:function(response){
-                    $('tbody').html('');
-                    $('.x_content tbody').html(response);      
-                }
+              type:'GET',
+              url:"/payment-details-fetch?class="+className+"&babu="+babu+"&section="+section,
+              datType:'json',
+              success:function(response){
+                     $('tbody').html('');
+                     $('.x_content tbody').html(response);      
+                 }
             });
          }
 
 
-         function fetch_data(page, sort_type="", sort_by="", search=""){
-        $.ajax({
-        url:"/payment_fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&search="+search,
-        success:function(data)
-           {
-             $('tbody').html('');
-             $('.x_content tbody').html(data);
-           }
+      function fetch_data(page, sort_type="", sort_by="", search=""){
+            var className=$('#class').val();
+            var babu=$('#babu').val();
+            var section=$('#section').val(); 
+         $.ajax({
+         url:"/payment_fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&search="+search+"&class="+className+"&babu="+babu+"&section="+section,
+         success:function(data)
+            {
+               console.log(data);
+               $('tbody').html('');
+               $('.x_content tbody').html(data);
+            }
          });
          }
    
@@ -199,33 +210,39 @@ $(document).ready(function(){
                 }
 
                      payment+='<div class="row">';
-                     payment+='<div class="col-sm-2">';
-                     payment+='<b>Payment Id</b>';
-                     payment+='</div>'
-                     payment+='<div class="col-sm-4">';
-                     payment+='<b>Payment Time</b>';
-                     payment+='</div>'
-                     payment+='<div class="col-sm-3">';
-                     payment+='<b>Payment Type</b>';
+                     payment+='<div class="col-sm-1">';
+                     payment+='<b> Payment Id</b>';
                      payment+='</div>';
                      payment+='<div class="col-sm-3">';
-                     payment+='<b>Payment Amount</b>'; 
+                     payment+='<b> Payment Time</b>';
+                     payment+='</div>'
+                     payment+='<div class="col-sm-3">';
+                     payment+='<b> Payment Type</b>';
+                     payment+='</div>';
+                     payment+='<div class="col-sm-3">';
+                     payment+='<b> Received Type</b>';
+                     payment+='</div>';
+                     payment+='<div class="col-sm-2">';
+                     payment+='<b> Payment Amount</b>'; 
                      payment+='</div>';
                      payment+='<hr>';
 		                 payment+='</div>';
 
-                     for(var row of response.payment){
+                   for(var row of response.payment){
                           payment+='<div class="row">';
-                          payment+='<div class="col-sm-2">';
+                          payment+='<div class="col-sm-1">';
                           payment+=row.id;
                           payment+='</div>'
-                          payment+='<div class="col-sm-4">';
+                          payment+='<div class="col-sm-3">';
                           payment+=row.time;
                           payment+='</div>'
                           payment+='<div class="col-sm-3">';
                           payment+=row.payment_type;
                           payment+='</div>';
                           payment+='<div class="col-sm-3">';
+                          payment+=row.received_type;
+                          payment+='</div>';
+                          payment+='<div class="col-sm-2">';
                           payment+=row.payment_amount; 
                           payment+='</div>';
                           payment+='<hr>';
@@ -256,8 +273,17 @@ $(document).ready(function(){
                    $('#success_message').text(response.message);
                 }else{
                    $('#payNow').modal('show');
+                   $('#edit_uid').val(response.value.uid);
+                   $('#edit_name').val(response.value.name); 
+                   $('#edit_student_id').val(response.value.student_id); 
+                   $('#edit_roll').val(response.value.roll); 
+                   $('#edit_class').val(response.value.class); 
+                   $('#edit_section').val(response.value.section);
+                   $('#edit_eiin').val(response.value.eiin);
+                   $('#edit_babu').val(response.value.babu);
+
+
                    $('#student_id').text(response.value.student_id);
-                   $('#pay_uid').val(response.value.uid);
                    $('#name').text(response.value.name);
                    $('#roll').text(response.value.roll);
                    $('#class').text(response.value.class);
@@ -286,8 +312,8 @@ $(document).ready(function(){
              processData:false,
              beforeSend : function()
                {
-                 $('.loader').show();
-                 $("#pay_btn").prop('disabled', true);
+                  $('.loader').show();
+                  $("#pay_btn").prop('disabled', true);
                },
              success:function(response){
                    console.log(response);
@@ -387,7 +413,15 @@ $(document).ready(function(){
 	         	</div> 
             <br>
       
-             <input type="hidden"  name="pay_uid" id="pay_uid" > 
+              <input type="hidden"  name="edit_uid" id="edit_uid"> 
+              <input type="hidden"  name="edit_name" id="edit_name"> 
+              <input type="hidden"  name="edit_roll" id="edit_roll"> 
+              <input type="hidden"  name="edit_class" id="edit_class"> 
+              <input type="hidden"  name="edit_babu" id="edit_babu"> 
+              <input type="hidden"  name="edit_eiin" id="edit_eiin"> 
+              <input type="hidden"  name="edit_student_id" id="edit_student_id"> 
+              <input type="hidden"  name="edit_section" id="edit_section"> 
+
              <div class="row">
                    <div class="col-sm-4"><b>Present Payment Amount</b> </div>
                    <div class="col-sm-4"><input type="number" min="0" name="payment" id="edit_payment" class="form-control" required> </div>

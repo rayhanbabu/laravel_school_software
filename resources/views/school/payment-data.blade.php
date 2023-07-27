@@ -13,7 +13,6 @@
         <td><button type="button" value="{{ $row->uid}}"  class="payNow btn btn-info btn-sm">Pay Now </button> </td></td>
     </tr>
   @endforeach
-
       <tr class="pagin_link ">
              <td colspan="11" align="center">
                  {!! $invoice->links() !!}

@@ -3,6 +3,7 @@
    use App\Models\Subjectauth;
    use App\Models\Onlinepayment;
    use App\Models\School;
+   use Illuminate\Support\Facades\DB;
 ?>
 
 <!DOCTYPE html>
@@ -39,8 +40,11 @@
         <script src="{{asset('dashboardfornt/js/sweetalert.min.js')}}"></script>
         <script src="{{asset('dashboardfornt/js/scripts.js')}}"></script>
         
-         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
       
@@ -372,6 +376,7 @@
          }
 
        $data=Subjectauth::where('teacher_id',Session::get('teacher')->id)->get();
+       $fin=DB::table('faaccess')->where('category','Fin')->where('teacher_id',Session::get('teacher')->id)->get();
    ?>
 
 
@@ -385,41 +390,48 @@
                Take Attendance
        </a>
      @endif
+       <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsefin" aria-expanded="false" aria-controls="collapseLayouts">
+        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+          Payment 
+           <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+       </a>
+         <div class="collapse" id="collapsefin" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                 @foreach($fin as $row)
+                       <a class="nav-link" href="{{url('payment-details?class='.$row->class.'&babu='.$row->babu.'&section='.$row->section.'&facode='.$row->facode)}}">
+                           {{$row->class}}-{{$row->babu}}-{{$row->section}}
+                      </a>
+                  @endforeach  
+                <a class="nav-link @yield('payment-summary')" href="{{url('payment-summary')}}">Payment Summary </a>
+             </nav>
+         </div>
 
-  @if(Session::get('teacher')->teacher_fin_access)      
-     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapseLayouts">
+      
+
+
+
+
+    
+
+
+      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsepayment" aria-expanded="false" aria-controls="collapseLayouts">
       <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-        Payment 
+       Marks Input
         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
      </a>
         <div class="collapse" id="collapsepayment" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
            <nav class="sb-sidenav-menu-nested nav">
-               <a class="nav-link @yield('paymentinfo')" href="{{url('paymentinfoschool')}}">Payment Setup</a>
-               <a class="nav-link @yield('monthly-invoice')" href="{{url('monthly-invoice')}}">Monthly  Invoice</a>
-               <a class="nav-link @yield('payment-details')" href="{{url('payment-details')}}">Payment </a>
-               <a class="nav-link @yield('payment-summary')" href="{{url('payment-summary')}}">Payment Summary </a>
-               <a class="nav-link @yield('monthly-payment')" href="{{url('monthly-payment')}}">Payment Edit</a>
+                @foreach($data as $row)
+                      <a class="nav-link" href="{{tlink($row->tecode)}}">
+                           {{showsubject($row->tecode)}}
+                      </a>
+                 @endforeach     
             </nav>
         </div>
 
-
-       <a class="nav-link" href="{{url('/spendindex')}}">
-          <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-             Spend 
-       </a>
-
-
-
-      @endif
-    
    
 
-    @foreach($data as $row)
-          <a class="nav-link" href="{{tlink($row->tecode)}}">
-               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                 {{showsubject($row->tecode)}}
-          </a>
-     @endforeach
+  
 
   
 

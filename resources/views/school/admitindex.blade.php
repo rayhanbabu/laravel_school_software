@@ -45,7 +45,7 @@
 
              <div class="col-lg-4 my-2">
                <label for="lname">Class <span style="color:red;"> * </span></label>
-                <select class="form-select" name="class" id="class" aria-label="Default select example"  required >
+                <select class="js-example-basic-single form-select" name="class" id="class" aria-label="Default select example"  required >
                              <option  value="">Select One </option>
                              @foreach($classrow as $row)
                                   <option value="{{$row->text1}}">{{$row->text2}}</option>

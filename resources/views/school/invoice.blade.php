@@ -1,7 +1,7 @@
 @extends('school/schoolheader')
 @section('invoice','active')
 @section('content')
-<?php
+   <?php
        $x= date('j');  //Current Day
     ?>
 <div class="row mt-4 mb-0">

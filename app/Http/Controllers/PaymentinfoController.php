@@ -116,11 +116,10 @@ class PaymentinfoController extends Controller
 
 
        public function edit(Request $request) {
-            $id = $request->id;
-          $data = Paymentinfo::find($id);
+             $id = $request->id;
+           $data = Paymentinfo::find($id);
          return response()->json([
-           'status'=>100,  
-            'data'=>$data,
+            
          ]);
        }
 
@@ -128,9 +127,9 @@ class PaymentinfoController extends Controller
        // update admin panel
       public function update(Request $request ){
 
-         $admin=School::where('eiin','=',Session::get('admin')->eiin)->first();
-         $month=date('n',strtotime($_POST['date']));
-         $year=date('Y',strtotime($_POST['date']));
+          $admin=School::where('eiin','=',Session::get('admin')->eiin)->first();
+          $month=date('n',strtotime($_POST['date']));
+          $year=date('Y',strtotime($_POST['date']));
 
       
         $model=Paymentinfo::find($request->input('edit_id'));
@@ -172,7 +171,7 @@ class PaymentinfoController extends Controller
 
        public function indexschool()
          {
-            if(Session::has('school')){ 
+            if(Session::has('school')){
                  $school=School::where('eiin',Session::get('school')->eiin)->first();  
             }elseif(Session::has('teacher') && Session::get('teacher')->teacher_fin_access){
                  $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
@@ -190,7 +189,7 @@ class PaymentinfoController extends Controller
           }
 
            //get method with query parameter
-      public function monthly_invoice(){
+       public function monthly_invoice(){
             $section=Session::get('section');
              if(Session::has('school')){ 
                    $school=School::where('eiin',Session::get('school')->eiin)->first();  
@@ -290,68 +289,102 @@ class PaymentinfoController extends Controller
       }
       
 
-       //get method
+      //get method
       public function payment_details(){
-
-        $section=Session::get('section');
-        if(Session::has('school')){ 
-              $school=School::where('eiin',Session::get('school')->eiin)->first();  
-        }elseif(Session::has('teacher') && Session::get('teacher')->teacher_fin_access){
-              $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
-        }else{
-              return redirect()->back();
-        }
-
-            return view('school.payment-details',['school'=>$school ]);
-          
-       }
-
-          //get method 
-       public function payment_details_fetch(Request $request){
-
-          $section=Session::get('section');
-          if(Session::has('school')){ 
-                  $school=School::where('eiin',Session::get('school')->eiin)->first();  
-           }elseif(Session::has('teacher') && Session::get('teacher')->teacher_fin_access){
-                  $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
+         if(Session::has('school')){ 
+                 $school=School::where('eiin',Session::get('school')->eiin)->first();  
+                 $babu='';
+                 $class='';
+                 $section=Session::get('section');
+          }elseif(Session::has('teacher')){
+                  $babu=$_GET['babu'];
+                  $class=$_GET['class'];
+                  $section=$_GET['section'];
+                  $facode=$_GET['facode'];
+                 $finauth=DB::table('faaccess')->where('category','Fin')->where('teacher_id',teachersession()->id)->get();
+                 if(!empty(fin_access($facode,$finauth))){
+                      $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
+                 
+                 }else{
+                   return '<h2 class="text-danger">Page Not Found</h2>';
+                  }
            }else{
                  return redirect()->back();
            }
 
-           $invoice=Invoice::where('eiin',$school->eiin)->where('section',$section)->select('uid',DB::raw('count(id) as id_total')
-           ,DB::raw('max(name) as name'),DB::raw('max(class) as class'),DB::raw('max(babu) as babu')
-           ,DB::raw('max(section) as section'),DB::raw('max(roll) as roll'),DB::raw('max(student_id) as student_id')
-           ,DB::raw('sum(invoice_amount) as invoice_amount') ,DB::raw('sum(payment_amount) as payment_amount'),
-            DB::raw('sum(invoice_amount)-sum(payment_amount) as due_payment'))->orderBy('roll','asc')->groupBy('uid')->paginate(2);
+         //     return $class;
+         //     die();
+        return view('school.payment-details',['school'=>$school,'babu'=>$babu,'section'=>$section,'class'=>$class ]);
+          
+       }
+
+         //get method 
+       public function payment_details_fetch(Request $request){
+            if(Session::has('school')){ 
+                   $section=Session::get('section');
+                   $school=School::where('eiin',Session::get('school')->eiin)->first();  
+                   $invoice=Invoice::where('eiin',$school->eiin)->where('section',$section)->select('uid',DB::raw('count(id) as id_total')
+                  ,DB::raw('max(name) as name'),DB::raw('max(class) as class'),DB::raw('max(babu) as babu')
+                  ,DB::raw('max(section) as section'),DB::raw('max(roll) as roll'),DB::raw('max(student_id) as student_id')
+                  ,DB::raw('sum(invoice_amount) as invoice_amount') ,DB::raw('sum(payment_amount) as payment_amount'),
+                   DB::raw('sum(invoice_amount)-sum(payment_amount) as due_payment'))->orderBy('roll','asc')->groupBy('uid')->paginate(2);
+            }elseif(Session::has('teacher')){
+                   $class=$_GET['class'];
+                   $babu=$_GET['babu'];
+                   $section=$_GET['section'];
+                   $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
+                   $invoice=Invoice::where('eiin',$school->eiin)->where('section',$section)->where('class',$class)
+                  ->where('babu',$babu)->where('section',$section)->select('uid',DB::raw('count(id) as id_total')
+                  ,DB::raw('max(name) as name'),DB::raw('max(class) as class'),DB::raw('max(babu) as babu')
+                  ,DB::raw('max(section) as section'),DB::raw('max(roll) as roll'),DB::raw('max(student_id) as student_id')
+                  ,DB::raw('sum(invoice_amount) as invoice_amount') ,DB::raw('sum(payment_amount) as payment_amount'),
+                   DB::raw('sum(invoice_amount)-sum(payment_amount) as due_payment'))->orderBy('roll','asc')->groupBy('uid')->paginate(2);
+            }else{
+                    return redirect()->back();
+             }
+
+          
             return view('school.payment-data',compact('invoice'));
          }
 
-       //payment fetch data
-      function payment_fetch_data(Request $request)
-          {
-            $section=Session::get('section');
-            if(Session::has('school')){ 
-                $school=School::where('eiin',Session::get('school')->eiin)->first();  
-             }elseif(Session::has('teacher') && Session::get('teacher')->teacher_fin_access){
-                $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
-             }else{
-                return redirect()->back();
-             }
+
+    //payment fetch data
+    function payment_fetch_data(Request $request)
+        {
+           
        if($request->ajax())
         {
           $sort_by = $request->get('sortby');
           $sort_type = $request->get('sorttype'); 
           $search = $request->get('search');
-          $search = str_replace(" ", "%", $search);
-          $invoice=Invoice::where('eiin',$school->eiin)->where('section',$section)
-            ->Where('roll','like', '%'.$search.'%')
-            ->orWhere('student_id','like', '%'.$search.'%')
-            ->orWhere('name','like', '%'.$search.'%')
-          ->select('uid',DB::raw('count(id) as id_total')
-           ,DB::raw('max(name) as name'),DB::raw('max(class) as class'),DB::raw('max(babu) as babu')
-           ,DB::raw('max(section) as section'),DB::raw('max(roll) as roll'),DB::raw('max(student_id) as student_id')
-           ,DB::raw('sum(invoice_amount) as invoice_amount') ,DB::raw('sum(payment_amount) as payment_amount'),
-            DB::raw('sum(invoice_amount)-sum(payment_amount) as due_payment'))->orderBy($sort_by, $sort_type)->groupBy('uid')->paginate(2);
+          $search = str_replace(" ", "%",$search);
+          $babu = $request->get('babu');
+          $class = $request->get('class');
+          $section = $request->get('section');
+
+        if(Session::has('school')){ 
+            $section=Session::get('section');
+            $school=School::where('eiin',Session::get('school')->eiin)->first(); 
+            $invoice=Invoice::Where('student_id','like', '%'.$search.'%')
+              ->where('eiin',$school->eiin)->where('section',$section)
+              ->select('uid',DB::raw('count(id) as id_total')
+               ,DB::raw('max(name) as name'),DB::raw('max(class) as class'),DB::raw('max(babu) as babu')
+               ,DB::raw('max(section) as section'),DB::raw('max(roll) as roll'),DB::raw('max(student_id) as student_id')
+               ,DB::raw('sum(invoice_amount) as invoice_amount') ,DB::raw('sum(payment_amount) as payment_amount'),
+                DB::raw('sum(invoice_amount)-sum(payment_amount) as due_payment'))->orderBy($sort_by, $sort_type)->groupBy('uid')->paginate(2);
+        }else if(Session::has('teacher')){
+             $school=School::where('eiin',Session::get('teacher')->eiin)->first();
+             $invoice=Invoice::Where('student_id','like', '%'.$search.'%')
+             ->where('eiin',$school->eiin)->where('section',$section)->where('class',$class)->where('babu',$babu)
+             ->select('uid',DB::raw('count(id) as id_total')
+             ,DB::raw('max(name) as name'),DB::raw('max(class) as class'),DB::raw('max(babu) as babu')
+             ,DB::raw('max(section) as section'),DB::raw('max(roll) as roll'),DB::raw('max(student_id) as student_id')
+             ,DB::raw('sum(invoice_amount) as invoice_amount') ,DB::raw('sum(payment_amount) as payment_amount'),
+              DB::raw('sum(invoice_amount)-sum(payment_amount) as due_payment'))->orderBy($sort_by, $sort_type)->groupBy('uid')->paginate(2);  
+
+        }else{
+            return redirect()->back();
+        }
 
           return view('school.payment-data', compact('invoice'))->render();        
         }
@@ -376,18 +409,17 @@ class PaymentinfoController extends Controller
      }
 
        public function payment_fetch($uid){
-           $section=Session::get('section');
            if(Session::has('school')){ 
                  $school=School::where('eiin',Session::get('school')->eiin)->first();  
-           }elseif(Session::has('teacher') && Session::get('teacher')->teacher_fin_access){
+           }elseif(Session::has('teacher')){
                  $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
            }else{
                 return redirect()->back();
            }
 
-          $invoice=Invoice::where('eiin',$school->eiin)->where('section',$section)->where('uid',$uid)
+          $invoice=Invoice::where('eiin',$school->eiin)->where('uid',$uid)
            ->select('uid',DB::raw('count(id) as id_total')
-           ,DB::raw('max(name) as name'),DB::raw('max(class) as class'),DB::raw('max(babu) as babu')
+           ,DB::raw('max(name) as name'),DB::raw('max(class) as class'),DB::raw('max(babu) as babu'),DB::raw('max(eiin) as eiin')
            ,DB::raw('max(section) as section'),DB::raw('max(roll) as roll'),DB::raw('max(student_id) as student_id')
            ,DB::raw('sum(invoice_amount) as invoice_amount'),DB::raw('sum(payment_amount) as payment_amount'),
             DB::raw('sum(invoice_amount)-sum(payment_amount) as due_payment'))->groupBy('uid')->first();
@@ -404,28 +436,37 @@ class PaymentinfoController extends Controller
          }
      }
 
-
+     
      public function payment_create(Request $request){
-         $uid=$request->input('pay_uid');
-         $payment=$request->input('payment');
 
-         $student=Student::find($uid);
-         $time=date('Y-m-d H:i:s');
-         $paymenttype='Admin';
-         $date= date('Y-m-d');
-         $day= date('d');
-         $month= date('n');
-         $year= date('Y');
+          $uid=$request->input('edit_uid');
+          $payment=$request->input('payment');
+          $time=date('Y-m-d H:i:s');
+          $date=date('Y-m-d');
+          $day=date('d');
+          $month=date('n');
+          $year=date('Y');
+
+           if(Session::has('school')){ 
+                 $paymenttype='Offline';
+                 $receivedtype='School'; 
+           }elseif(Session::has('teacher')){
+                 $paymenttype='Offline';
+                 //$receivedtype='T-'.substr(Session::get('teacher')->name,0,7);  
+                 $receivedtype=Session::get('teacher')->teacher_userid;
+           }else{
+                 return redirect()->back();
+            }
 
          $invoice= new Invoice;
-         $invoice->uid=$student->id;
-         $invoice->student_id=$student->stu_id;;
-         $invoice->eiin=$student->eiin;
-         $invoice->roll=$student->roll;
-         $invoice->name=$student->name;
-         $invoice->section=$student->section;
-         $invoice->class=$student->class;
-         $invoice->babu=$student->babu;
+         $invoice->uid=$uid;
+         $invoice->student_id=$request->input('edit_student_id');
+         $invoice->eiin=$request->input('edit_eiin');
+         $invoice->roll=$request->input('edit_roll');
+         $invoice->name=$request->input('edit_name');
+         $invoice->section=$request->input('edit_section');
+         $invoice->class=$request->input('edit_class');
+         $invoice->babu=$request->input('edit_babu');
          $invoice->category="Payment";
          $invoice->date=$date;
          $invoice->day=$day;
@@ -433,29 +474,23 @@ class PaymentinfoController extends Controller
          $invoice->year=$year;
          $invoice->time=$time;
          $invoice->payment_amount=$payment; 
-         $invoice->payment_type=$paymenttype;               
+         $invoice->payment_type=$paymenttype; 
+         $invoice->received_type=$receivedtype;                      
          $invoice->save();
-
-         $mess=$payment." TK Payment Successfull. View Invoice";
-          return response()->json([
-              'status'=>200,  
-              'message'=>$mess,
-            ]);
-     }
+ 
+         $mess=$payment."TK Payment Successfull. View Invoice";
+             return response()->json([
+                 'status'=>200,  
+                 'message'=>$mess,
+              ]);
+       }
 
 
      public function invoice_delete(Request $request) {
 
-      $section=Session::get('section');
-      if(Session::has('school')){ 
-            $school=School::where('eiin',Session::get('school')->eiin)->first();  
-      }elseif(Session::has('teacher') && Session::get('teacher')->teacher_fin_access){
-            $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
-      }else{
-           return redirect()->back();
-      }
 
-    
+      
+       
             
       $babu=$request->input('babu');
       $class=$request->input('class');
@@ -463,6 +498,9 @@ class PaymentinfoController extends Controller
       $eiin=$request->input('eiin');
       $month=date('n',strtotime($_POST['month']));
       $year=date('Y',strtotime($_POST['month']));
+
+      $section=Session::get('section');
+      $school=School::where('eiin',Session::get('school')->eiin)->first();  
 
       $data=Invoice::where('section',$section)->where('babu',$babu)->where('class',$class)->where('category','Invoice')
       ->where('month',$month)->where('year',$year)->where('eiin',$eiin)->first();
@@ -508,9 +546,6 @@ class PaymentinfoController extends Controller
       
     }
 
-
-
-
     public function monthly_update(Request $request ){
       
      $model=Invoice::find($request->input('edit_id'));
@@ -529,7 +564,7 @@ class PaymentinfoController extends Controller
 
         if(Session::has('school')){ 
                $school=School::where('eiin',Session::get('school')->eiin)->first();  
-         }elseif(Session::has('teacher') && Session::get('teacher')->teacher_fin_access){
+         }elseif(Session::has('teacher')){
              $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
          }else{
              return redirect()->back();
@@ -546,11 +581,13 @@ class PaymentinfoController extends Controller
 
    public function class_wise_pdf(Request $request) {
             
-    if(Session::has('school')){ 
-      $school=School::where('eiin',Session::get('school')->eiin)->first();  
-    }elseif(Session::has('teacher')){
-      $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
-    }
+       if(Session::has('school')){ 
+           $school=School::where('eiin',Session::get('school')->eiin)->first();  
+       }else{
+           return redirect()->back();
+       }
+        
+  
          $class=$request->input('class');
          $babu=$request->input('babu');
          $section=$request->input('section');
@@ -601,20 +638,21 @@ class PaymentinfoController extends Controller
 
     public function payment_month(Request $request) {
             
-      if(Session::has('school')){ 
+       if(Session::has('school')){ 
             $school=School::where('eiin',Session::get('school')->eiin)->first();  
-       }elseif(Session::has('teacher')){
-            $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
-       }
+         }else{
+            return redirect()->back();
+         }
 
            $month=$_POST['month'];
            $year=$_POST['year'];
+           $payment_type=$_POST['payment_type'];
           
            if(empty($month)){
-              $invoice=Invoice::where('year',$year)->where('eiin',$school->eiin)->where('category','Payment')
+              $invoice=Invoice::where('year',$year)->where('eiin',$school->eiin)->where('category','Payment')->where('payment_type',$payment_type)
               ->select('month',DB::raw('count(id) as id_total'),DB::raw('sum(payment_amount) as payment_total'))->orderBy('month','asc')->groupBy('month')->get();
            }else{
-              $invoice=Invoice::where('category','Payment')
+              $invoice=Invoice::where('category','Payment')->where('payment_type',$payment_type)
               ->where('month',$month)->where('year',$year)->where('eiin',$school->eiin)->get();
             }
 
@@ -625,22 +663,57 @@ class PaymentinfoController extends Controller
                  'year'=>$year,
              ]);
         }
+
+
+        public function class_wise_payment(Request $request) {
+            
+          if(Session::has('school')){ 
+                $school=School::where('eiin',Session::get('school')->eiin)->first();  
+           }elseif(Session::has('teacher')){
+                $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
+           }else{
+                return redirect()->back();
+            }
+    
+               $month=$_POST['month'];
+               $year=$_POST['year'];
+               $payment_type=$_POST['payment_type'];
+               $class=$_POST['class'];
+               $babu=$_POST['babu'];
+               $section=$_POST['section'];
+              
+               if(empty($month)){
+                      $invoice=Invoice::where('year',$year)->where('eiin',$school->eiin)->where('category','Payment')->where('payment_type',$payment_type)
+                        ->where('class',$class)->where('babu',$babu)->where('section',$section)
+                        ->select('month',DB::raw('count(id) as id_total'),DB::raw('sum(payment_amount) as payment_total'))->orderBy('month','asc')->groupBy('month')->get();
+                }else{
+                     $invoice=Invoice::where('category','Payment')->where('payment_type',$payment_type)
+                        ->where('class',$class)->where('babu',$babu)->where('section',$section)
+                        ->where('month',$month)->where('year',$year)->where('eiin',$school->eiin)->get();
+                 }
+    
+                 return view('pdf.class-wise-payment',[
+                     'invoice'=> $invoice,
+                     'school'=>$school,
+                     'month'=>$month,
+                     'year'=>$year,
+                 ]);
+            }
   
 
         public function spend_month(Request $request) {
-            
-             if(Session::has('school')){ 
+              if(Session::has('school')){ 
                    $school=School::where('eiin',Session::get('school')->eiin)->first();  
-             }elseif(Session::has('teacher')){
-                   $school=School::where('eiin',Session::get('teacher')->eiin)->first();  
-              }
+              }else{
+                    return redirect()->back();
+               }
     
                 $month=$_POST['month'];
                 $year=$_POST['year'];
               
           if(empty($month)){
-              $invoice=DB::table('spends')->where('year',$year)->where('eiin',$school->eiin)
-              ->select('month',DB::raw('count(id) as id_total'),DB::raw('sum(total) as spend_total'))->orderBy('day','asc')->groupBy('month')->get();
+                $invoice=DB::table('spends')->where('year',$year)->where('eiin',$school->eiin)
+                ->select('month',DB::raw('count(id) as id_total'),DB::raw('sum(total) as spend_total'))->orderBy('day','asc')->groupBy('month')->get();
            }else{
                $invoice=DB::table('spends')->where('month',$month)->where('year',$year)->where('eiin',$school->eiin)->get();  
            }
@@ -655,8 +728,7 @@ class PaymentinfoController extends Controller
             }
       
            
-            public function spendday(Request $request) {
-
+       public function spendday(Request $request) {
               if(Session::has('school')){ 
                       $school=School::where('eiin',Session::get('school')->eiin)->first();  
               }elseif(Session::has('teacher')){

@@ -3,10 +3,9 @@
 <head>
 <style>
 
-table, td, th{  
+ table, td, th{  
       border:1px solid black;
 		 	border-collapse:collapse;
-    
    }
 
   table {
@@ -59,11 +58,11 @@ th, td {
           EIIN : <b> {{$school->eiin}}</b> <br>
 
         </p>
-<br>
+      <br>
          <h2 align="center"> Payment Order Summary </h2>
       <br><br>
 
- <table align="center">
+    <table align="center">
       <tr hight="30" >
           <th align="left" width="70">Invoice date</th>
           <th align="left" width="150">Description</th>

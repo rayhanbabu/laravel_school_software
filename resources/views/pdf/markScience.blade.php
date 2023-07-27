@@ -258,8 +258,8 @@
       <tr>
            <td colspan="2">Serial </td>
            <td id="leftside" colspan="4">Name Of Subject</td>
-           <td   colspan="3">PI</td>
-           <td   colspan="3">BI</td>
+           <td colspan="3">PI</td>
+           <td colspan="3">BI</td>
            <td ></td>
       </tr>
 

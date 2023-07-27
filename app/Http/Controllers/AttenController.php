@@ -17,17 +17,16 @@ use PDF;
 class AttenController extends Controller
 {
      function index(){
-
-      if(Session::has('school')){ 
-        $school=schoolsession();  
-      }elseif(Session::has('teacher')){
-        $school=teachersession();   
-      }
+        if(Session::has('school')){ 
+              $school=schoolsession();  
+         }elseif(Session::has('teacher')){
+            $school=teachersession();   
+         }
         
         $classrow=Exam::where('babu','class')->orderBy('serial','asc')->get();
         $grouprow=Exam::where('babu','group')->orderBy('serial','asc')->get();
         $sectionrow=Exam::where('babu','section')->orderBy('serial','asc')->get();
-    
+        
          if(isset($_GET['group']) && isset($_GET['class']) && isset($_GET['date']) && isset($_GET['action']) ){
                $group=$_GET['group'];
                $class=$_GET['class'];
@@ -43,7 +42,7 @@ class AttenController extends Controller
           }
            $data=[];
            $fail='';
-            
+              
           if(empty($section) && empty($group) ){
                   $atten=Atten::where('class',$class)
                   ->where('date',$date)->where('eiin',$school->eiin)->get();
@@ -107,16 +106,15 @@ public function store(Request $request){
          $school=teachersession();   
       }
 
-
-           
-    if($request->input('action')=='add' && $school->atten_access=='Yes'){
+      
+    if($request->input('action')=='add'){
              $date=$request->input('date');
              $ispresent = array();
          if (isset($_POST['chbox'])){
               $ispresent= $_POST['chbox'];	
 
 
-              foreach($request->uid as  $key=>$items ){ 
+              foreach($request->uid as  $key=>$items ){  
                  if (count($ispresent)) {
                     $p=(in_array($request->uid[$key], $ispresent)) ? 1 : 0;	
                  }
@@ -146,7 +144,7 @@ public function store(Request $request){
 
 
    
-    elseif($request->input('action') =='edit' && $school->atten_access=='Yes'){
+    elseif($request->input('action') =='edit'){
         $date=$request->input('date');
         $ispresent = array();
            if (isset($_POST['chbox'])) {

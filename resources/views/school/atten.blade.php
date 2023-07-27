@@ -91,7 +91,7 @@
           
 
          <div class="col-sm-2"> 
-               <input type="text"  id="birth_date" name="date" autocomplete="off"  class="form-control datepicker"  required>
+               <input type="date"  id="birth_date" name="date" autocomplete="off"  class="form-control "  required>
          </div>
 
          <div class="col-sm-2"> 
@@ -190,9 +190,8 @@
                         $checked="";
                         @endphp
              @endif
-
              <input type ="hidden" name="id[]" id="id" value="{{$row->id}}">
-            <td><input  type="checkbox"  class="form-check-input" {{$checked}}  id="chk[]" name="chbox[]"  value="{{$row->id}}"> </td>
+             <td><input  type="checkbox"  class="form-check-input" {{$checked}}  id="chk[]" name="chbox[]"  value="{{$row->id}}"> </td>
       
             @endif
 
@@ -215,11 +214,6 @@
        </form>
   </div>
 </div>
-
-
- 
-
-    
 
 
       <script>

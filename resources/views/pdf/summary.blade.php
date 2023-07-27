@@ -228,15 +228,17 @@
           @if(empty(matchsubcode($row->sub11code,$tags))) <td></td> @else 
                <td> @if($row->sub11c==1) <div class="square-square"></div>
                     @elseif($row->sub11c==2) <div class="circle-circle"></div>
-                    @else <div class="triangle-up"> </div>
+                    @elseif($row->sub11c==3) <div class="triangle-up"> </div>
+                    @else 
                    @endif
                </td>
           @endif 
           @if(empty(matchsubcode($row->sub11code,$tags))) <td></td> @else 
                <td> @if($row->sub11m==1) <div class="square-square"></div>
                     @elseif($row->sub11m==2) <div class="circle-circle"></div>
-                    @else <div class="triangle-up"> </div>
-                   @endif
+                    @elseif($row->sub11m==3) <div class="triangle-up"> </div>
+                    @else 
+                    @endif
                </td>
           @endif 
 

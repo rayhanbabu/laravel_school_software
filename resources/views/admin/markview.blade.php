@@ -68,6 +68,7 @@
            <th width="5%" > Gpa</th>
            <th width="5%" > Grade</th>
            <th width="5%" >Fixed Gpa</th>
+           <th width="5%" > Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -87,6 +88,8 @@
               <td>{{$row->gpa}}</td>
               <td>{{$row->g}}</td>
              <td>{{$row->fgp}}</td>
+             <td><a  class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete  this row?')"  href="{{ url('admin/marks/'.$row->id)}}">Delete</a></td>
+
 	      </tr>
     @endforeach	 
 	</tbody>

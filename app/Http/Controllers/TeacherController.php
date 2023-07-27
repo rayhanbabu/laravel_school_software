@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\School;
 use App\Models\Teacher;
@@ -45,6 +43,10 @@ class TeacherController extends Controller
                   $result['lavel']=DB::table('exams')->where('babu','shortsubject')->orderBy('serial','desc')->get();
                   $result['teacherattr']=DB::table('subjectauths')->where('teacher_id',$arr['0']->id)->get();
                   $result['subject']=Subject::where('eiin',Session::get('school')->eiin)->orderBy('subid','asc')->get();
+
+                 
+                  $result['finattr']=DB::table('faaccess')->where('category','Fin')->where('teacher_id',$arr['0']->id)->get();
+                  $result['attattr']=DB::table('faaccess')->where('category','Att')->where('teacher_id',$arr['0']->id)->get();
               
               }else{
                   $result['name']='';
@@ -68,6 +70,17 @@ class TeacherController extends Controller
                   $result['lavel']=DB::table('exams')->where('babu','shortsubject')->orderBy('serial','desc')->get();
                   $result['subject']=Subject::where('eiin',Session::get('school')->eiin)->orderBy('subid','asc')->get();
 
+                  
+                  $result['finattr'][0]['section']='';
+                  $result['finattr'][0]['class']='';
+                  $result['finattr'][0]['babu']='';
+                  $result['finattr'][0]['id']='';
+
+                  $result['attattr'][0]['section']='';
+                  $result['attattr'][0]['class']='';
+                  $result['attattr'][0]['babu']='';
+                  $result['attattr'][0]['id']='';
+
 
                    //  prx($result['teacherattr']);
                    //  die();
@@ -82,7 +95,7 @@ class TeacherController extends Controller
           {
       
                     // prx($_POST);
-                     // die();
+                   //die();
                   
                    $request->validate([
                          'name'=>'required',
@@ -126,6 +139,7 @@ class TeacherController extends Controller
 
                $teacher_id=$model->id;
                
+
              /* Tecaaher Attribute  Start*/
                  $taid=$request->post('taid');
                  $section=$request->post('section');
@@ -133,7 +147,6 @@ class TeacherController extends Controller
                  $tecode=$request->post('tecode');
                  $subcode=$request->post('subcode');
                     foreach($section as $key=>$val){
-
                      $teacherattr['teacher_id']=$teacher_id; 
                      $teacherattr['section']=$section[$key]; 
                      $teacherattr['subcode']=$subcode[$key]; 
@@ -146,10 +159,58 @@ class TeacherController extends Controller
                      }else{
                         DB::table('subjectauths')->insert($teacherattr);
                      }
-
-                     }
-
+                }
              /* Teacher Attribute End*/
+
+
+             /* Finnance Attribute  Start*/
+             $faid=$request->post('faid');
+             $fsection=$request->post('fsection');
+             $fclass=$request->post('fclass');
+             $fbabu=$request->post('fbabu');
+            
+                foreach($fsection as $key=>$val){
+                 $finattr['teacher_id']=$teacher_id; 
+                 $finattr['section']=$fsection[$key]; 
+                 $finattr['class']=$fclass[$key]; 
+                 $finattr['babu']=$fbabu[$key]; 
+                 $finattr['eiin']=$school->eiin; 
+                 $finattr['category']='Fin';
+                 $finattr['facode']='Fin'.substr($fclass[$key],0,3).substr($fbabu[$key],0,2).$fsection[$key];  
+
+                    
+                 if($faid[$key]!=''){
+                    DB::table('faaccess')->where(['id'=>$faid[$key]])->update($finattr);
+                 }else{
+                    DB::table('faaccess')->insert($finattr);
+                 }
+             }
+            /* Finance Attribute End*/
+
+
+              /*Attendence Attribute  Start*/
+              $aaid=$request->post('aaid');
+              $asection=$request->post('asection');
+              $aclass=$request->post('aclass');
+              $ababu=$request->post('ababu');
+             
+                 foreach($asection as $key=>$val){
+                  $attattr['teacher_id']=$teacher_id; 
+                  $attattr['section']=$asection[$key]; 
+                  $attattr['class']=$aclass[$key]; 
+                  $attattr['babu']=$ababu[$key]; 
+                  $attattr['eiin']=$school->eiin; 
+                  $attattr['category']='Att';
+                  $attattr['facode']='Att'.substr($aclass[$key],0,3).substr($ababu[$key],0,2).$asection[$key];  
+ 
+                  
+                  if($aaid[$key]!=''){
+                     DB::table('faaccess')->where(['id'=>$aaid[$key]])->update($attattr);
+                  }else{
+                     DB::table('faaccess')->insert($attattr);
+                  }
+              }
+             /* Addentence Attribute End*/
 
                $request->session()->flash('message',$msg);
               return redirect('teacher');
@@ -163,6 +224,7 @@ class TeacherController extends Controller
               $model=Teacher::find($id);
               $model->delete();
               DB::table('subjectauths')->where(['teacher_id'=>$id])->delete();
+              DB::table('faaccess')->where(['teacher_id'=>$id])->delete();
               $request->session()->flash('message','Teacher deleted');
               return redirect('teacher');
           }
