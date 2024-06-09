@@ -48,16 +48,16 @@
       <table class="table table-bordered" id="employee_data">
            <thead>
                 <tr> 
-                     <th>EIIN</th>
-                     <th>School</th>
-                     <th>SMS</th>
+                     <th>EIIN </th>
+                     <th>School </th>
+                     <th>SMS </th>
                      <th>Payment</th>
                      <th>Requested  at</th>
                      <th>Status</th>
                      <th>Verify Status</th>
                      <th>Payment Type</th>
                      <th>Payment Time</th>  
-                      <th width="5%" >Delete</th>   
+                     <th width="5%" >Delete</th>   
                 </tr>
           </thead>
     <tbody> 
@@ -71,9 +71,9 @@
                 
                   <td>
                       @if($row->status==1)
-                         <button type="button" name="view" data-statusid="1" id="{{$row->id}}" class="btn btn-success btn-sm view"> Paid </button>  
+                         <button type="button" name="view" data-smsno="{{$row->smsno}}" data-eiin="{{$row->eiin}}" data-statuspay="1" id="{{$row->id}}" class="btn btn-success btn-sm view"> Paid </button>  
                        @else 
-                         <button type="button" name="view" data-statusid="0" id="{{$row->id}}" class="btn btn-danger btn-sm view"> Not Paid </button>  
+                         <button type="button" name="view" data-smsno="{{$row->smsno}}" data-eiin="{{$row->eiin}}"  data-statuspay="0" id="{{$row->id}}" class="btn btn-danger btn-sm view"> Not Paid </button>  
                        @endif
                   </td>
 
@@ -108,13 +108,17 @@
 
 
         $(document).on('click','.view',function(){
-             var invoice_id_view = $(this).attr("id");  
-             var statusid = $(this).data("statusid");  
+              var invoice_id_view = $(this).attr("id");  
+              var statuspay = $(this).data("statuspay");  
+              var eiin = $(this).data("eiin");
+              var smsno = $(this).data("smsno");     
              $('#viewmodal').modal('show');
             
               $('#invoice_id_view').val(invoice_id_view);
-              $('#statusid').val(statusid);
-
+              $('#statuspay').val(statuspay);
+              $('#eiin').val(eiin);
+              $('#smsno').val(smsno);
+             
              //alert(status);
                 
           });
@@ -137,7 +141,9 @@
        {!! csrf_field() !!}
             <h4>  Are  you  sure  update  payment  status ?? </h4>
               <input type="hidden" name="invoice_id_view" id="invoice_id_view" class="form-control">
-              <input type="hidden" name="status" id="statusid" class="form-control">
+              <input type="hidden" name="status" id="statuspay" class="form-control">
+              <input type="hidden" name="eiin" id="eiin" class="form-control">
+              <input type="hidden" name="smsno" id="smsno" class="form-control">
 
        <div class="mt-4">
           <button type="submit" id="add_employee_btn" class="btn btn-primary">Yes </button>

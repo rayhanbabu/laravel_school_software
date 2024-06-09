@@ -142,7 +142,7 @@
             $pdf->Cell(47,5,date('d/m/y',strtotime($data['admit']->date11)).','.$data['admit']->time11,1,0 , 'L' );
             $pdf->Cell(48,5,$data['sub11s'],1,0 , 'L' );	}else{ 
             $pdf->Cell(47,5,'','L',0 , 'L' ); 
-            $pdf->Cell(48,5,'','',0 , 'L' );}
+            $pdf->Cell(48,5,'','',0 , 'L' );    }
        if($data['sub12s']!=''){
            $pdf->Cell(47,5,date('d/m/y',strtotime($data['admit']->date12)).','.$data['admit']->time12,1,0 , 'L' );
            $pdf->Cell(48,5,$data['sub12s'],1,1 , 'L' );   
@@ -179,27 +179,18 @@
 
 
 
-           if($data['sub17s']!=''){
-               $pdf->Cell(47,5,date('d/m/y',strtotime($data['admit']->date17)).','.$data['admit']->time17,1,0 , 'L' );
-               $pdf->Cell(48,5,$data['sub17s'],1,0 , 'L' );	}else{ 
-               $pdf->Cell(47,5,'','L',0 , 'L' ); 
-               $pdf->Cell(48,5,'','',0 , 'L' );}
-          if($data['sub18s']!=''){
-              $pdf->Cell(47,5,date('d/m/y',strtotime($data['admit']->date18)).','.$data['admit']->time18,1,0 , 'L' );
-              $pdf->Cell(48,5,$data['sub18s'],1,1 , 'L' );   
-               }else{ 
-              $pdf->Cell(47,5,'',0,0 , 'L' );
-               $pdf->Cell(48,5,'','R',1 , 'L' );    }  
-                                     
+          
+        $pdf->Cell(190,5,'','RL',1);                           
                
             
-      
+         $pdf->Image('images/rayhanbabu.jpg',150,110,-250); 
+         $pdf->Image('images/rayhanbabu.jpg',150,245,-250);   
             
       
                                     
 
         $pdf->Cell(190,10,'','LR',1);
-        $pdf->SetFont('Times','',13);
+        $pdf->SetFont('Times','',12);
         $pdf->Cell(170,5,'Head Teacher Signature','L',0,'R');
         $pdf->Cell(20,5,'','R',1,'R');
 

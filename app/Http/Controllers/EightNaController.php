@@ -34,20 +34,17 @@ class EightNaController extends Controller
        $name=Subject::where('tecode',substr($tecode,0,10))->where('eiin',$school->eiin)->first();
        $tecodesection=$tecode.Session::get('section').$name->subid;
        return view('EigNa.'.$name->subcode,['school'=>$school,'subject'=>$subject,'name'=>$name ,'tecodesection'=>$tecodesection]);
-
-   }else if(Session::has('teacher')){
-
-     $subjectauth=Subjectauth::where('teacher_id',teachersession()->id)->get();
-
-        if(!empty(teacher_access($tecode,$subjectauth))){ 
-              $name=Subject::where('tecode',substr($tecode,0,10))->first();
-              $tecodesection=$tecode.teacher_access($tecode,$subjectauth)['lavel'];
-           return view('EigNa.'.$name->subcode,['name'=>$name,'tecodesection'=>$tecodesection]);
-             }else{
-          return '<h2 class="text-danger">Page Not Found</h2>';
-          }
-    }
-}
+  }else if(Session::has('teacher')){
+      $subjectauth=Subjectauth::where('teacher_id',teachersession()->id)->get();
+            if(!empty(teacher_access($tecode,$subjectauth))){ 
+               $name=Subject::where('tecode',substr($tecode,0,10))->where('eiin',teachersession()->eiin)->first();
+               $tecodesection=$tecode.teacher_access($tecode,$subjectauth)['lavel'];
+            return view('EigNa.'.$name->subcode,['name'=>$name,'tecodesection'=>$tecodesection]);
+                }else{
+             return '<h2 class="text-danger">Page Not Found</h2>';
+           }
+     }
+  }
 
 
 

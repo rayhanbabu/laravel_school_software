@@ -30,13 +30,12 @@ class SmsController extends Controller
   
     public function smsview()
        {
-          $school=schoolsession();
+        
           $class=Exam::where('babu','class')->orderBy('serial','asc')->get();
           $group=Exam::where('babu','group')->orderBy('serial','asc')->get();
-          $smsbuy=DB::table('eiin_sms')->where('eiin',$school->eiin)->where('verify_status',1)
-          ->where('status',1)->sum('smsno');
-          $smsspend=DB::table('sms')->where('eiin',$school->eiin)->sum('sms_count');
-          $sms=$smsbuy-$smsspend;
+
+          $school=School::where('eiin',schoolsession()->eiin)->first();
+          $sms=$school->available_sms;
           return view('school.smsview',['class'=>$class ,'group'=>$group ,'school'=>$school ,'sms'=>$sms]);
        }
 
@@ -61,65 +60,161 @@ class SmsController extends Controller
 
 
        public function smsinsert(Request $request){
-        $school=schoolsession();  
-        $smsbuy=DB::table('eiin_sms')->where('eiin',$school->eiin)->where('verify_status',1)
-        ->where('status',1)->sum('smsno');
-        $smsspend=DB::table('sms')->where('eiin',$school->eiin)->sum('sms_count');
-        $sms=$smsbuy-$smsspend;
-      if($sms>0){
+       
+        $school=School::where('eiin',schoolsession()->eiin)->first();
+        $smsavailable = $school->available_sms;
+        if ($smsavailable > 0) {
             $sms_type=$request->input('sms_type');
              if($sms_type=='single'){
-                  $text=$request->input('text');
-                  $phone=$request->input('phone');
-                  $phonearr='88'.$phone;
-                  $textinfo=$text;
-                 send_sms($phonearr,$textinfo);
+                  $text = $request->input('text');
+                  $phone = $request->input('phone');
+                  $phonearr = $phone;
+                  $textinfo = $text;
+                  $smscount = 1;
+                  $category=$sms_type;
+                  $balancedata = json_decode(get_balance());
+                  $getsms = (int)($balancedata->balance / .25);
+                  if ($getsms < $smscount) {
+                    return back()->with('danger', 'SMS API Server Problem. Please Contact Service provider');
+                  } else if ($smsavailable < $smscount OR empty($smscount) ) {
+                    return back()->with('danger', '	Balance Validity Not Available OR Database  Empty ');
+                  } else {
+                    sms_send($phonearr,$textinfo);
+                  $current_sms = $smsavailable - $smscount;
+                  DB::update("update schools set  available_sms='$current_sms'  where eiin ='$school->eiin'");
                   
                   $model=new Sms;
                   $model->eiin=$school->eiin;
                   $model->sms_type=$sms_type;
                   $model->sms_count=1;
                   $model->text=$text;
+                  $model->others1=$phonearr;
+                  $model->category=$category;
                   $model->save();
+                  }
 
                }else if($sms_type=='teachers'){
                      $text=$request->input('text');
                      $data=Teacher::where('eiin',$school->eiin)->get();
                      $smscount=$data->count();
                      $textinfo=$text;
+                     $category=$sms_type;
+                     $balancedata = json_decode(get_balance());
+                     $getsms = (int)($balancedata->balance / .25);
+                     if ($getsms < $smscount) {
+                       return back()->with('danger', 'SMS API Server Problem. Please Contact Service provider');
+                     } else if ($smsavailable < $smscount OR empty($smscount) ) {
+                       return back()->with('danger', '	Balance Validity Not Available OR Database  Empty ');
+                     } else {
+                     $allvalue="";
+                     foreach( $data as $row){ 
+                         $value =  $row->phone.' , ';
+                         $allvalue = $allvalue.$value;
+                      };
+
                      foreach( $data as $row){
-                         $phonearr='88'.$row->phone;
-                         send_sms($phonearr,$textinfo); 
-                          }
-                         $model=new Sms;
-                         $model->eiin=$school->eiin;
-                         $model->sms_type=$sms_type;
-                         $model->sms_count=$smscount;
-                         $model->text=$text;
-                         $model->save();
+                          $phonearr=$row->phone;
+                           sms_send($phonearr,$textinfo);    
+                      }
+                      $current_sms = $smsavailable - $smscount;
+                      DB::update("update schools set  available_sms='$current_sms'  where eiin ='$school->eiin'");
+                      $model=new Sms;
+                      $model->eiin=$school->eiin;
+                      $model->sms_type=$sms_type;
+                      $model->sms_count=$smscount;
+                      $model->text=$textinfo;
+                      $model->others1=$allvalue;
+                      $model->category=$category;
+                      $model->save();
+                    }
 
                 }else if($sms_type=='students'){
                         $text=$request->input('text');
                         $class=$request->input('class');
                         $section=$request->input('section');
                         $babu=$request->input('babu');
+                        $category=$sms_type.$class.$section.$babu;
                      $data=Student::where('eiin',$school->eiin)->where('babu',$babu)->where('class',$class)
                      ->where('section',$section)->get();
                      $smscount=$data->count();
                      $textinfo=$text;
+                  
+                     $balancedata = json_decode(get_balance());
+                     $getsms = (int)($balancedata->balance / .25);
+                     if ($getsms < $smscount) {
+                       return back()->with('danger', 'SMS API Server Problem. Please Contact Service provider');
+                     } else if ($smsavailable < $smscount OR empty($smscount) ) {
+                       return back()->with('danger', '	Balance Validity Not Available OR Database  Empty ');
+                     } else {
+                     $allvalue="";
+                    foreach( $data as $row){ 
+                        $value =  $row->phone.' , ';
+                        $allvalue = $allvalue.$value;
+                     };
+
                      foreach( $data as $row){
-                       $phonearr='88'.$row->phone;
-                       send_sms($phonearr,$textinfo); 
+                          $phonearr=$row->phone;
+                           sms_send($phonearr,$textinfo); 
                       }
+                      $current_sms = $smsavailable - $smscount;
+                      DB::update("update schools set  available_sms='$current_sms'  where eiin ='$school->eiin'");
                       $model=new Sms;
                       $model->eiin=$school->eiin;
                       $model->sms_type=$sms_type;
                       $model->sms_count=$smscount;
                       $model->text=$textinfo;
+                      $model->others1=$allvalue;
+                      $model->category=$category;
                       $model->save();
-
+                    }
                 
-             }else if($sms_type=='result'){
+             } else if($sms_type=='attendance'){
+              $text=$school->sms_text3;
+              $class=$request->input('class');
+              $status=$request->input('status');
+              $section=$request->input('section');
+              $babu=$request->input('babu');
+              $date=$request->input('date');
+              $category=$sms_type.$status.$class.$section.$babu.$date;
+          $data=DB::table('attens')->where('eiin',$school->eiin)->where('babu',$babu)->where('class',$class)
+          ->where('section',$section)->where('status',$status)->where('date',$date)->get();
+           $smscount=$data->count();
+           $textinfo=$text;
+        
+           $balancedata = json_decode(get_balance());
+           $getsms = (int)($balancedata->balance / .25);
+           if ($getsms < $smscount) {
+             return back()->with('danger', 'SMS API Server Problem. Please Contact Service provider');
+           } else if ($smsavailable < $smscount OR empty($smscount) ) {
+             return back()->with('danger', '	Balance Validity Not Available OR Database  Empty ');
+           } else {
+           $allvalue="";
+          foreach( $data as $row){ 
+              $value =  $row->phone.' , ';
+              $allvalue = $allvalue.$value;
+           };
+
+
+           foreach( $data as $row){
+                $phonearr=$row->phone;
+                 sms_send($phonearr,$textinfo); 
+            }
+            $current_sms = $smsavailable - $smscount;
+            DB::update("update schools set  available_sms='$current_sms'  where eiin ='$school->eiin'");
+            $model=new Sms;
+            $model->eiin=$school->eiin;
+            $model->sms_type=$sms_type;
+            $model->sms_count=$smscount;
+            $model->text=$textinfo;
+            $model->others1=$allvalue;
+            $model->category=$category;
+            $model->save();
+             }
+      
+        }
+             
+             
+             else if($sms_type=='resultold'){
                 $class=$request->input('class');
                 $section=$request->input('section');
                 $babu=$request->input('babu');
@@ -150,7 +245,7 @@ class SmsController extends Controller
                $model->babu=$babu;
                $model->save();
 
-            }else if($sms_type=='payment'){
+            }else if($sms_type=='paymentold'){
                $class=$request->input('class');
                $section=$request->input('section');
                $babu=$request->input('babu');
@@ -246,17 +341,22 @@ class SmsController extends Controller
 
 
       public function smspayment(Request $request){  
-        $status=$request->input('status');
-        $invoice_id=$request->input('invoice_id_view');
+         $status=$request->input('status');
+         $invoice_id=$request->input('invoice_id_view');
+         $eiin = $request->input('eiin');
+         $smsno = $request->input('smsno');
+         $school=School::where('eiin',$eiin)->first();
  
        if($status == 1){
             $status1=0;
             $paymenttime=date('2010-10-10 10:10:10');
             $paymenttype='';
+            $availablesms = $school->available_sms - $smsno;
         }else{
             $status1=1;
             $paymenttime=date('Y-m-d H:i:s');
             $paymenttype='Admin';
+            $availablesms = $school->available_sms + $smsno;
         }
         $payment_date= date('Y-m-d');
         $payment_day= date('d');
@@ -267,8 +367,11 @@ class SmsController extends Controller
           "update eiin_sms set status ='$status1', payment_time=' $paymenttime',payment_type='$paymenttype' 
           ,payment_date='$payment_date',payment_day='$payment_day',payment_month='$payment_month', payment_year='$payment_year' where id ='$invoice_id'"
          );
- 
+
+         DB::update("update schools set  available_sms='$availablesms'  where eiin ='$eiin'");
+
           return back()->with('success','Update Information');
+
       } 
 
 

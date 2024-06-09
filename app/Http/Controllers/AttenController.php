@@ -127,6 +127,7 @@ public function store(Request $request){
                 $atten->eiin=$request->eiin[$key];
                 $atten->class=$request->class[$key];
                 $atten->babu=$request->babu[$key];
+                $atten->phone=$request->phone[$key];
                 $atten->section=$request->section[$key];
                 $atten->status=$p;
                 $atten->save();

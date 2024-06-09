@@ -37,7 +37,7 @@ class NineHuController extends Controller
    }else if(Session::has('teacher')){
       $subjectauth=Subjectauth::where('teacher_id',teachersession()->id)->get();
       if(!empty(teacher_access($tecode,$subjectauth))){ 
-      $name=Subject::where('tecode',substr($tecode,0,10))->first();
+         $name=Subject::where('tecode',substr($tecode,0,10))->where('eiin',teachersession()->eiin)->first();
       $tecodesection=$tecode.teacher_access($tecode,$subjectauth)['lavel'];
       return view('NinHu.'.$name->subcode,['name'=>$name,'tecodesection'=>$tecodesection]);
         }else{

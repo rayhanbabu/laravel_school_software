@@ -54,7 +54,6 @@
   <table class="table table-bordered" id="employee_data">
     <thead>
       <tr>
-         
            <th width="5%" >EIIN</th>
            <th width="5%" >Stu Id</th>
 	         <th width="5%" >Roll </th>
@@ -68,6 +67,7 @@
            <th width="5%" > Gpa</th>
            <th width="5%" > Grade</th>
            <th width="5%" >Fixed Gpa</th>
+           <th width="5%" >Edit</th>
            <th width="5%" > Delete</th>
       </tr>
     </thead>
@@ -87,13 +87,37 @@
               <td>{{$row->total}}</td>
               <td>{{$row->gpa}}</td>
               <td>{{$row->g}}</td>
-             <td>{{$row->fgp}}</td>
-             <td><a  class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete  this row?')"  href="{{ url('admin/marks/'.$row->id)}}">Delete</a></td>
+              <td>{{$row->fgp}}</td>
+
+              <td>
+      <button type="button" name="edit" id="{{$row->id}}" class="btn btn-success btn-sm edit" 
+	  	 data-fgp="{{$row->fgp}}">Edit</button>
+    </td>
+              <td><a  class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete  this row?')"  href="{{ url('admin/marks/'.$row->id)}}">Delete</a></td>
 
 	      </tr>
     @endforeach	 
 	</tbody>
    </table>
+
+   <script type="text/javascript">
+           $(document).ready(function(){
+                $(document).on('click','.edit',function(){
+                   var id = $(this).attr("id");  
+                   var fgp = $(this).data("fgp");
+             
+                     $('#edit_fgp').val(fgp);
+                     $('#edit_id').val(id);
+                     $('#updatemodal').modal('show');
+                });
+
+           });
+
+
+</script>
+
+
+   
 
   <script>  
   $(document).ready(function(){  
@@ -227,13 +251,12 @@
 
           <div class="form-group col-sm-6  my-2">
                <label class=""><b>To Section</b></label>
-               <select class="form-select" name="tsection"  aria-label="Default select example" required>
-                     <option value="">Select</option>
-                             @foreach($section as $list)                                                  
-                                  <option  value="{{$list->text1}}" > 
-                                      {{$list->text1}} </option>                                                        
-                              @endforeach
-           </select>
+                   <select class="form-select" name="tsection"  aria-label="Default select example" required>
+                        <option value="">Select</option>
+                        @foreach($section as $list)                                                  
+                             <option  value="{{$list->text1}}"> {{$list->text1}} </option>                                                        
+                        @endforeach
+                  </select>
           </div>
          
       </div>     
@@ -406,6 +429,42 @@
       </div>
     </div>
   </div> 
+
+
+
+
+  <!-- Modal Edit -->
+<div class="modal fade" id="updatemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Mark Edit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+      <form method="post" action="{{url('admin/marks_fgp_update')}}"  class="myform"  enctype="multipart/form-data" >
+         {!! csrf_field() !!}
+
+         <input type="hidden" id="edit_id" name="id" class="form-control">
+
+         <div class="form-group  my-2">
+               <label class=""><b>Fixed GPa</b></label>
+               <input type="text" id="edit_fgp" name="fgp" class="form-control" required>
+         </div> 
+			    
+
+          <input type="submit"   id="insert" value="Update" class="btn btn-success" />
+	         
+   </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 

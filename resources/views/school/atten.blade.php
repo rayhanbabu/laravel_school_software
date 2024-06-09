@@ -169,7 +169,7 @@
                   <td>{{studentinfo($uid,'roll')}} </td>
 
                   <td>{{studentinfo($uid,'name')}} </td>
-
+                  <input type ="hidden" name="phone[]" id="name" value="{{$row->phone}}">
                   <input type ="hidden" name="class[]" id="name" value="{{$row->class}}">
                   <input type ="hidden" name="babu[]" id="name" value="{{$row->babu}}">
                   <input type ="hidden" name="eiin[]" id="eiin" value="{{$row->eiin}}">

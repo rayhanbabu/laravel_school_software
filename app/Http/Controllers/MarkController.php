@@ -82,6 +82,7 @@ class MarkController extends Controller
                 $student->exam=$texam;
                 $student->year=$tyear;
                 $student->uid=$row['uid'];
+                $student->student_id=$row['student_id'];
                 $student->fgp=$row['gpa'];
                 $student->name=$row['name'];
                 $student->roll=$row['roll'];
@@ -120,6 +121,16 @@ class MarkController extends Controller
                 AND babu='$babu' AND class='$class' AND section='$section' "
             );  
         return redirect()->back()->with('success','Data Deleted Successfull');  
+   }
+
+
+   public function marks_fgp_update(Request $request){
+
+        $id=$request->input('id');
+        $fgp=$request->input('fgp');
+        DB::update("update marks set fgp ='$fgp' where id='$id'");  
+       return redirect()->back()->with('success','Data Update Successfull');  
+
    }
 
 

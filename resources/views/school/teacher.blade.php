@@ -2,21 +2,20 @@
 @section('teacher','active')
 @section('content')
 
-        <div class="row mt-4 mb-0">
-               <div class="col-6"> <h4 class="mt-0">Teacher Information with Teaching Subject</h4></div>
-                     <div class="col-3">
-                         <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
-                             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#statusmodal">
-                          All Status
-                        </button>
+            <div class="row mt-4 mb-0">
+                 <div class="col-6"> <h4 class="mt-0">Teacher Information with Teaching Subject</h4></div>
+                      <div class="col-3">
+                          <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
+                                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#statusmodal">
+                             All Status
+                         </button>
                               
                          </div>
                      </div>
-                     <div class="col-3">
-                         <div class="d-grid gap-2 d-md-flex ">
-                         <a class="btn btn-primary" href="{{url('school/manage_teacher')}}" role="button">Add</a>
-                             
-                         </div>
+                      <div class="col-3">
+                          <div class="d-grid gap-2 d-md-flex ">
+                             <a class="btn btn-primary" href="{{url('school/manage_teacher')}}" role="button">Add</a>  
+                          </div>
                      </div>   
              </div>  
 
@@ -39,8 +38,8 @@
     <thead>
       <tr>
            <th width="10%" >Teacher Name</th>
-	    	<th width="10%" >Designation</th>
-	        <th width="15%" >Email</th>
+	   <th width="10%" >Designation</th>
+	   <th width="15%" >Email</th>
            <th width="15%" > Phone(88)</th>
            <th width="15%" >Teacher Id</th>
            <th width="15%" >Password</th>
@@ -58,18 +57,18 @@
                       <td>{{$row->phone}}</td>
                       <td>{{$row->teacher_userid}}</td>
                       <td>{{$row->teacher_password}}</td>
-                      <td>
-              @if($row->status == 1)         
-            <a href="{{ url('/teacherlist/status/deactive/'.$row->id) }}" class="btn btn-success btn-sm" >Active<a>     
-            @else
-              <a href="{{ url('/teacherlist/status/active/'.$row->id) }}" class="btn btn-danger btn-sm" >Deactive<a>       
-               @endif
-          </td>
+               <td>
+                    @if($row->status == 1)         
+               <a href="{{ url('/teacherlist/status/deactive/'.$row->id) }}" class="btn btn-success btn-sm" >Active<a>     
+                    @else
+               <a href="{{ url('/teacherlist/status/active/'.$row->id) }}" class="btn btn-danger btn-sm" >Deactive<a>       
+                   @endif
+               </td>
                       <td>
 
-                   <a class="btn btn-success btn-sm"  href="{{url('school/manage_teacher/'.$row->id)}}" role="button">Edit/View</a>
+        <a class="btn btn-success btn-sm"  href="{{url('school/manage_teacher/'.$row->id)}}" role="button">Edit/View</a>
               
-                  <a class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure you want to Delete  this Items?')" href="{{url('teacher/delete/'.$row->id)}}" role="button">Delete</a>
+        <a class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure you want to Delete  this Items?')" href="{{url('teacher/delete/'.$row->id)}}" role="button">Delete</a>
         
                       </td>
            </tr>                           

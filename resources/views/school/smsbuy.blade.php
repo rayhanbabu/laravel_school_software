@@ -1,8 +1,10 @@
- @extends('school/schoolheader')
- @section('smsbuy','active')
- @section('content')
-
- <div class="row mt-3 mb-0 mx-2">
+@extends('school/schoolheader')
+@section('page_title','SMS Buy')
+@section('smsbuy_select','active')
+@section('content')
+    
+                       
+<div class="row mt-3 mb-0 mx-2">
                <div class="col-4"> <h4 class="mt-0">Total SMS Buy : {{$activesms}} </h4> </div>
                           <div class="col-3">
                              
@@ -64,7 +66,7 @@
                   <td>{{$row->created_at}}</td>
 
                   <td>
-		         <a  class="btn btn-primary btn-sm" href="#">Pay Now</a> 
+		         <a  class="btn btn-primary btn-sm" href="{{ url('#')}}">Pay Now</a> 
                  </td>
             </tr>   
             @endforeach
@@ -105,10 +107,10 @@
           
                         <div class="col-lg-12 my-2">
                                  <select class="form-control" name ="payment" id="payment" required >
-                                        <option   value="">Seclect One</option>			
-                                             @foreach($smslist as $row)
-                                       <option   value="{{$row->text1}}">{{$row->text2}}</option>
-                                             @endforeach	   
+                                        <option   value="">Seclect One</option>			    
+                                        <option   value="300">750sms(300TK)</option> 
+                                        <option   value="500">1250sms(500TK)</option> 
+                                        <option   value="1000">2500sms(1000TK)</option>          
 			              </select>
                          </div>
 
@@ -136,8 +138,7 @@
   </div>
 </div>
 
+             
+                       
 
-               
-
-
-@endsection     
+@endsection

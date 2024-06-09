@@ -487,11 +487,7 @@ class PaymentinfoController extends Controller
 
 
      public function invoice_delete(Request $request) {
-
-
-      
-       
-            
+     
       $babu=$request->input('babu');
       $class=$request->input('class');
       $section=$request->input('section');

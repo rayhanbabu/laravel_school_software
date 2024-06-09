@@ -268,7 +268,7 @@
                        <div class="card bg-light">
                        <form action="{{ url('school/smsinsert') }}" method="post" enctype="multipart/form-data">
                           {!! csrf_field() !!}
-                             <input type ="hidden" name="sms_type" id="sms_type" value="Result">
+                             <input type ="hidden" name="sms_type" id="sms_type" value="attendance">
                              
                           <div class="form-group  mx-3 my-3">
                              <label class=""><b>Class<span style="color:red;"> * </span></b></label>
@@ -300,6 +300,15 @@
                                    <option  value="{{$list->text1}}" > 
                                             {{$list->text1}} </option>                                                        
                                   @endforeach
+                            </select>
+                       </div> 
+
+                       <div class="form-group  mx-3 my-3">
+                          <label class=""><b> Send Status <span style="color:red;"> * </span></b></label>
+                           <select class="form-select" name="status" id="status"  aria-label="Default select example" required>
+                                  <option value="">Select</option>
+                                  <option value="0">Absence</option>
+                                  <option value="1">Present</option>
                             </select>
                        </div> 
 

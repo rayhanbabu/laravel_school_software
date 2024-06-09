@@ -65,6 +65,7 @@
 	      <th width="15%" >EIIN , Admin pass</th>
           <th width="15%" >school Phone, Password</th>
           <th width="15%" >Payment</th>
+          <th width="15%" >Availabe SMS</th>
           <th width="15%" >Image, Atten, SMS, Fin</th>
           <th width="5%" >View</th>
           <th width="5%" >Status</th>
@@ -83,6 +84,7 @@
         <td>{{$row->eiin}} {{$row->admin_pass}}</td>
         <td>{{$row->school_phone}}<br>{{$row->school_pass}}</td>
         <td>{{$row->payment}}</td>
+        <td>{{$row->available_sms}}</td>
         <td>{{$row->image_access}}, {{$row->atten_access}}, {{$row->sms_access}}, {{$row->fin_access}} </td>
       
       

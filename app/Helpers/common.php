@@ -52,7 +52,11 @@
 
       function studentinfo($uid,$find){
            $student=DB::table('students')->where('id',$uid)->first();
-           return $student->$find;
+           if($student){
+               return $student->$find;
+           }else{
+               return '';
+           }  
        }
        
        
@@ -276,36 +280,49 @@ function  gpa12($subc,$cfail,$subm,$mfail,$total,$markinfo,$tmark){
 
 
 
+     function sms_send($phonearr,$text) {
+        $url = "http://bulksmsbd.net/api/smsapi";
+        $api_key = "C6P8TG4mnTDDGLHosLeZ";
+        $senderid = 8809617613072;
+        $number = '88'.$phonearr;
+        $message = $text;
+     
+        $data = [
+            "api_key" => $api_key,
+            "senderid" => $senderid,
+            "number" => $number,
+            "message" => $message,
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+    }
+    
+    function get_balance() {
+      $url = "http://bulksmsbd.net/api/getBalanceApi";
+      $api_key ="C6P8TG4mnTDDGLHosLeZ";
+      $data = [
+          "api_key" => $api_key
+      ];
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      $response = curl_exec($ch);
+      curl_close($ch);
+      return $response;
+    }
+                  
 
-     function send_sms($phonearr,$text) {
-        $msg = $text;
-        $apikey = "b4a4c64054d026c8239a8484710afadf";
-        $sender = 8809617612066;
-        $msisdn =$phonearr ;
-        $curl = curl_init();
 
-   curl_setopt_array($curl, [
-       CURLOPT_URL => "https://rapidapi.mimsms.com/smsapi?user=M00057&password=Rayhanbabu458@&sender=$sender&msisdn=$msisdn&smstext=$msg",
-       CURLOPT_RETURNTRANSFER => true,
-       CURLOPT_FOLLOWLOCATION => true,
-       CURLOPT_ENCODING => "",
-       CURLOPT_MAXREDIRS => 10,
-       CURLOPT_TIMEOUT => 30,
-       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-       CURLOPT_CUSTOMREQUEST => "GET",
-
-   ]);
-
-   $response = curl_exec($curl);
-
-   $data = json_decode($response);
-
-   $err = curl_error($curl);
-
-   curl_close($curl);
-
-
-   }
 
       function funsubname($class,$babu,$subcode1,$eiin){
         $subject=Subject::where('babu',$babu)->where('class',$class)->where('subid',$subcode1)->where('eiin',$eiin)->get();

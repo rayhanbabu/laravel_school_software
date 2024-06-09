@@ -371,13 +371,12 @@ use App\Http\Controllers\VedioController;
 
           Route::get('subjectview/{class}/{babu}',[ColorController::class,'subjectview']);
           Route::get('markinfoview/{class}/{babu}',[ColorController::class,'markinfoview']);
- 
- });
+   });
 
    
     Route::middleware('SchoolTeacher')->group(function(){   
 
-        Route::get('dashboard',[SchoolController::class,'dashboard']);
+          Route::get('dashboard',[SchoolController::class,'dashboard']);
 
           //Section
           Route::get('/schoolsection/{section}',[SchoolController::class,'schoolsection']);
@@ -409,7 +408,6 @@ use App\Http\Controllers\VedioController;
           Route::post('/spend-month',[PaymentinfoController::class,'spend_month']);
           Route::post('/spendday',[PaymentinfoController::class,'spendday']);
           Route::post('/class-wise-payment',[PaymentinfoController::class,'class_wise_payment']);
-
           Route::get('/monthly-payment',[PaymentinfoController::class,'monthly_payment']);
           Route::post('/payment-update',[PaymentinfoController::class,'payment_update']);
          
@@ -815,6 +813,8 @@ use App\Http\Controllers\VedioController;
          Route::post('admin/marksstudent',[MarkController::class,'marksstudent']);
          Route::get('admin/marks/{id}',[MarkController::class,'markdelete']);
 
+         Route::post('admin/marks_fgp_update',[MarkController::class,'marks_fgp_update']);
+
 
         //Student  Finance   table View
         Route::get('fins/{class}/{babu}',[InvoiceController::class,'finsview']);
@@ -840,7 +840,6 @@ use App\Http\Controllers\VedioController;
        Route::get('admin/colordelete/{id}',[ColorController::class,'colordelete']);
        Route::post('admin/colorimport',[ColorController::class,'colimport']);
        Route::post('admin/yearupdate',[AdminController::class,'yearupdate']);
-
 
        Route::get('admin/stuview',[AdminController::class,'stuview']);
        Route::post('admin/stuupdate',[AdminController::class,'stuupdate']);
