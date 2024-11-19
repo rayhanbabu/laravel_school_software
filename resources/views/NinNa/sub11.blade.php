@@ -2,7 +2,7 @@
 @section('content')
  
  @if(Session::has('school'))  
-       @include('EigNa/subject')
+       @include('NinNa/subject')
  @endif
 
  <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
@@ -27,6 +27,7 @@
                   <th width ="15%"> Name of Student </th>	
 
 
+                
                   @if($name->cstatus=='number')
                   <th width="7%"><span class="text-white"> </span> Assessment 100 </th>	
                   @else
@@ -55,7 +56,7 @@
      </tbody>
   </table>
   <div class="loader">
-            <img src="{{ asset('images/abc.gif') }}" alt="" style="width: 50px;height:50px;">
+            <img src="{{ asset('images/abc.gif') }}" alt="" style="width: 50px;hNinht:50px;">
           </div>
 
 
@@ -76,7 +77,7 @@ $(document).ready(function(){
       function fetch_data() {
         $.ajax({
            type:'GET',
-           url:'/EigNaSelect/{{$tecodesection}}',
+           url:'/NinNaSelect/{{$tecodesection}}',
            success: function(response) {
             //console.log(response);
             var html = '';
@@ -125,7 +126,7 @@ $(document).ready(function(){
         if($(this).attr("id").length > 0)
         {
             $.ajax({
-                url:"/Eig/Na/sub_update",
+                url:"/Nin/Na/sub_update",
                 type:"POST",
                 dataType: 'json',
                 data:$(this).serialize(),

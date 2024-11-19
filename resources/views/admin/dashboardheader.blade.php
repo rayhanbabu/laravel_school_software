@@ -116,6 +116,7 @@
             <a class="nav-link" href="{{url('markinfo/Six/NA')}}">Six</a>
             <a class="nav-link" href="{{url('markinfo/Seven/NA')}}">Seven</a>
             <a class="nav-link" href="{{url('markinfo/Eight/NA')}}">Eight</a>
+            <a class="nav-link" href="{{url('markinfo/Nine/NA')}}">Nine</a>
             <a class="nav-link" href="{{url('markinfo/Nine/Science')}}">Nine Science</a>
             <a class="nav-link" href="{{url('markinfo/Nine/Humanities')}}">Nine Humanities</a>
             <a class="nav-link" href="{{url('markinfo/Nine/Commerce')}}">Nine Commerce</a>
@@ -156,12 +157,13 @@
   </a>
    <div class="collapse" id="collapseLayoutsmark" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
         <nav class="sb-sidenav-menu-nested nav">
-            <a class="nav-link" href="{{url('marks/Three/NA')}}">Three</a>
-            <a class="nav-link" href="{{url('marks/Four/NA')}}">Four</a>
-            <a class="nav-link" href="{{url('marks/Five/NA')}}">Five</a>
-            <a class="nav-link" href="{{url('marks/Six/NA')}}">Six</a>
+            <a class="nav-link" href="{{url('marks/Three/NA')}}">  Three</a>
+            <a class="nav-link" href="{{url('marks/Four/NA')}}"> Four</a>
+            <a class="nav-link" href="{{url('marks/Five/NA')}}"> Five</a>
+            <a class="nav-link" href="{{url('marks/Six/NA')}}"> Six</a>
             <a class="nav-link" href="{{url('marks/Seven/NA')}}">Seven</a>
             <a class="nav-link" href="{{url('marks/Eight/NA')}}">Eight</a>
+            <a class="nav-link" href="{{url('marks/Nine/NA')}}">Nine </a>
             <a class="nav-link" href="{{url('marks/Nine/Science')}}">Nine Science</a>
             <a class="nav-link" href="{{url('marks/Nine/Humanities')}}">Nine Humanities</a>
             <a class="nav-link" href="{{url('marks/Nine/Commerce')}}">Nine Commerce</a>
@@ -212,6 +214,7 @@
          <a class="nav-link" href="{{url('subject/Six/NA')}}">Six</a>
          <a class="nav-link" href="{{url('subject/Seven/NA')}}">Seven</a>
          <a class="nav-link" href="{{url('subject/Eight/NA')}}">Eight</a>
+         <a class="nav-link" href="{{url('subject/Nine/NA')}}">Nine</a>
          <a class="nav-link" href="{{url('subject/Nine/Science')}}">Nine Science</a>
          <a class="nav-link" href="{{url('subject/Nine/Humanities')}}">Nine Humanities</a>
          <a class="nav-link" href="{{url('subject/Nine/Commerce')}}">Nine Commerce</a>

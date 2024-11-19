@@ -17,59 +17,54 @@ use Mail;
 use Session;
 use PDF;
 
-class SevenNaController extends Controller
+class NineNaController extends Controller
 {
-    public function SevNainput(){
+    public function NinNainput(){
         $school=schoolsession();
-        $subject=Subject::where('class','Seven')->where('babu','NA')->where('eiin',$school->eiin)->orderBy('subcode','asc')->get();
-        return view('SevNa.input',['school'=>$school,'subject'=>$subject]);
+        $subject=Subject::where('class','Nine')->where('babu','NA')->where('eiin',$school->eiin)->orderBy('subcode','asc')->get();
+        return view('NinNa.input',['school'=>$school,'subject'=>$subject]);
     }
  
 
   /// Subject  View Page
- public function SevNasub($tecode){
+ public function NinNasub($tecode){
   if(Session::has('school')){ 
        $school=schoolsession();
-       $subject=Subject::where('class','Seven')->where('babu','NA')->where('eiin',$school->eiin)->orderBy('subcode','asc')->get();
+       $subject=Subject::where('class','Nine')->where('babu','NA')->where('eiin',$school->eiin)->orderBy('subcode','asc')->get();
        $name=Subject::where('tecode',substr($tecode,0,10))->where('eiin',$school->eiin)->first();
        $tecodesection=$tecode.Session::get('section').$name->subid;
-       return view('SevNa.'.$name->subcode,['school'=>$school,'subject'=>$subject,'name'=>$name ,'tecodesection'=>$tecodesection]);
-
-  
-
-   }else if(Session::has('teacher')){
-
-    $subjectauth=Subjectauth::where('teacher_id',teachersession()->id)->get();
-
-      if(!empty(teacher_access($tecode,$subjectauth))){
-           $name=Subject::where('tecode',substr($tecode,0,10))->first();
-           $tecodesection=$tecode.teacher_access($tecode,$subjectauth)['lavel'];
-         return view('SevNa.'.$name->subcode,['name'=>$name,'tecodesection'=>$tecodesection]);
-            }else{
-          return '<h2 class="text-danger">Page Not Found</h2>';
-       }
-    }
-}
+       return view('NinNa.'.$name->subcode,['school'=>$school,'subject'=>$subject,'name'=>$name ,'tecodesection'=>$tecodesection]);
+  }else if(Session::has('teacher')){
+      $subjectauth=Subjectauth::where('teacher_id',teachersession()->id)->get();
+            if(!empty(teacher_access($tecode,$subjectauth))){ 
+               $name=Subject::where('tecode',substr($tecode,0,10))->where('eiin',teachersession()->eiin)->first();
+               $tecodesection=$tecode.teacher_access($tecode,$subjectauth)['lavel'];
+            return view('NinNa.'.$name->subcode,['name'=>$name,'tecodesection'=>$tecodesection]);
+                }else{
+             return '<h2 class="text-danger">Page Not Found</h2>';
+           }
+     }
+  }
 
 
 
 
-    public function SevNaSelect($tecodesection){
+   public function NinNaSelect($tecodesection){
       if(Session::has('school')){ 
            $school=schoolsession();
-           $examinfo = Examinfo::where('babu','NA')->where('class','Seven')->where('eiin',$school->eiin)->first();
+           $examinfo = Examinfo::where('babu','NA')->where('class','Nine')->where('eiin',$school->eiin)->first();
            $sstatus=Subject::where('tecode',substr($tecodesection,0,10))->where('eiin',$school->eiin)->first();
         
        $student = DB::table('marks')
           ->leftjoin('students', 'students.id', '=', 'marks.uid')
-          ->where('marks.babu','NA')->where('marks.class','Seven')->where('marks.section',substr($tecodesection,10,1))
+          ->where('marks.babu','NA')->where('marks.class','Nine')->where('marks.section',substr($tecodesection,10,1))
           ->where('marks.exam',$examinfo->exam)->where('marks.year',$examinfo->year)->where('marks.eiin',$school->eiin)
           ->select('students.name','students.stu_id','students.roll','students.moral','students.main','students.addi','marks.*')
           ->orderBy('marks.roll','asc')->get();
 
       }else if(Session::has('teacher')){
            $school=School::where('eiin',teachersession()->eiin)->first();
-           $examinfo = Examinfo::where('babu','NA')->where('class','Seven')->where('eiin',$school->eiin)->first();
+           $examinfo = Examinfo::where('babu','NA')->where('class','Nine')->where('eiin',$school->eiin)->first();
            $sstatus=Subject::where('tecode',substr($tecodesection,0,10))->where('eiin',$school->eiin)->first();
            $subsn=substr($tecodesection,5,5).'sn';
            $lavel=substr($tecodesection,11,25);
@@ -77,7 +72,7 @@ class SevenNaController extends Controller
        if($sstatus->subid>20000){
              $student=DB::table('marks')
                 ->leftjoin('students','students.id','=','marks.uid')
-                ->where('marks.babu','NA')->where('marks.class','Seven')->where('marks.section',substr($tecodesection,10,1))
+                ->where('marks.babu','NA')->where('marks.class','Nine')->where('marks.section',substr($tecodesection,10,1))
                 ->where('marks.exam',$examinfo->exam)->where('marks.year',$examinfo->year)->where('marks.eiin',$school->eiin)
                 ->where('marks.'.$subsn,$lavel)
                 ->select('students.name','students.stu_id','students.roll','students.moral','students.main','students.addi','marks.*')
@@ -85,7 +80,7 @@ class SevenNaController extends Controller
           }else{
             $student=DB::table('marks')
                 ->leftjoin('students','students.id', '=','marks.uid')
-                ->where('marks.babu','NA')->where('marks.class','Seven')->where('marks.section',substr($tecodesection,10,1))
+                ->where('marks.babu','NA')->where('marks.class','Nine')->where('marks.section',substr($tecodesection,10,1))
                 ->where('marks.exam',$examinfo->exam)->where('marks.year',$examinfo->year)->where('marks.eiin',$school->eiin)
                 ->select('students.name','students.stu_id','students.roll','students.moral','students.main','students.addi','marks.*')
                 ->orderBy('marks.roll','asc')->get();                                    
@@ -99,81 +94,75 @@ class SevenNaController extends Controller
             'sstatus'=>$sstatus,
        ]);  
 
-     }
+ }
 
 
-    public function SevNasub_update(Request $request){
+   public function NinNasub_update(Request $request){
 
-       if(Session::has('school')){ 
-           $school=schoolsession();
-       }else if(Session::has('teacher')){
-             $school=teachersession();
-         }
+    if(Session::has('school')){ 
+      $school=schoolsession();
+   }else if(Session::has('teacher')){
+      $school=teachersession();
+   }
 
-  
-     $markinfo = Markinfo::where('babu','NA')->where('class','Seven')->where('eiin',$school->eiin)->get();
+   $markinfo = Markinfo::where('babu','NA')->where('class','Nine')->where('eiin',$school->eiin)->get();
 
-         $cfail=$request->input('cfail');
-         $mfail=$request->input('mfail');
-         $pfail=$request->input('pfail');
-         $tmark=$request->input('tmark');
-         $subname=$request->input('subname');
-         $subid=$request->input('subid');
-         $subcode=$request->input('subcode');
-   
-         $tsubc=$subcode.'c';
-         $tsubm=$subcode.'m';
-         $tsubp=$subcode.'p';
-         $tsubt=$subcode.'t';
-         $tsubgp=$subcode.'gp';
-         $tsubg=$subcode.'g';
-         $tsubn=$subcode.'n';
-         $tsubcode=$subcode.'code';
-   
-           foreach($request->id as  $key=>$items ){ 
-   
-                  if($request->subc[$key]==''){$subc=0;}else{
-               $subc=$request->subc[$key];}
-   
-                  if($request->subm[$key]==''){$subm=0;}else{
-               $subm=$request->subm[$key];}
-   
-                  if($request->subp[$key]==''){$subp=0;}else{
-               $subp=$request->subp[$key];}
-   
-               $id    =$request->id[$key];
-               $total = ceil($subc * 0.70) + $subm + $subp;
-   
-             
-               $gpa=gpa($subc,$cfail,$subm,$mfail,$subp,$pfail,$total,$markinfo,$tmark);
-               $grade= grade($subc,$cfail,$subm,$mfail,$subp,$pfail,$total,$markinfo,$tmark);
+    $cfail=$request->input('cfail');
+    $mfail=$request->input('mfail');
+    $pfail=$request->input('pfail');
+    $tmark=$request->input('tmark');
+    $subname=$request->input('subname');
+    $subid=$request->input('subid');
+    $subcode=$request->input('subcode');
+
+   $tsubc=$subcode.'c';
+   $tsubm=$subcode.'m';
+   $tsubp=$subcode.'p';
+   $tsubt=$subcode.'t';
+   $tsubgp=$subcode.'gp';
+   $tsubg=$subcode.'g';
+   $tsubn=$subcode.'n';
+   $tsubcode=$subcode.'code'; 
+
+     foreach($request->id as  $key=>$items ){ 
+
+            if($request->subc[$key]==''){$subc=0;}else{
+         $subc=$request->subc[$key];}
+
+            if($request->subm[$key]==''){$subm=0;}else{
+         $subm=$request->subm[$key];}
+
+             if($request->subp[$key]==''){$subp=0;}else{
+         $subp=$request->subp[$key];}
+
+          $id    =$request->id[$key];
+          $total = ceil($subc * 0.70) + $subm + $subp;
+
+
+    $gpa=gpa($subc,$cfail,$subm,$mfail,$subp,$pfail,$total,$markinfo,$tmark);
+    $grade= grade($subc,$cfail,$subm,$mfail,$subp,$pfail,$total,$markinfo,$tmark);
+
+         DB::update(
+             "update marks set $tsubc ='$subc', $tsubm ='$subm', $tsubp ='$subp' , $tsubt ='$total',
+                $tsubgp='$gpa', $tsubg='$grade',$tsubn='$subname' , $tsubcode='$subid'            
+                  where id = '$id'"
+            );
+       }
         
-                DB::update(
-                     "update marks set $tsubc ='$subc', $tsubm ='$subm', $tsubp ='$subp' , $tsubt ='$total',
-                      $tsubgp='$gpa', $tsubg='$grade',$tsubn='$subname' , $tsubcode='$subid'            
-                       where id = '$id'"
-                );               
-          }
-
-            return response()->json([
-                'status'=>100,  
-                'message'=>'Data Updated',  
-             ]);
-
-    }
-
-
-
-    public function SevNasub_update16(Request $request){
-      
-       if(Session::has('school')){ 
-              $school=schoolsession();
+       return response()->json([
+          'status'=>100, 
+          'message'=>'Data Updated',  
+      ]);
+   }
+     
+   public function NinNasub_update16(Request $request){
+        if(Session::has('school')){ 
+                 $school=schoolsession();
         }else if(Session::has('teacher')){
-            $school=teachersession();
+                 $school=teachersession();
          }
 
-
-      $markinfo = Markinfo::where('babu','NA')->where('class','Seven')->where('eiin',$school->eiin)->get();
+      $markinfo = Markinfo::where('babu','NA')->where('class','Nine')->where('eiin',$school->eiin)->get();
  
           $cfail=$request->input('cfail');
           $mfail=$request->input('mfail');
@@ -211,11 +200,8 @@ class SevenNaController extends Controller
            $grade= grade($subc,$cfail,$subm,$mfail,$subp,$pfail,$total,$markinfo,$tmark);
           
     
-                DB::update(
-                    "update marks set $tsubc ='$subc', $tsubm ='$subm', $tsubp ='$subp' , $tsubt ='$total',
-                       $tsubgp='$gpa', $tsubg='$grade' , $tsubcode='$subid'            
-                         where id = '$id'"
-                   );
+          DB::update("update marks set $tsubc ='$subc', $tsubm ='$subm', $tsubp ='$subp' , $tsubt ='$total',
+                       $tsubgp='$gpa', $tsubg='$grade' , $tsubcode='$subid' where id = '$id'" );
             }
                
              return response()->json([
@@ -223,71 +209,72 @@ class SevenNaController extends Controller
                 'message'=>'Data Updated',  
              ]);
      }
-     
+      
+ 
 
 
-
-
- public function SevNaresult(Request $request){
-     
-     
+ public function NinNaresult(Request $request){
+         
     $school=schoolsession();
-    $subject=Subject::where('class','Seven')->where('babu','NA')->where('eiin',$school->eiin)->orderBy('subcode','asc')->get();
-    $name=Subject::where('class','Seven')->where('babu','NA')->where('eiin',$school->eiin)->first();
-    $examinfo = Examinfo::where('babu','NA')->where('class','Seven')->where('eiin',$school->eiin)->first();
+    $subject=Subject::where('class','Nine')->where('babu','NA')->where('eiin',$school->eiin)->orderBy('subcode','asc')->get();
+    $name=Subject::where('class','Nine')->where('babu','NA')->where('eiin',$school->eiin)->first();
+    $examinfo = Examinfo::where('babu','NA')->where('class','Nine')->where('eiin',$school->eiin)->first();
     
     
-     $mainsubject=Calculation::where('babu','NA')->where('class','Seven')->where('eiin',$school->eiin)->first();
+     $mainsubject=Calculation::where('babu','NA')->where('class','Nine')->where('eiin',$school->eiin)->first();
      $subcode1=$mainsubject->subcode;  
      $tags=explode(',',$subcode1);
 
-    $student = DB::table('marks')
+     $student = DB::table('marks')
       ->leftjoin('students', 'students.id', '=', 'marks.uid')
-      ->where('marks.babu','NA')->where('marks.class','Seven')->where('marks.section',Session::get('section'))
+      ->where('marks.babu','NA')->where('marks.class','Nine')->where('marks.section',Session::get('section'))
       ->where('marks.exam',$examinfo->exam)->where('marks.year',$examinfo->year)->where('marks.eiin',$school->eiin)
       ->select('students.name','students.stu_id','students.roll','students.moral','students.main','students.addi','marks.*')
       ->orderBy('students.roll','asc')->get();
       
       $student1=$student->first();
-        if($student1){   
-    return view('SevNa.result',['school'=>$school,'subject'=>$subject ,'name'=>$name,'student'=>$student,'tags'=>$tags,'student1'=>$student1]);
-        }else{
-         return redirect("/SevNainput")->with('status','This section No Students');
-      }
-   
- }
-
- 
-
+      if($student1){    
+     return view('NinNa.result',['school'=>$school,'subject'=>$subject ,'name'=>$name,'student'=>$student,'tags'=>$tags,'student1'=>$student1]);
+    
+      }else{
+           return redirect("/NinNainput")->with('status','This section No Students');
+       }
+    }
 
 
   public function resulttype(Request $request){
-      $school=schoolsession();
-      $examinfo = Examinfo::where('babu','NA')->where('class','Seven')->where('eiin',$school->eiin)->first();
-      $type=$request->input('type');
-      $section=Session::get('section');
-      DB::update("update marks set rs ='$type'  where babu='NA' AND class='Seven' AND section='$section'
-      AND exam='$examinfo->exam' AND year='$examinfo->year' AND eiin='$school->eiin' ");
+       $school=schoolsession();
+       $examinfo = Examinfo::where('babu','NA')->where('class','Nine')->where('eiin',$school->eiin)->first();
+       $type=$request->input('type');
+       $section=Session::get('section');
+    DB::update("update marks set rs ='$type'  where babu='NA' AND class='Nine' AND section='$section'
+    AND exam='$examinfo->exam' AND year='$examinfo->year' AND eiin='$school->eiin' ");
       return back()->with('success','Result Type Update ');
   }
 
 
- public function SevNaresultupdate(Request $request){
+  
 
-    $school=School::where('eiin',Session::get('school')->eiin)->first();
-    $examinfo=Examinfo::where('babu','NA')->where('class','Seven')->where('eiin',$school->eiin)->first();
-    $section=Session::get('section');
 
-   $max=DB::table('marks')->where('babu','NA')->where('class','Seven')->where('section',Session::get('section'))
-     ->where('exam',$examinfo->exam)->where('year',$examinfo->year)->where('eiin',$school->eiin)
-     ->select(DB::raw("Max(sub11t) as sub11h "),DB::raw("Max(sub12t) as sub12h") ,DB::raw("Max(sub13t) as sub13h")
-    ,DB::raw("Max(sub14t) as sub14h"),DB::raw("Max(sub15t) as sub15h"),DB::raw("Max(sub16t) as sub16h")
-    ,DB::raw("Max(sub17t) as sub17h"),DB::raw("Max(sub18t) as sub18h"),DB::raw("Max(sub19t) as sub19h")
-    ,DB::raw("Max(sub20t) as sub20h"),DB::raw("Max(sub21t) as sub21h"),DB::raw("Max(sub22t) as sub22h")
-    ,DB::raw("Max(sub23t) as sub23h"),DB::raw("Max(sub24t) as sub24h"))->first();
 
-     $markinfo=Markinfo::where('babu','NA')->where('class','Seven')->where('eiin',Session::get('school')->eiin)->get();
-     $mainsubject=Calculation::where('babu','NA')->where('class','Seven')->where('eiin',$school->eiin)->first();
+ public function NinNaresultupdate(Request $request){
+
+     $school=School::where('eiin',Session::get('school')->eiin)->first();
+   $examinfo=Examinfo::where('babu','NA')->where('class','Nine')->where('eiin',$school->eiin)->first();
+   $section=Session::get('section');
+
+   $max=DB::table('marks')->where('babu','NA')->where('class','Nine')->where('section',Session::get('section'))
+   ->where('exam',$examinfo->exam)->where('year',$examinfo->year)->where('eiin',$school->eiin)
+   ->select(DB::raw("Max(sub11t) as sub11h ") ,DB::raw("Max(sub12t) as sub12h") ,DB::raw("Max(sub13t) as sub13h")
+   ,DB::raw("Max(sub14t) as sub14h"),DB::raw("Max(sub15t) as sub15h"),DB::raw("Max(sub16t) as sub16h")
+   ,DB::raw("Max(sub17t) as sub17h"),DB::raw("Max(sub18t) as sub18h"),DB::raw("Max(sub19t) as sub19h")
+   ,DB::raw("Max(sub20t) as sub20h"),DB::raw("Max(sub21t) as sub21h"),DB::raw("Max(sub22t) as sub22h")
+   ,DB::raw("Max(sub23t) as sub23h"),DB::raw("Max(sub24t) as sub24h"))->first();
+
+     $markinfo=Markinfo::where('babu','NA')->where('class','Nine')->where('eiin',Session::get('school')->eiin)->get();
+     
+     $mainsubject=Calculation::where('babu','NA')->where('class','Nine')->where('eiin',$school->eiin)->first();
+     
      $subcode1=$mainsubject->subcode;  
      $tags=explode(',',$subcode1);
      $totalsub=(count($tags)-1);
@@ -389,8 +376,8 @@ class SevenNaController extends Controller
         ,sub11='$sub11n',sub12='$sub12n',sub13='$sub13n' ,sub14='$sub14n'
         ,sub15='$sub15n',sub16='$sub16n',sub17='$sub17n' ,sub18='$sub18n'
         ,sub19='$sub19n',sub20='$sub20n',sub21='$sub21n' ,sub22='$sub22n'
-        ,sub23='$sub23n' ,sub24='$sub24n' 
-                
+        ,sub23='$sub23n' ,sub24='$sub24n'
+        
                 ,total=sub11t+sub12t+sub13t+sub14t+sub15t+sub16t+sub17t+sub18t+sub19t+sub20t+sub21t+sub22t+sub23t+sub24t  
                 where id = '$id'"
            ); 
@@ -400,7 +387,5 @@ class SevenNaController extends Controller
    //die();
    return back()->with('success','Update Information');
 
-
  }
-
 }

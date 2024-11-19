@@ -192,7 +192,6 @@ class TabulationController extends Controller
       ->where('exam',$exam)->where('year',$year)->where('eiin',$school->eiin)->where('result','Passed')->count();
 
       
-
       $sum=DB::table('marks')->where('babu',$babu)->where('class',$class)->where('section',$section)
         ->where('exam',$exam)->where('year',$year)->where('eiin',$school->eiin)
         ->select(DB::raw("SUM(sub11) as sub11 ") ,DB::raw("SUM(sub12) as sub12") ,DB::raw("SUM(sub13) as sub13")
@@ -205,11 +204,11 @@ class TabulationController extends Controller
         if($sum->ranks>1){
           $student=DB::select("select * ,rank() over(order by cgp desc , total desc , id) AS position  from  
           marks where babu='$babu' AND class='$class' AND section='$section'
-          AND exam='$exam' AND year='$year' AND eiin='$school->eiin'");
+          AND exam='$exam' AND year='$year' AND eiin='$school->eiin' ORDER BY roll ASC");
         }else{
           $student=DB::select("select * ,rank() over(order by gpa desc , total desc , id) AS position  from  
           marks where babu='$babu' AND class='$class' AND section='$section'
-          AND exam='$exam' AND year='$year' AND eiin='$school->eiin'");
+          AND exam='$exam' AND year='$year' AND eiin='$school->eiin' ORDER BY roll ASC ");
         }
         
         
@@ -232,11 +231,11 @@ class TabulationController extends Controller
      if($sum->ranks>1){
         $student=DB::select("select * ,rank() over(order by cgp desc, total desc, id) AS position  from  
         marks where babu='$babu' AND class='$class' 
-        AND exam='$exam' AND year='$year' AND eiin='$school->eiin'");
+        AND exam='$exam' AND year='$year' AND eiin='$school->eiin' ORDER BY roll ASC");
      }else{
         $student=DB::select("select * ,rank() over(order by gpa desc, total desc, id) AS position  from  
          marks where babu='$babu' AND class='$class' 
-        AND exam='$exam' AND year='$year' AND eiin='$school->eiin'");
+        AND exam='$exam' AND year='$year' AND eiin='$school->eiin' ORDER BY roll ASC");
       }
        // return $student;
 
@@ -257,11 +256,11 @@ class TabulationController extends Controller
            if($sum->ranks>1){
              $student=DB::select("select * ,rank() over(order by cgp desc , total desc , id )  AS position  from  
              marks where  class='$class' AND section='$section'
-             AND exam='$exam' AND year='$year' AND eiin='$school->eiin'");
+             AND exam='$exam' AND year='$year' AND eiin='$school->eiin' ORDER BY roll ASC ");
            }else{
              $student=DB::select("select * ,rank() over(order by gpa desc , total desc , id )  AS position  from  
              marks where  class='$class' AND section='$section'
-             AND exam='$exam' AND year='$year' AND eiin='$school->eiin'");
+             AND exam='$exam' AND year='$year' AND eiin='$school->eiin' ORDER BY roll ASC ");
             }
         // return $student;
 
@@ -281,11 +280,11 @@ class TabulationController extends Controller
          if($sum->ranks>1){  
              $student=DB::select("select * ,rank() over(order by cgp desc , total asc , id) AS position  from  
              marks where  class='$class' 
-             AND exam='$exam' AND year='$year' AND eiin='$school->eiin'");
+             AND exam='$exam' AND year='$year' AND eiin='$school->eiin' ORDER BY roll ASC ");
           }else{
              $student=DB::select("select * ,rank() over(order by gpa desc , total asc , id) AS position  from  
              marks where  class='$class' 
-              AND exam='$exam' AND year='$year' AND eiin='$school->eiin'");
+              AND exam='$exam' AND year='$year' AND eiin='$school->eiin' ORDER BY roll ASC ");
           }
          //return $student;
        }

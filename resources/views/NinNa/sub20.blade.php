@@ -1,28 +1,32 @@
 @extends('school/schoolheader')
 @section('content')
- 
-  @if(Session::has('school'))  
-       @include('SixNa/subject')
-  @endif
 
- <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
+@if(Session::has('school'))  
+     @include('NinNa/subject')
+ @endif
+
+     <h5 class="mt-2"> Class: {{$name->class}}, Group: {{$name->babu}}, Section: {{substr($tecodesection,10,1)}}, Subject: {{$name->subject}} </h5> 
 
  <div class="table-responsive">
   <form  method="POST" id="update_form" enctype="multipart/form-data">
    <table class="table table-bordered" style="font-size:15px;" >
      <thead>
-        <tr style="background: whitesmoke;">
+     <tr style="background: whitesmoke;">
+
                <input type="hidden" name="tmark" value="{{$name->tmark}}"  class="form-control">
                <input type="hidden" name="cfail" value="{{$name->cfail}}"  class="form-control">
                <input type="hidden" name="mfail" value="{{$name->mfail}}"  class="form-control">
                <input type="hidden" name="pfail" value="{{$name->pfail}}"   class="form-control">
                <input type="hidden" name="subname" value="{{$name->subject}}"  class="form-control">
                <input type="hidden" name="subid" value="{{$name->subid}}"  class="form-control">
-               <input type="hidden" name="subcode" value="{{$name->subcode}}"  class="form-control">    
-               <th width ="5%">Stu_ID</th>
-               <th width ="2%">Roll</th>
-               <th width ="15%"> Name of Student </th>	
+               <input type="hidden" name="subcode" value="{{$name->subcode}}"  class="form-control">
+                  
+                  <th width ="5%">Stu_ID</th>
+                  <th width ="2%">Roll</th>
+                  <th width ="15%"> Name of Student </th>	
 
+
+             
                   @if($name->cstatus=='number')
                   <th width="7%"><span class="text-white"> </span> Assessment 100 </th>	
                   @else
@@ -41,7 +45,7 @@
                   <th width="7%"> Assessment 70%  </th> 
                   <th width="7%"> Total  </th> 
                   <th width="5%">Gpa </th> 
-                  <th width="7%">Grade  </th> 				 				   
+                  <th width="7%">Grade  </th> 				 				     
        
         </tr>
    </thead>
@@ -51,7 +55,7 @@
      </tbody>
   </table>
   <div class="loader">
-            <img src="{{ asset('images/abc.gif') }}" alt="" style="width: 50px;height:50px;">
+            <img src="{{ asset('images/abc.gif') }}" alt="" style="width: 50px;hNinht:50px;">
           </div>
 
 
@@ -72,22 +76,20 @@ $(document).ready(function(){
       function fetch_data() {
         $.ajax({
           type:'GET',
-          url:'/SixNaSelect/{{$tecodesection}}',
+          url:'/NinNaSelect/{{$tecodesection}}',
           success: function(response) {
             //console.log(response);
             var html = '';
                 for(var count = 0; count < response.data.length; count++)
                 {
-            if(response.data[count].sub11c==0){ var subc=''; }else{
-                var subc=response.data[count].sub11c; }
+                    if(response.data[count].sub20c==0){ var subc=''; }else{
+              var subc=response.data[count].sub20c; }
 
-            if(response.data[count].sub11m==0){ var subm=''; }else{
-               var subm=response.data[count].sub11m; } 
-
-             if(response.data[count].sub11p==0){ var subp=''; }else{
-                var subp=response.data[count].sub11p; }
+                    if(response.data[count].sub20m==0){ var subm=''; }else{
+             var subm=response.data[count].sub20m; } 
                     
-                  
+                    if(response.data[count].sub20p==0){ var subp=''; }else{
+              var subp=response.data[count].sub20p; }
               
 
 	 html += '<tr>';
@@ -95,15 +97,14 @@ $(document).ready(function(){
    html += '<td>'+response.data[count].stu_id+'</td>';
    html += '<td>'+response.data[count].roll+'</td>';
    html += '<td>'+response.data[count].name+'</td>';
- 
    html += '<td><input type="'+response.sstatus.cstatus+'"  min="0" max="'+response.sstatus.cmark+'" name="subc[]"   class="form-control" value="'+subc+'"/></td>';
    html += '<td><input type="'+response.sstatus.mstatus+'"  min="0" max="'+response.sstatus.mmark+'" name="subm[]"   class="form-control" value="'+subm+'" /></td>';
    html += '<td><input type="'+response.sstatus.pstatus+'"  min="0" max="'+response.sstatus.pmark+'" name="subp[]"   class="form-control" value="'+subp+'" /></td>';
    
-   html += '<td>'+Math.ceil(response.data[count].sub11c * 0.7)+'</td>';
-   html += '<td>'+response.data[count].sub11t+'</td>';
-   html += '<td>'+response.data[count].sub11gp+'</td>';
-   html += '<td>'+response.data[count].sub11g+'</td>';
+   html += '<td>'+Math.ceil(response.data[count].sub20c * 0.7)+'</td>';
+   html += '<td>'+response.data[count].sub20t+'</td>';
+   html += '<td>'+response.data[count].sub20gp+'</td>';
+   html += '<td>'+response.data[count].sub20g+'</td>';
    html += '</tr>';
 			
                 }
@@ -112,35 +113,32 @@ $(document).ready(function(){
           }
         });
       }
-   
-
-  
-	
-	
-
+    
+    
+    
+    
     $('#update_form').on('submit', function(event){
         event.preventDefault();
         if($(this).attr("id").length > 0)
         {
             $.ajax({
-                url:"/Six/Na/sub_update",
+                url:"/Nin/Na/sub_update",
                 type:"POST",
                 dataType: 'json',
                 data:$(this).serialize(),
                 beforeSend:function(){  
-                  $("#edit_employee_btn").prop('disabled', true)
                    $('.loader').show();
+                   $("#edit_employee_btn").prop('disabled', true)
                  }, 
                 success:function(response)
                 {
                // console.log(response.data)
                if(response.status == 100){
                  Swal.fire("Updated",response.message,"success");
-                   
                   }
-                $("#edit_employee_btn").prop('disabled', false)    
-                $('.loader').hide();
-                fetch_data();
+               $("#edit_employee_btn").prop('disabled', false)  
+               $('.loader').hide();
+               fetch_data();
                }
             })
         }

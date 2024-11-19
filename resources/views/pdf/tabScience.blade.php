@@ -159,25 +159,25 @@
 
  <tr>
      <td colspan="4">Subjects</td>
-     <td>cq</td>
-     <td>mcq</td>
-     <td>pr</td>
+     <td>A</td>
+     <td>AL</td>
+     <td>70%</td>
      <td>tot</td>
      <td>gpa</td>
      <td>gra</td>
 
     <td colspan="4">Subjects</td>
-    <td>cq</td>
-    <td>mcq</td>
-    <td>pr</td>
+    <td>A</td>
+     <td>AL</td>
+     <td>70%</td>
     <td>tot</td>
     <td>gpa</td>
     <td>gra</td>
 
     <td colspan="4">Subjects</td>
-    <td>cq</td>
-    <td>mcq</td>
-    <td>pr</td>
+    <td>A</td>
+     <td>AL</td>
+     <td>70%</td>
     <td>tot</td>
     <td>gpa</td>
     <td>gra</td>
@@ -185,12 +185,12 @@
 
 
   <tr>
-     @if($class=='Nine' OR $class=='Ten')
+     @if($class=='Ten')
          
                <td  colspan="4"> <?php echo substr($row->sub11n,0,22);?></td>
                <td> @if(subjectshow('sub11',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub11c}} @else @endif  </td>
                <td> @if(subjectshow('sub11',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub11m}} @else @endif  </td>
-               <td> @if(subjectshow('sub11',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub11p}} @else @endif  </td>
+               <td> @if(subjectshow('sub11',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub11c * 0.70)}} @else @endif  </td>
                <td> </td>
                <td> </td>
                <td> </td>
@@ -199,7 +199,7 @@
                <td  colspan="4"> <?php echo substr($row->sub11n,0,22);?></td>
                <td> @if(subjectshow('sub11',$row->class,$row->babu,$row->eiin)['cstatus']=='number'){{$row->sub11c}} @else @endif  </td>
                <td> @if(subjectshow('sub11',$row->class,$row->babu,$row->eiin)['mstatus']=='number'){{$row->sub11m}} @else @endif  </td>
-               <td> @if(subjectshow('sub11',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub11p}} @else @endif  </td>
+               <td> @if(subjectshow('sub11',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub11c * 0.70)}} @else @endif  </td>
                <td> {{$row->sub11t}} </td>
                <td> {{$row->sub11gp}}</td>
                <td> {{$row->sub11g}} </td>
@@ -223,7 +223,7 @@
               <td  colspan="4"> <?php echo substr($row->sub13n,0,22); ?> </td>
               <td> @if(subjectshow('sub13',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub13c}} @else @endif  </td>
               <td> @if(subjectshow('sub13',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub13m}} @else @endif  </td>
-              <td> @if(subjectshow('sub13',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub13p}} @else @endif  </td>
+              <td> @if(subjectshow('sub13',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub13c * 0.70)}} @else @endif  </td>
               <td> {{$row->sub13t}}</td>
               <td> {{$row->sub13gp}}</td>
               <td> {{$row->sub13g}}</td>
@@ -237,7 +237,7 @@
               <td  colspan="4"> <?php echo substr($row->sub15n,0,22); ?> </td>
               <td> @if(subjectshow('sub15',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub15c}} @else @endif </td>
               <td> @if(subjectshow('sub15',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub15m}} @else @endif </td>
-              <td> @if(subjectshow('sub15',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub15p}} @else @endif </td>
+              <td> @if(subjectshow('sub15',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub15p}} @else @endif </td>
               <td> {{$row->sub15t}}</td>
               <td> {{$row->sub15gp}}</td>
               <td> {{$row->sub15g}}</td>
@@ -252,7 +252,7 @@
             <td  colspan="4"> <?php echo substr($row->sub12n,0,22); ?> </td>
             <td> @if(subjectshow('sub12',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub12c}} @else @endif </td>
             <td> @if(subjectshow('sub12',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub12m}} @else @endif </td>
-            <td> @if(subjectshow('sub12',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub12p}} @else @endif </td>
+            <td> @if(subjectshow('sub12',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub12c * 0.70)}}@else @endif </td>
             <td> {{$row->sub12t}} </td>
             <td> {{$row->sub12gp}} </td>
             <td> {{$row->sub12g}} </td>
@@ -264,7 +264,7 @@
               <td  colspan="4"> <?php echo substr($row->sub14n,0,22); ?> </td>
               <td> @if(subjectshow('sub14',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub14c}} @else @endif  </td>
               <td> @if(subjectshow('sub14',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub14m}} @else @endif  </td>
-              <td> @if(subjectshow('sub14',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub14p}} @else @endif  </td>
+              <td> @if(subjectshow('sub14',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub14c * 0.70)}} @else @endif  </td>
               <td> {{$row->sub14t}}</td>
               <td> {{$row->sub14gp}}</td>
               <td> {{$row->sub14g}}</td>
@@ -276,7 +276,7 @@
               <td  colspan="4"> <?php echo substr($row->sub16n,0,22); ?> </td>
               <td> @if(subjectshow('sub16',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub16c}} @else @endif  </td>
               <td> @if(subjectshow('sub16',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub16m}} @else @endif  </td>
-              <td> @if(subjectshow('sub16',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub16p}} @else @endif  </td>
+              <td> @if(subjectshow('sub16',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub16c * 0.70)}} @else @endif  </td>
               <td> {{$row->sub16t}}</td>
               <td> {{$row->sub16gp}}</td>
               <td> {{$row->sub16g}}</td>    
@@ -290,7 +290,7 @@
               <td  colspan="4"><?php echo substr($row->sub17n,0,22); ?> </td>
               <td> @if(subjectshow('sub17',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub17c}} @else @endif  </td>
               <td> @if(subjectshow('sub17',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub17m}} @else @endif  </td>
-              <td> @if(subjectshow('sub17',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub17p}} @else @endif  </td>
+              <td> @if(subjectshow('sub17',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub17c * 0.70)}}@else @endif  </td>
               <td> {{$row->sub17t}}</td>
               <td> {{$row->sub17gp}}</td>
               <td> {{$row->sub17g}}</td>
@@ -302,7 +302,7 @@
               <td  id="leftside" colspan="4"> <?php echo substr($row->sub18n,0,22); ?> </td>
               <td> @if(subjectshow('sub18',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub18c}} @else @endif  </td>
               <td> @if(subjectshow('sub18',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub18m}} @else @endif  </td>
-              <td> @if(subjectshow('sub18',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub18p}} @else @endif  </td>
+              <td> @if(subjectshow('sub18',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub18c * 0.70)}} @else @endif  </td>
               <td> {{$row->sub18t}}</td>
               <td> {{$row->sub18gp}}</td>
               <td> {{$row->sub18g}}</td>
@@ -314,7 +314,7 @@
               <td  id="leftside" colspan="4"> <?php echo substr($row->sub19n,0,22); ?> </td>
               <td> @if(subjectshow('sub19',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub19c}} @else @endif  </td>
               <td> @if(subjectshow('sub19',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub19m}} @else @endif  </td>
-              <td> @if(subjectshow('sub19',$row->class,$row->babu,$row->eiin)['pstatus']=='number') {{$row->sub19p}} @else @endif  </td>
+              <td> @if(subjectshow('sub19',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub19c * 0.70)}} @else @endif  </td>
               <td> {{$row->sub19t}}</td> 
               <td> {{$row->sub19gp}}</td>
               <td> {{$row->sub19g}}</td>
@@ -329,7 +329,7 @@
               <td colspan="4"> <?php echo substr($row->sub20n,0,22); ?></td>
               <td> @if(subjectshow('sub20',$row->class,$row->babu,$row->eiin)['cstatus']=='number'){{$row->sub20c}} @else @endif  </td>
               <td> @if(subjectshow('sub20',$row->class,$row->babu,$row->eiin)['mstatus']=='number'){{$row->sub20m}} @else @endif  </td>
-              <td> @if(subjectshow('sub20',$row->class,$row->babu,$row->eiin)['pstatus']=='number'){{$row->sub20p}} @else @endif  </td>
+              <td> @if(subjectshow('sub20',$row->class,$row->babu,$row->eiin)['cstatus']=='number'){{ceil($row->sub20c * 0.70)}} @else @endif  </td>
               <td> {{$row->sub20t}}</td>
               <td> {{$row->sub20gp}}</td>
               <td> {{$row->sub20g}}</td>
@@ -341,7 +341,7 @@
               <td  colspan="4"> <?php echo substr($row->sub21n,0,22); ?></td>
               <td> @if(subjectshow('sub21',$row->class,$row->babu,$row->eiin)['cstatus']=='number'){{$row->sub21c}} @else @endif  </td>
               <td> @if(subjectshow('sub21',$row->class,$row->babu,$row->eiin)['mstatus']=='number'){{$row->sub21m}} @else @endif  </td>
-              <td> @if(subjectshow('sub21',$row->class,$row->babu,$row->eiin)['pstatus']=='number'){{$row->sub21p}} @else @endif  </td>
+              <td> @if(subjectshow('sub21',$row->class,$row->babu,$row->eiin)['cstatus']=='number'){{ceil($row->sub21c * 0.70)}} @else @endif  </td>
               <td> {{$row->sub21t}} </td>
               <td> {{$row->sub21gp}} </td>
               <td> {{$row->sub21g}} </td>

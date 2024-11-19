@@ -88,315 +88,6 @@
 </head>
 <body>
 
-@if($exam==6)
-
-<table>
-
-<tr>
-    <th id="school" colspan="30">{{Session::get('school')->school}}</th>
-</tr>
-
-<tr>
-    <th id="up" colspan="30">{{Session::get('school')->address}}</th>
-</tr>
-
-<tr>
-   <th id="up" colspan="30">Summary Sheets - {{$year}}</th>
-</tr> 
-
-<tr>
-   <th id="rightside" ></th>
-   <th colspan="2">Exam</th>
-   <th colspan="4">: {{examName($exam)}}</th>
-   <th colspan="2"></th>
-   <th colspan="4"></th>
-   <th colspan="2">Class</th>
-   <th colspan="3">: {{$class}}</th>
-   <th colspan="3"></th> 
-   <th colspan="8"></th>
-   <th width=""></th>
-</tr>
-
-    <tr>
-     <th id="headerhight" colspan="30"></th>
- </tr>
-
-  <tr>
-     <th style="text-align:center;" colspan="30">Individual Summary</th>
- </tr>
- 
-<tr>
-    <td colspan="2">Stu_Id</td>
-    <td>Roll</td>
-    <td>Sec.</td>
-    <td>Group</td>
-    <td colspan="5">Name</td>
-
-           @if(empty(matchsubcode($student1->sub11code,$tags))) <td  colspan="2" ></td> @else 
-            <td colspan="2"> {{ substr($student1->sub11n,0,3)}} </td>
-           @endif 
-
-           @if(empty(matchsubcode($student1->sub12code,$tags))) <td  colspan="2"></td> @else 
-            <td colspan="2" > {{ substr($student1->sub12n,0,3)}} </td>
-           @endif 
-
-           @if(empty(matchsubcode($student1->sub13code,$tags))) <td  colspan="2"></td>@else 
-            <td colspan="2" > {{ substr($student1->sub13n,0,3)}}  </td>
-           @endif 
-
-           @if(empty(matchsubcode($student1->sub14code,$tags))) <td  colspan="2"></td> @else 
-            <td colspan="2" > {{ substr($student1->sub14n,0,3)}}  </td>
-           @endif 
-
-           @if(empty(matchsubcode($student1->sub15code,$tags))) <td  colspan="2"></td> @else 
-            <td colspan="2" > {{ substr($student1->sub15n,0,3)}}  </td>
-           @endif 
-
-           @if(empty(matchsubcode($student1->sub16code,$tags))) <td  colspan="2"></td> @else 
-            <td colspan="2" > {{ substr($student1->sub16n,0,3)}}  </td>
-           @endif 
-
-           @if(empty(matchsubcode($student1->sub17code,$tags))) <td  colspan="2"></td> @else 
-            <td colspan="2" >  {{ substr($student1->sub17n,0,3)}}  </td>
-           @endif 
-
-           @if(empty(matchsubcode($student1->sub18code,$tags))) <td  colspan="2"></td> @else 
-            <td colspan="2" > {{ substr($student1->sub18n,0,3)}}  </td>
-           @endif 
-
-           @if(empty(matchsubcode($student1->sub19code,$tags))) <td  colspan="2"></td> @else 
-            <td colspan="2" > {{ substr($student1->sub19n,0,3)}}  </td>
-           @endif 
-
-           @if(empty(matchsubcode($student1->sub20code,$tags))) <td  colspan="2"></td> @else 
-            <td colspan="2" > {{ substr($student1->sub20n,0,3)}}  </td>
-           @endif 
-
-      
-         
-     
-  </tr>
-
-   <tr>
-         <td colspan="2"></td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td colspan="5"></td>
-         <td>PI</td>
-         <td>BI</td>
-
-         <td>PI</td>
-         <td>BI</td>
-
-         <td>PI</td>
-         <td>BI</td>
-
-         <td>PI</td>
-         <td>BI</td>
-
-         <td>PI</td>
-         <td>BI</td>
-
-         <td>PI</td>
-         <td>BI</td>
-
-         <td>PI</td>
-         <td>BI</td>
-
-         <td>PI</td>
-         <td>BI</td>
-
-         <td>PI</td>
-         <td>BI</td>
-         
-         <td>PI</td>
-         <td>BI</td>
-       
-   </tr>
-
-
-@foreach($student as $row)
-
-<tr>
-   <td colspan="2">{{studentinfo($row->uid,'stu_id')}} </td>
-   <td> {{studentinfo($row->uid,'roll')}} </td>
-   <td>{{$row->section}}</td>
-   <td><?php echo substr($row->babu,0,4); ?></td>
-       <td colspan="5"> <?php echo substr(studentinfo($row->uid,'name'),0,30); ?></td>
-
-          @if(empty(matchsubcode($row->sub11code,$tags))) <td></td> @else 
-               <td> @if($row->sub11c==1) <div class="square-square"></div>
-                    @elseif($row->sub11c==2) <div class="circle-circle"></div>
-                    @elseif($row->sub11c==3) <div class="triangle-up"> </div>
-                    @else 
-                   @endif
-               </td>
-          @endif 
-          @if(empty(matchsubcode($row->sub11code,$tags))) <td></td> @else 
-               <td> @if($row->sub11m==1) <div class="square-square"></div>
-                    @elseif($row->sub11m==2) <div class="circle-circle"></div>
-                    @elseif($row->sub11m==3) <div class="triangle-up"> </div>
-                    @else 
-                    @endif
-               </td>
-          @endif 
-
-
-           @if(empty(matchsubcode($row->sub12code,$tags))) <td></td> @else  
-               <td> @if($row->sub12c==1) <div class="square-square"></div>
-                    @elseif($row->sub12c=2) <div class="circle-circle"></div>
-                    @else <div class="triangle-up"> </div>
-                    @endif
-               </td>  
-           @endif 
-           @if(empty(matchsubcode($row->sub12code,$tags))) <td></td> @else  
-               <td> @if($row->sub12m==1) <div class="square-square"></div>
-                    @elseif($row->sub12m=2) <div class="circle-circle"></div>
-                    @else <div class="triangle-up"> </div>
-                    @endif
-               </td>  
-           @endif 
-
-
-           @if(empty(matchsubcode($row->sub13code,$tags))) <td></td>@else 
-             <td> @if($row->sub13c==1) <div class="square-square"></div>
-                   @elseif($row->sub13c==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-           @if(empty(matchsubcode($row->sub13code,$tags))) <td></td>@else 
-             <td> @if($row->sub13m==1) <div class="square-square"></div>
-                   @elseif($row->sub13m==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-
-
-           @if(empty(matchsubcode($row->sub14code,$tags))) <td></td> @else 
-              <td> @if($row->sub14c==1) <div class="square-square"></div>
-                   @elseif($row->sub14c==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-           @if(empty(matchsubcode($row->sub14code,$tags))) <td></td> @else 
-              <td> @if($row->sub14m==1) <div class="square-square"></div>
-                   @elseif($row->sub14m==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-         
-
-           @if(empty(matchsubcode($row->sub15code,$tags))) <td></td> @else 
-             <td> @if($row->sub15c==1) <div class="square-square"></div>
-                   @elseif($row->sub15c==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-           @if(empty(matchsubcode($row->sub15code,$tags))) <td></td> @else 
-             <td> @if($row->sub15m==1) <div class="square-square"></div>
-                   @elseif($row->sub15m==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-
-           @if(empty(matchsubcode($row->sub16code,$tags))) <td></td> @else 
-              <td> @if($row->sub16c==1) <div class="square-square"></div>
-                   @elseif($row->sub16c==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-           @if(empty(matchsubcode($row->sub16code,$tags))) <td></td> @else 
-              <td> @if($row->sub16m==1) <div class="square-square"></div>
-                   @elseif($row->sub16m==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-
-
-           @if(empty(matchsubcode($row->sub17code,$tags))) <td></td> @else 
-              <td> @if($row->sub17c==1) <div class="square-square"></div>
-                   @elseif($row->sub17c==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-           @if(empty(matchsubcode($row->sub17code,$tags))) <td></td> @else 
-              <td> @if($row->sub17m==1) <div class="square-square"></div>
-                   @elseif($row->sub17m==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-
-
-
-           @if(empty(matchsubcode($row->sub18code,$tags))) <td></td> @else 
-              <td> @if($row->sub18c==1) <div class="square-square"></div>
-                   @elseif($row->sub18c==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-           @if(empty(matchsubcode($row->sub18code,$tags))) <td></td> @else 
-              <td> @if($row->sub18m==1) <div class="square-square"></div>
-                   @elseif($row->sub18m==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-
-
-           @if(empty(matchsubcode($row->sub19code,$tags))) <td></td> @else 
-               <td> @if($row->sub19c==1) <div class="square-square"></div>
-                   @elseif($row->sub19c==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-           @if(empty(matchsubcode($row->sub19code,$tags))) <td></td> @else 
-               <td> @if($row->sub19m==1) <div class="square-square"></div>
-                   @elseif($row->sub19m==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-
-           @if(empty(matchsubcode($row->sub20code,$tags))) <td></td> @else 
-              <td> @if($row->sub20c==1) <div class="square-square"></div>
-                   @elseif($row->sub20c==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-           @if(empty(matchsubcode($row->sub20code,$tags))) <td></td> @else 
-              <td> @if($row->sub20m==1) <div class="square-square"></div>
-                   @elseif($row->sub20m==2) <div class="circle-circle"></div>
-                   @else <div class="triangle-up"> </div>
-                   @endif
-             </td>
-           @endif 
-
-</tr>
-
- @endforeach
-
-
-
-</table>
-
-
-
-
-@else
 
 <table>
 
@@ -497,7 +188,7 @@
 
 <tr>
     
-    @if($class=='Nine' || $class=='Ten')
+    @if($class=='Ten')
          <td colspan="6"></td><td></td> <td></td>
     @else
            @if(empty(matchsubcode($student1->sub11code,$tags)))
@@ -514,7 +205,7 @@
         @if(empty(matchsubcode($student1->sub12code,$tags)))
           <td colspan="5"></td> <td></td> <td></td>
         @else 
-         @if($class=='Nine' || $class=='Ten')
+         @if($class=='Ten')
            <td colspan="5">{{substr($student1->sub12n,0,6)}}</td>
            <td>{{$sum->sub12}}</td>
            <td>{{$sum->total_stu-$sum->sub12}}</td>
@@ -525,7 +216,7 @@
       @endif
     @endif
 
-  @if($class=='Nine' || $class=='Ten')
+  @if($class=='Ten')
        <td colspan="5"></td><td></td> <td></td>
   @else
    @if(empty(matchsubcode($student1->sub13code,$tags)))
@@ -540,7 +231,7 @@
     @if(empty(matchsubcode($student1->sub14code,$tags)))
         <td colspan="5"></td> <td></td> <td></td>
     @else 
-       @if($class=='Nine' || $class=='Ten')
+       @if($class=='Ten')
            <td colspan="5">{{substr($student1->sub14n,0,7)}}</td>
            <td>{{$sum->sub14}}</td>
            <td>{{$sum->total_stu-$sum->sub14}}</td>
@@ -854,10 +545,9 @@
 
 @endforeach
 
-
 </table>
 
-@endif
+
 
  
 

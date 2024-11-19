@@ -182,6 +182,7 @@
           <a class="nav-link @yield('SixNA')" href="{{url('student/Six/NA')}}"> Six </a>
           <a class="nav-link @yield('SevenNA')" href="{{url('student/Seven/NA')}}"> Seven </a>
           <a class="nav-link @yield('EightNA')" href="{{url('student/Eight/NA')}}"> Eight </a>
+          <a class="nav-link @yield('NineNA')" href="{{url('student/Nine/NA')}}" > Nine  </a>
           <a class="nav-link @yield('NineScience')" href="{{url('student/Nine/Science')}}" > Nine Science </a>
           <a class="nav-link @yield('NineHumanities')" href="{{url('student/Nine/Humanities')}}"> Nine Humanities </a>
           <a class="nav-link @yield('NineCommerce')" href="{{url('student/Nine/Commerce')}}"> Nine Commerce </a>
@@ -227,6 +228,7 @@
        <a class="nav-link" href="{{url('SixNainput')}}">Six</a>
        <a class="nav-link" href="{{url('SevNainput')}}">Seven</a>
        <a class="nav-link" href="{{url('EigNainput')}}">Eight</a>
+       <a class="nav-link" href="{{url('NinNainput')}}">Nine </a>
        <a class="nav-link" href="{{url('NinScinput')}}">Nine Science</a>
        <a class="nav-link" href="{{url('NinHuinput')}}">Nine Humanities</a>
        <a class="nav-link" href="{{url('NinCoinput')}}">Nine Commerce</a>

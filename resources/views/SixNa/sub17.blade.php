@@ -24,13 +24,15 @@
                   <th width ="5%">Stu_ID</th>
                   <th width ="2%">Roll</th>
                   <th width ="15%"> Name of Student </th>	
+
+
                   @if($name->cstatus=='number')
-                  <th width="7%"><span class="text-white"> .........</span>CQ</th>	
+                  <th width="7%"><span class="text-white"> </span> Assessment 100 </th>	
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
                   @if($name->mstatus=='number')		   
-                  <th width="7%"><span class="text-white"> ........</span>Mcq</th> 
+                  <th width="7%"><span class="text-white">  </span> Learning 30 </th> 
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
@@ -39,9 +41,10 @@
                   @else
                   <th width="7%"><span class="text-white"></th>
                   @endif  
+                  <th width="7%"> Assessment 70%  </th> 
                   <th width="7%"> Total  </th> 
                   <th width="5%">Gpa </th> 
-                  <th width="7%">Grade  </th> 				   
+                  <th width="7%">Grade  </th> 				 				   
        
         </tr>
    </thead>
@@ -98,6 +101,7 @@ $(document).ready(function(){
    html += '<td><input type="'+response.sstatus.pstatus+'"  min="0" max="'+response.sstatus.pmark+'" name="subp[]"   class="form-control" value="'+subp+'" /></td>';
    
    
+   html += '<td>'+Math.ceil(response.data[count].sub17c * 0.7)+'</td>';
    html += '<td>'+response.data[count].sub17t+'</td>';
    html += '<td>'+response.data[count].sub17gp+'</td>';
    html += '<td>'+response.data[count].sub17g+'</td>';

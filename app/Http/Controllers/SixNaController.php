@@ -144,7 +144,7 @@ public function SixNasub_update(Request $request){
                 $subp=$request->subp[$key];}
    
                 $id    =$request->id[$key];
-                $total =$subc+$subm+$subp;
+                $total = ceil($subc * 0.70) + $subm + $subp;
       
  
           $gpa=gpa($subc,$cfail,$subm,$mfail,$subp,$pfail,$total,$markinfo,$tmark);
@@ -209,7 +209,7 @@ public function SixNasub_update(Request $request){
                $subp=$request->subp[$key];}
    
                 $id    =$request->id[$key];
-                $total =$subc+$subm+$subp;
+                $total = ceil($subc * 0.70) + $subm + $subp;
       
  
           $gpa=gpa($subc,$cfail,$subm,$mfail,$subp,$pfail,$total,$markinfo,$tmark);

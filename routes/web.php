@@ -39,6 +39,7 @@ use App\Http\Controllers\SmsController;
 use App\Http\Controllers\OnlinepaymentController;
 use App\Http\Controllers\CalculationController;
 use App\Http\Controllers\VedioController;
+use App\Http\Controllers\NineNaController;
 
 
 /*
@@ -177,10 +178,6 @@ use App\Http\Controllers\VedioController;
         Route::post('teacherupdate',[TeacherController::class,'teacherupdate']);
         Route::get('teacherdelete/{id}',[TeacherController::class,'teacherdelete']);   
         Route::get('/vedioindex', [VedioController::class,'vedioindex']);
-
-
-        
-
 
          //Teacher
          Route::get('teacher',[TeacherController::class,'teacher']);
@@ -321,6 +318,14 @@ use App\Http\Controllers\VedioController;
          Route::post('/Six/Na/resulttype',[SixNaController::class,'resulttype']);
          Route::get('/Six/Na/subjectshow',[SixNaController::class,'SixNasubjectshow']);
          Route::post('/Six/Na/subjectupdate',[SixNaController::class,'SixNasubjectupdate']);
+
+
+        //result processing  Ninht Na
+        Route::get('/Nin/Na/result',[NineNaController::class,'NinNaresult']);
+        Route::post('/Nin/Na/resultupdate',[NineNaController::class,'NinNaresultupdate']);
+        Route::post('/Nin/Na/resulttype',[NineNaController::class,'resulttype']);
+        Route::get('/Nin/Na/subjectshow',[NineNaController::class,'NinNasubjectshow']);
+        Route::post('/Nin/Na/subjectupdate',[NineNaController::class,'NinNasubjectupdate']);
   
 
          //result processing  Nine Science
@@ -509,6 +514,7 @@ use App\Http\Controllers\VedioController;
       Route::get('/Six/NA/sub17/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub18/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub19/{tecode}', [SixNaController::class,'SixNasub']);
+      Route::get('/Six/NA/sub20/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub21/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub22/{tecode}', [SixNaController::class,'SixNasub']);
       Route::get('/Six/NA/sub23/{tecode}', [SixNaController::class,'SixNasub']);
@@ -573,6 +579,30 @@ use App\Http\Controllers\VedioController;
       Route::post('Eig/Na/sub_update24', [EightNaController::class,'EigNasub_update24']);
       
 
+
+       //Nine Na Marks Input
+       Route::get('/NinNainput', [NineNaController::class,'NinNainput']);
+       Route::get('/NinNaSelect/{tecodesection}', [NineNaController::class,'NinNaSelect']);
+       Route::get('/Nin/NA/sub11/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub12/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub13/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub14/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub15/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub16/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub17/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub18/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub19/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub20/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub21/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub22/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub23/{tecode}', [NineNaController::class,'NinNasub']);
+       Route::get('/Nin/NA/sub24/{tecode}', [NineNaController::class,'NinNasub']);
+       
+ 
+       Route::post('Nin/Na/sub_update', [NineNaController::class,'NinNasub_update']);
+       Route::post('Nin/Na/sub_update16', [NineNaController::class,'NinNasub_update16']);
+       Route::post('Nin/Na/sub_update24', [NineNaController::class,'NinNasub_update24']);
+       
       
          //Nine Science  Marks Input
          Route::get('/NinScinput', [NineScController::class,'NinScinput']);
