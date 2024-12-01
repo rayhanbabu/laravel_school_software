@@ -208,9 +208,9 @@
        @endif
      @endif
    
+    
 
-
-     @if($class=='Nine' OR $class=='Ten') 
+     @if($class=='Ten') 
                <td  colspan="4"> <?php echo substr($row->sub13n,0,22);?> </td>
                <td> @if(subjectshow('sub13',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub13c}} @else @endif  </td>
                <td> @if(subjectshow('sub13',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub13m}} @else @endif  </td>

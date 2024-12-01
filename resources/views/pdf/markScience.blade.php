@@ -326,7 +326,7 @@
 
 
 
-      @if($class=='Nine' OR $class=='Ten')
+      @if($class=='Ten')
             <tr>           
                <td  colspan="2">iii</td>  
                <td  id="leftside" colspan="4"> <?php echo substr($row->sub13n,0,30);?> </td>
@@ -339,6 +339,8 @@
                <td> </td>
           </tr>
       @else
+
+
       @if(!empty(subjectshow('sub13',$row->class,$row->babu,$row->eiin)) && $row->sub13h)
            <tr>          
               <td  colspan="2">iii</td>  
