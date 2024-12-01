@@ -78,7 +78,7 @@
 
 	@foreach($school as $row)
 	 <tr>
-   <td><img src="{{ asset('schoolsoft4/public/uploads/admin/'.$row->image) }}" width="100px"  height="90px" alt="Image"></td>
+   <td><img src="{{ asset('uploads/admin/'.$row->image) }}" width="100px"  height="90px" alt="Image"></td>
         <td>{{$row->school}}, {{$row->address}}</td>
         <td>{{$row->created_date}}, {{$row->subscribe}}, {{$row->payment_duration}}, {{$row->expired_date}} </td>
         <td>{{$row->eiin}} {{$row->admin_pass}}</td>

@@ -160,6 +160,7 @@ class MarkController extends Controller
                $student->exam=$examinfo->exam;
                $student->year=$examinfo->year;
                $student->uid=$row['id'];
+               $student->student_id=$row['stu_id'];
                $student->name=$row['name'];
                $student->roll=$row['roll'];
                $student->sub16sn=$row['moral'];
