@@ -36,8 +36,8 @@ th, td {
         <th align="left" width="60">Stu ID</th>
         <th align="left" width="30">Roll</th>
 	      <th align="left" width="190">Name</th>
-        <th align="center" width="40">CQ</th>
-        <th align="center" width="40">MCQ</th>
+        <th align="center" width="40">Assessment 100</th>
+        <th align="center" width="40">Learning 30</th>
         <th align="left" width="50">Practical</th>
         <th align="center" width="60">Comment</th>
    </tr>
