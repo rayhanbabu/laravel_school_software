@@ -11,8 +11,8 @@
 
       $pdf->Cell(190,5,'',0,1);
       $pdf->SetFont('Times','',20);
-      $pdf->Image('uploads/admin/'.$data['school']->image,15,17,-200);    //School Logu
-      $pdf->Image('uploads/admin/'.$data['school']->image,15,150,-200);   //School Logu
+      $pdf->Image(public_path('uploads/admin/'.$data['school']->image),15,17,-200);    //School Logu
+      $pdf->Image(public_path('uploads/admin/'.$data['school']->image),15,150,-200);   //School Logu
 
         // if($i % 2 != 0){
         //     if(empty($row[$i]->image)){
