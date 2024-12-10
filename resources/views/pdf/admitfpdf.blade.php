@@ -183,8 +183,8 @@
         $pdf->Cell(190,5,'','RL',1);                           
                
             
-         $pdf->Image('images/rayhanbabu.jpg',150,110,-250); 
-         $pdf->Image('images/rayhanbabu.jpg',150,245,-250);   
+        //  $pdf->Image('images/rayhanbabu.jpg',150,110,-250); 
+        //  $pdf->Image('images/rayhanbabu.jpg',150,245,-250);   
             
       
                                     
