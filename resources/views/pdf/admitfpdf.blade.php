@@ -14,17 +14,17 @@
       $pdf->Image('uploads/admin/'.$data['school']->image,15,17,-200);    //School Logu
       $pdf->Image('uploads/admin/'.$data['school']->image,15,150,-200);   //School Logu
 
-        if($i % 2 != 0){
-            if(empty($row[$i]->image)){
-               }else{
-            $pdf->Image('uploads/student/'.$row[$i]->image,165,150,-310);
-              }
-         }else{
-              if(empty($row[$i]->image)){
-               }else{
-                $pdf->Image('uploads/student/'.$row[$i]->image,165,17,-310);
-               } 
-         }
+        // if($i % 2 != 0){
+        //     if(empty($row[$i]->image)){
+        //        }else{
+        //     $pdf->Image('uploads/student/'.$row[$i]->image,165,150,-310);
+        //       }
+        //  }else{
+        //       if(empty($row[$i]->image)){
+        //        }else{
+        //         $pdf->Image('uploads/student/'.$row[$i]->image,165,17,-310);
+        //        } 
+        //  }
       $pdf->Cell(190,4,'','LRT',1,'R');
       $pdf->SetFont('Times','',$data['school']->ansize);	
       $pdf->Cell(190,10,$data['school']->school,'LR',1 , 'C' );
