@@ -237,7 +237,7 @@
               <td  colspan="4"> <?php echo substr($row->sub15n,0,22); ?> </td>
               <td> @if(subjectshow('sub15',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub15c}} @else @endif </td>
               <td> @if(subjectshow('sub15',$row->class,$row->babu,$row->eiin)['mstatus']=='number') {{$row->sub15m}} @else @endif </td>
-              <td> @if(subjectshow('sub15',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{$row->sub15p}} @else @endif </td>
+              <td> @if(subjectshow('sub15',$row->class,$row->babu,$row->eiin)['cstatus']=='number') {{ceil($row->sub15c * 0.70)}}@else @endif  </td>
               <td> {{$row->sub15t}}</td>
               <td> {{$row->sub15gp}}</td>
               <td> {{$row->sub15g}}</td>
